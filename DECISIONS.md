@@ -44,7 +44,9 @@ We pick tools to **ship fast, stay flexible, and scale without regret**.
   - Edge-compatible  
   - Type-safe without runtime overhead
 - **Free forever**.
-
+### Why postgres js
+    - Avoid vendor locking at any step.
+    - Avoid compatabilty issue between different drivers and adaptors. Just give any pg connection string to drizzle and you are good
 > *We don’t rent our database. We own it.*
 
 ---

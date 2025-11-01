@@ -24,8 +24,8 @@ export default function SignIn() {
   
   console.log("email", email)
   return(
-    <div className="card bg-base-100 shadow-xl">
-      <div className="card-body">
+    <div className="card w-96 bg-base-100 shadow-xl">
+      <div className="card-body text-center">
         <h2 className="card-title justify-center text-2xl">Sign In</h2>
 
         {/*Email and Password*/}
