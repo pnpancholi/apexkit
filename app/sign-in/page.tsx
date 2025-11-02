@@ -1,7 +1,7 @@
 "use client";
 
 import {useState} from "react";
-import {auth} from "@/lib/auth";
+import {signIn} from "@/lib/auth-client";
 import Link from "next/link";
 
 export default function SignIn() {
@@ -11,9 +11,17 @@ export default function SignIn() {
   const [loading, setLoading] = useState(false);
 
   const handleEmailLogin = async (e: React.FormEvent) => {
-    {/*side effects*/}
     e.preventDefault()
     setLoading(true);
+    try {
+      const {data, error} = await signIn.email({email, password})
+      window.location.href = "/";
+      console.log(data)
+      console.log(error)
+    } catch (err) {
+      alert("Sign In Failed!!!")
+    }
+    setLoading(false)
   }
 
   const handleMagicLink = async (e: React.FormEvent) => {
@@ -29,7 +37,7 @@ export default function SignIn() {
         <h2 className="card-title justify-center text-2xl">Sign In</h2>
 
         {/*Email and Password*/}
-        <form className="space-y-4">
+        <form onSubmit={handleEmailLogin} className="space-y-4">
           <input
             type="email"
             placeholder="Email"

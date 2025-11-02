@@ -5,5 +5,5 @@ if (!process.env.DATABASE_URL) {
   throw new Error("DB URL IS MISSING")
 }
 const sql = postgres(process.env.DATABASE_URL!)
-const db = drizzle(sql)
+export const db = drizzle(sql)
 console.log("DB connection ", db);
