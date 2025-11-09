@@ -14,7 +14,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "The Next Start-Up",
-  description: "The blazing fast tool to help you build your next billion dollar, unicorn company",
+  description:
+    "The blazing fast tool to help you build your next billion dollar, unicorn company",
 };
 
 export default function RootLayout({
@@ -25,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children} 
+        <div className="flex flex-col min-h-screen">{children}</div>
       </body>
     </html>
   );
