@@ -1,5 +1,4 @@
-import "dotenv/config"
-import {defineConfig} from "drizzle-kit"
+import { defineConfig } from "drizzle-kit";
 
 export default defineConfig({
   out: ".drizzle",
@@ -7,6 +6,8 @@ export default defineConfig({
   dialect: "postgresql",
   dbCredentials: {
     url: process.env.DATABASE_URL!,
+    //forcing IPv4
+    host: new URL(process.env.DATABASE_URL!).hostname,
   },
   verbose: true, // For debugging
 });
