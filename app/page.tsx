@@ -4,7 +4,6 @@ import Navbar from "./components/Navbar";
 export default function Home() {
   return (
     <>
-      <Navbar />
       <main className="flex-grow">
         {/*hero section*/}
         <div className="hero min-h-[70vh] bg-base-200">
@@ -53,7 +52,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 }
