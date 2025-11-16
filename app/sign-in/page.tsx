@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "@/lib/auth-client";
+import { authClient, signIn } from "@/lib/auth-client";
 import Link from "next/link";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [magicLink, setMagicLink] = useState("");
+  const [magicLinkEmail, setMagicLinkEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleEmailLogin = async (e: React.FormEvent) => {
@@ -25,14 +25,21 @@ export default function SignIn() {
   };
 
   const handleMagicLink = async (e: React.FormEvent) => {
-    {
-      /*side effects*/
-    }
     e.preventDefault();
+    setLoading(true);
+    const { data, error } = await authClient.signIn.magicLink({
+      email: magicLinkEmail,
+      name: "apex kit",
+      callbackURL: "/",
+      // ToDo: Fix this with a place holder dashboard or account page
+      newUserCallbackURL: "/",
+      // ToDo: Add a custom 404 page
+      errorCallbackURL: "/",
+    });
+
     setLoading(false);
   };
 
-  console.log("email", email);
   return (
     <div className="flex min-h-screen justify-center bg-base-200 px-4 py-12">
       <div className="w-full max-w-md">
@@ -69,13 +76,13 @@ export default function SignIn() {
             <div className="divider">OR</div>
 
             {/*Magic Link */}
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleMagicLink}>
               <input
                 type="email"
                 placeholder="Email"
-                value={email}
+                value={magicLinkEmail}
                 className="input input-bordered w-full"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setMagicLinkEmail(e.target.value)}
                 required
               />
               <button

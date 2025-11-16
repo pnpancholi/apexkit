@@ -47,3 +47,11 @@ export const verificationToken = pgTable("verification_table", {
   token: text("token").notNull(),
   expires: timestamp("expires").notNull(),
 });
+export const verification = pgTable("verification", {
+  id: text("id").primaryKey(),
+  identifier: text("identifier").notNull(),
+  value: text("value").notNull(),
+  expiresAt: timestamp("expires_at").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});

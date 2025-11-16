@@ -16,11 +16,6 @@ const client = postgres(process.env.DATABASE_URL, {
   prepare: false,
 });
 
-//client.connect().catch((err) => {
-//  console.error("DB connection failed!", err);
-//  process.exit(1);
-//});
-
 console.log("DB connected successfully!");
 
 export const db = drizzle(client);
