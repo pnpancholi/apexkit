@@ -1,75 +1,57 @@
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
+
 export default function Home() {
   return (
-    <div>
-      <div className="navbar shadow-md px-35">
-          <div className="navbar-start">
-               <div className="dropdown">
-                <div tabIndex="0" className="btn btn-ghost lg:hidden">
-                </div>
-                <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                  <li><a>Item 1</a></li>
-                  <li><a>Item 2</a></li>
-                  <li><a>Item 3</a></li>
-                </ul>
+    <>
+      <main className="flex-grow">
+        {/*hero section*/}
+        <div className="hero min-h-[70vh] bg-base-200">
+          <div className="hero-content grid lg:grid-cols-2 gap-8 items-center justify-items-center">
+            {/*Left Content*/}
+            <div className="max-w-md ">
+              <h1 className="text-5xl font-bold">
+                You Next Startup Idea Starts Here
+              </h1>
+              <p className="py-6">
+                Launch your groundbreaking venture! Build your app from concept
+                to market
+              </p>
+              <button className="btn btn-primary btn-lg">Get Started</button>
+            </div>
+            {/*Right Content*/}
+            <div className="hidden lg:block">
+              <div className="mockup-code bg-neutral text-neutral-content rounded-box shadow-2xl overflow-x-auto">
+                <pre data-prefix="$" className="text-info">
+                  <code>
+                    git clone
+                    https://github.com/PradhumnaPancholi/the-next-startup
+                  </code>
+                </pre>
+                <pre data-prefix="$" className="text-info">
+                  cd the-next-startup
+                </pre>
+                <pre data-prefix="$" className="text-info">
+                  pnpm install
+                </pre>
+                <pre data-prefix="$" className="text-success">
+                  <code>Start Building!!!</code>
+                </pre>
               </div>
-              <a className="btn btn-ghost normal-case text-xl">The Next Startup</a>
+            </div>
           </div>
-    
-    <div className="navbar-center hidden lg:flex">
-      <ul className="menu menu-horizontal px-1">
-      </ul>
-    </div>
-    <div className="navbar-end">
-        <div className="hidden lg:flex">
-        <ul className="menu menu-horizontal px-5">
-            <li><a>Blog</a></li>
-            <li><a>About</a></li>
-            <li><a>Contact</a></li>
-        </ul>
         </div>
-      <button className="btn btn-primary">Sign In</button>
-    </div>
-      </div>
-
-
-
-    
-<footer className="footer sm:footer-horizontal bg-base-200 text-base-content p-10">
-  <nav>
-    <h6 className="footer-title">Services</h6>
-    <a className="link link-hover">Branding</a>
-    <a className="link link-hover">Design</a>
-    <a className="link link-hover">Marketing</a>
-    <a className="link link-hover">Advertisement</a>
-  </nav>
-  <nav>
-    <h6 className="footer-title">Company</h6>
-    <a className="link link-hover">About us</a>
-    <a className="link link-hover">Contact</a>
-    <a className="link link-hover">Jobs</a>
-    <a className="link link-hover">Press kit</a>
-  </nav>
-  <nav>
-    <h6 className="footer-title">Legal</h6>
-    <a className="link link-hover">Terms of use</a>
-    <a className="link link-hover">Privacy policy</a>
-    <a className="link link-hover">Cookie policy</a>
-  </nav>
-  <form>
-    <h6 className="footer-title">Newsletter</h6>
-    <fieldset className="w-80">
-      <label>Enter your email address</label>
-      <div className="join">
-        <input
-          type="text"
-          placeholder="username@site.com"
-          className="input input-bordered join-item" />
-        <button className="btn btn-primary join-item">Subscribe</button>
-      </div>
-    </fieldset>
-  </form>
-</footer>
-
-    </div>
+        {/*Featres*/}
+        <section className="py-16 bg-base-100 text-base-content">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-4xl font-bold mb-4">Features</h2>
+            <p className="text-lg mb-12 max-w-2xl mx-auto">
+              Out of the box, you get
+            </p>
+            {/*grid to showcase features*/}
+          </div>
+        </section>
+      </main>
+    </>
   );
 }
