@@ -8,13 +8,27 @@ import { magicLinkEmail } from "./magiclink";
 
 const emailClient = new Resend(process.env.EMAIL_API);
 
+// ToDo: Abstract away email stuff , including email client//
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: "pg",
     schema, // important for mapping tables
   }),
   // Authentication with email and password
-  emailAndPassword: { enabled: true },
+  emailAndPassword: {
+    enabled: true,
+    sendResetPassword: async ({ user, url, token }, req) => {
+      await emailClient.emails.send({
+        from: "onboarding@resend.dev",
+        to: user.email,
+        subject: "Reset your password",
+        text: `Click the link to reset your password: ${url}`,
+      });
+    },
+    onPasswordReset: async ({ user }, req) => {
+      console.log(`Password for ${user.email} updated`);
+    },
+  },
   // Allowing user to update email
   user: {
     changeEmail: { enabled: true },

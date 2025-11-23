@@ -1,5 +1,5 @@
 import { requireAuth } from "@/lib/auth-utils";
-import { updateProfile } from "./actions";
+import { updateProfile, logOut } from "./actions";
 import { auth } from "@/lib/auth";
 
 export default async function Profile() {
@@ -11,7 +11,7 @@ export default async function Profile() {
       <div className="w-full max-w-md">
         <div className="card bg-base-100 shadow-2xl">
           <div className="card-body text-center">
-            <form action={updateProfile}>
+            <form>
               {/* Profile Avatar */}
               <div className="flex  justify-center mb-4">
                 <div className="avatar placeholder">
@@ -85,9 +85,21 @@ export default async function Profile() {
               </div>
 
               {/* Action Button */}
-              <div className="mt-6">
-                <button type="submit" className="btn btn-primary w-full">
+              <div className="my-5">
+                <button
+                  formAction={updateProfile}
+                  className="btn btn-primary w-full"
+                >
                   Update Profile
+                </button>
+                <button className="btn btn-accent w-full mt-4">
+                  Reset Password
+                </button>
+                <button
+                  formAction={logOut}
+                  className="btn btn-outline w-full mt-4"
+                >
+                  Sign Out
                 </button>
               </div>
             </form>

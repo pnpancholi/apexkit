@@ -5,7 +5,7 @@ import { user } from "@/schema/auth";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
-
+import { authClient } from "@/lib/auth-client";
 export async function updateProfile(formData: FormData) {
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
@@ -27,6 +27,16 @@ export async function updateProfile(formData: FormData) {
   } catch (error) {
     console.error("Server Action (Update Profile): ", error);
     return;
+  }
+}
+
+export async function logOut() {
+  try {
+    await auth.api.signOut({
+      headers: await headers(),
+    });
+  } catch (error) {
+    console.error("Server Action (Log Out): ", error);
   }
 }
 
