@@ -70,20 +70,23 @@ export default function Home() {
   ];
   return (
     <>
-      <main className="flex-grow">
+      <main className="flex-col">
         {/*Hero Section*/}
         <section className="hero min-h-[70vh] bg-base-200">
           <div className="hero-content grid lg:grid-cols-2 gap-8 items-center justify-items-center">
             {/*Left Content*/}
             <div className="max-w-md ">
-              <h1 className="text-5xl font-bold">
-                You Next Startup Idea Starts Here
-              </h1>
+              <h1 className="text-5xl font-bold">Start Your Next Venture</h1>
               <p className="py-6">
-                Launch your groundbreaking venture! Build your app from concept
-                to market
+                Full auth, Drizzle ORM, built-in (extendable) themes, zero
+                vendor lock-in — all battle-tested and ready on day one.
+                <br />
+                No config hell. No surprise invoices.
               </p>
-              <button className="btn btn-primary btn-lg">Get Started</button>
+              <button className="btn btn-primary btn-lg">Read the docs</button>
+              <button className="btn btn-accent btn-lg ml-5">
+                Switch Theme
+              </button>
             </div>
             {/*Right Content*/}
             <div className="hidden lg:block">

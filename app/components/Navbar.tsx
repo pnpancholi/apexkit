@@ -1,24 +1,39 @@
 import React from "react";
 
 const Navbar: React.FC = () => {
+  const navLinks = [
+    {
+      name: "blog",
+      url: "/blog",
+    },
+    {
+      name: "about",
+      url: "/about",
+    },
+    {
+      name: "contact",
+      url: "/contact",
+    },
+  ];
   return (
     <div className="navbar shadow-md px-4 lg:px-40">
       <div className="navbar-start">
         <a className="btn btn-ghost normal-case text-xl" href="/">
-          The Next Startup
+          Apex Kit
         </a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal">
-          <li>
-            <a>Blog</a>
-          </li>
-          <li>
-            <a>About</a>
-          </li>
-          <li>
-            <a>Contact</a>
-          </li>
+          {navLinks.map((link) => (
+            <li key={link.name}>
+              <a
+                href={link.url}
+                className=" capitalize relative after:absolute after:left-1/2 after:bottom-0 after:h-0.5 after:w-0 after:-translate-x-1/2 after:bg-primary after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 hover:after:translate-x-0"
+              >
+                {link.name}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
       <div className="navbar-end">
