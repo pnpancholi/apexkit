@@ -16,7 +16,7 @@ export default function SignUp() {
     try {
       await signUp.email({ name, email, password });
       alert("check your email");
-      window.location.href = "sign-in";
+      window.location.href = "/profile";
     } catch (err) {
       alert("sign up failed");
     }

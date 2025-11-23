@@ -1,6 +1,9 @@
 # Apex Kit
 
-Avoid vendor lock-ins, ship fast, and flecibilty to scale.
+A full-stack Next.js 14 starter built for speed, clarity, and ownership — with Drizzle ORM, Better Auth, and DaisyUI + 30+ themes baked in.
+If you like the developer experience of boilerplates but want to avoid vendor lock-ins and retain flexibilty for scale, then this is intended to aid you with just that.
+
+## Philosophy
 
 ## Mission
 
@@ -16,7 +19,7 @@ Enabling builders to ship prodiuction-grade software rapidly.
 | DaisyUI + 30+ themes           | Yes      | One simple line and a refreshing looks              |
 | DB Adapters                    | Yes      | One-line DB switch                                  | 
 | TypeScript                     | Yes      | Type safety is necessary not princess treatment     |
-| Avoid vendor lock-in           | Yes     | You have both your hands on the steering wheel      |
+| Avoid vendor lock-in           | Yes     | You have both your hands on the steering wheel       |
 
 ## Get Started
 ```bash

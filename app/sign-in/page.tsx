@@ -15,7 +15,7 @@ export default function SignIn() {
     setLoading(true);
     try {
       const { data, error } = await signIn.email({ email, password });
-      window.location.href = "/";
+      window.location.href = "/profile";
       console.log(data);
       console.log(error);
     } catch (err) {
