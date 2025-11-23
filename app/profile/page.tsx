@@ -1,9 +1,11 @@
 import { requireAuth } from "@/lib/auth-utils";
 import { updateProfile } from "./actions";
+import { auth } from "@/lib/auth";
 
 export default async function Profile() {
+  // Page doesn't load if user is not logged in
   const user = await requireAuth();
-  console.log("user", user);
+
   return (
     <div className="flex min-h-screen bg-base-200 justify-center px-4 py-12">
       <div className="w-full max-w-md">
@@ -84,7 +86,9 @@ export default async function Profile() {
 
               {/* Action Button */}
               <div className="mt-6">
-                <button className="btn btn-primary w-full">Edit Profile</button>
+                <button type="submit" className="btn btn-primary w-full">
+                  Update Profile
+                </button>
               </div>
             </form>
           </div>

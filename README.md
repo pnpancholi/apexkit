@@ -3,6 +3,7 @@
 A full-stack Next.js 14 starter built for speed, clarity, and ownership — with Drizzle ORM, Better Auth, and DaisyUI + 30+ themes baked in.
 If you like the developer experience of boilerplates but want to avoid vendor lock-ins and retain flexibilty for scale, then this is intended to aid you with just that.
 
+## Philosophy
 
 ## Mission
 

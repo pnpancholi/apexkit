@@ -15,6 +15,10 @@ export const auth = betterAuth({
   }),
   // Authentication with email and password
   emailAndPassword: { enabled: true },
+  // Allowing user to update email
+  user: {
+    changeEmail: { enabled: true },
+  },
   // Authentication with magicLink
   plugins: [
     magicLink({
