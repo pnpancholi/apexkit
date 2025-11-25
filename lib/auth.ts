@@ -6,7 +6,27 @@ import * as schema from "@/schema/auth";
 import { Resend } from "resend";
 import { magicLinkEmail } from "./magiclink";
 
-const emailClient = new Resend(process.env.EMAIL_API);
+// ---------------------- Guards -----------------------------------------//
+if (!db) {
+  console.error("ApexKit [auth.ts]: database not available");
+}
+
+const EMAIL_API = process.env.EMAIL_API?.trim();
+
+if (!EMAIL_API) {
+  console.error("ApexKit [auth.ts]: Missing email api");
+}
+
+const emailClient = EMAIL_API
+  ? new Resend(EMAIL_API)
+  : {
+      emails: {
+        send: async () => {
+          console.error("ApexKit [auth.ts]: Missing email api configuration");
+        },
+      },
+    };
+//-----------------------------------------------------------------------//
 
 // ToDo: Abstract away email stuff , including email client//
 export const auth = betterAuth({
