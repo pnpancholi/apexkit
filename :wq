@@ -1,7 +1,0 @@
-@import "tailwindcss";
-
-@plugin "daisyui" {
-  themes: light ,night --default;
-  root: ":root";
-  logs: true;
-}

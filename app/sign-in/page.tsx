@@ -1,44 +1,18 @@
 "use client";
 
-import { useState } from "react";
-import { authClient, signIn } from "@/lib/auth-client";
+import { useActionState } from "react";
+import { signInWithPassword, sendMagicLink } from "@/lib/actions/auth";
 import Link from "next/link";
 
 export default function SignIn() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [magicLinkEmail, setMagicLinkEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleEmailLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const { data, error } = await signIn.email({ email, password });
-      window.location.href = "/profile";
-      console.log(data);
-      console.log(error);
-    } catch (err) {
-      alert("Sign In Failed!!!");
-    }
-    setLoading(false);
-  };
-
-  const handleMagicLink = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    const { data, error } = await authClient.signIn.magicLink({
-      email: magicLinkEmail,
-      name: "apex kit",
-      callbackURL: "/",
-      // ToDo: Fix this with a place holder dashboard or account page
-      newUserCallbackURL: "/",
-      // ToDo: Add a custom 404 page
-      errorCallbackURL: "/",
-    });
-
-    setLoading(false);
-  };
+  const [passwordState, passwordAction, passwordPending] = useActionState(
+    signInWithPassword,
+    null,
+  );
+  const [magicLinkState, magicLinkAction, magicLinkPending] = useActionState(
+    sendMagicLink,
+    null,
+  );
 
   return (
     <div className="flex min-h-screen justify-center bg-base-200 px-4 py-12">
@@ -48,53 +22,75 @@ export default function SignIn() {
             <h2 className="card-title justify-center text-2xl">Sign In</h2>
 
             {/*Email and Password*/}
-            <form onSubmit={handleEmailLogin} className="space-y-4">
+            <form className="space-y-4">
               <input
+                name="email"
                 type="email"
                 placeholder="Email"
-                value={email}
                 className="input input-bordered w-full"
-                onChange={(e) => setEmail(e.target.value)}
                 required
               />
               <input
+                name="password"
                 type="password"
                 placeholder="Password"
-                value={password}
                 className="input input-bordered w-full"
-                onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              {/*-------------Error Handling for sign in with password----------*/}
+              {passwordState?.error && (
+                <div className="alert alert-error alert-soft">
+                  {passwordState.error}
+                </div>
+              )}
+              {/*---------------------------------------------------------------*/}
               <button
                 type="submit"
                 className="btn btn-primary my-5"
-                disabled={loading}
+                formAction={passwordAction}
+                disabled={passwordPending}
               >
-                {loading ? "Signing In..." : "Sign In"}
+                {passwordPending ? "Signing In..." : "Sign In with Password"}
               </button>
             </form>
             <div className="divider">OR</div>
 
             {/*Magic Link */}
-            <form className="space-y-4" onSubmit={handleMagicLink}>
+            <form className="space-y-4">
               <input
+                name="email"
                 type="email"
                 placeholder="Email"
-                value={magicLinkEmail}
                 className="input input-bordered w-full"
-                onChange={(e) => setMagicLinkEmail(e.target.value)}
                 required
               />
+              {/*--------------------------Error Handling and response for magic link*/}
+              {magicLinkState && (
+                <>
+                  {magicLinkState.error && (
+                    <div className="alert alert-soft alert-error">
+                      {magicLinkState.error}
+                    </div>
+                  )}
+                  {magicLinkState.message && (
+                    <div className="alert alert-soft alert-success">
+                      {magicLinkState.message}
+                    </div>
+                  )}
+                </>
+              )}
+              {/*--------------------------------------------------------------------*/}
               <button
                 type="submit"
-                className="btn btn-outline my-2"
-                disabled={loading}
+                className="btn btn-secondary my-2"
+                formAction={magicLinkAction}
+                disabled={magicLinkPending}
               >
-                Send Magic Link
+                {magicLinkPending ? "Sending  Magic Link" : "Send Magic Link"}
               </button>
             </form>
 
-            {/*Resetting*/}
+            {/*---------------------------------Resetting----------------------------*/}
             <div className="text-center text-sm space-y-1">
               <Link href="/forgot-password" className="link">
                 Forgot Password ?
