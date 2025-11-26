@@ -21,7 +21,7 @@ export default function SignIn() {
           <div className="card-body text-center">
             <h2 className="card-title justify-center text-2xl">Sign In</h2>
 
-            {/*Email and Password*/}
+            {/*---------------------Email and Password---------------------------*/}
             <form className="space-y-4">
               <input
                 name="email"
@@ -55,7 +55,7 @@ export default function SignIn() {
             </form>
             <div className="divider">OR</div>
 
-            {/*Magic Link */}
+            {/*-----------------------Magic Link--------------------------------*/}
             <form className="space-y-4">
               <input
                 name="email"
