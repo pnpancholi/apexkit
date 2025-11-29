@@ -1,9 +1,7 @@
 import { requireAuth } from "@/lib/auth-utils";
 import { updateProfile, logOut } from "./actions";
-import { auth } from "@/lib/auth";
 
 export default async function Profile() {
-  // Page doesn't load if user is not logged in
   const user = await requireAuth();
 
   return (

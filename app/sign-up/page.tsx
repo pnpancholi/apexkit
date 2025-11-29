@@ -1,27 +1,13 @@
 "use client";
-
-import { useState } from "react";
-import { signUp } from "@/lib/auth-client";
 import Link from "next/link";
+import { useActionState } from "react";
+import { signUp } from "@/lib/actions/auth";
 
 export default function SignUp() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      await signUp.email({ name, email, password });
-      alert("check your email");
-      window.location.href = "/profile";
-    } catch (err) {
-      alert("sign up failed");
-    }
-    setLoading(false);
-  };
+  const [signUpState, signUpAction, signUpPending] = useActionState(
+    signUp,
+    null,
+  );
   return (
     <div className="flex min-h-screen justify-center bg-base-200 px-4 py-12">
       <div className="w-full max-w-md">
@@ -30,37 +16,41 @@ export default function SignUp() {
             <h2 className="card-title justify-center test-2xl">
               Create Account
             </h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form className="space-y-4">
               <input
                 className="input input-bordered w-full"
                 placeholder="Full Name"
-                value={name}
                 type="name"
-                onChange={(e) => setName(e.target.value)}
+                name="name"
                 required
               />
               <input
                 className="input input-bordered w-full"
                 placeholder="Email"
-                value={email}
                 type="email"
-                onChange={(e) => setEmail(e.target.value)}
+                name="email"
                 required
               />
               <input
                 className="input input-bordered w-full"
                 placeholder="Password (6+ characters)"
-                value={password}
                 type="password"
-                onChange={(e) => setPassword(e.target.value)}
+                name="password"
                 required
               />
+              {signUpState?.success === false && (
+                <div className="alert alert-error alert-soft">
+                  {signUpState.message}
+                </div>
+              )}
+
               <button
                 type="submit"
+                formAction={signUpAction}
                 className="btn btn-primary my-5"
-                disabled={loading}
+                disabled={signUpPending}
               >
-                {loading ? "Creating Account..." : "Create Account"}
+                {signUpPending ? "Creating Account" : "Create Account"}
               </button>
             </form>
 
