@@ -2,20 +2,33 @@ import { drizzle } from "drizzle-orm/postgres-js";
 import "dotenv/config";
 import postgres from "postgres";
 
-if (!process.env.DATABASE_URL) {
-  throw new Error("DB URL IS MISSING");
+const DATABASE_URL = process.env.DATABASE_URL?.trim();
+let db: any = null;
+
+if (!DATABASE_URL) {
+  if (process.env.NODE_ENV !== "production") {
+    console.error(
+      "ApexKit - DB ERROR [db.ts]: Please add your DATABASE_URL correctly",
+    );
+    console.error(
+      "ApexKit - DB ERROR [db.ts]: DATABASE_URL is missing, auth is disabled",
+    );
+  } else {
+    console.info(
+      "ApexKit - DB ERROR [db.ts]: DATABASE_URL is missing, auth is disabled",
+    );
+  }
+  db = null;
+} else {
+  const client = postgres(DATABASE_URL, {
+    ssl: "require", //Most providers need this
+    idle_timeout: 20,
+    connect_timeout: 30,
+    max: 10,
+    prepare: false,
+  });
+  console.info("ApexKit [db.ts]: Database connected successfully");
+  db = drizzle(client);
 }
-console.log("connecitons string", process.env.DATABASE_URL);
-const url = new URL(process.env.DATABASE_URL);
 
-const client = postgres(process.env.DATABASE_URL, {
-  ssl: "require", // most providers need this//
-  idle_timeout: 20,
-  connect_timeout: 30,
-  max: 10,
-  prepare: false,
-});
-
-console.log("DB connected successfully!");
-
-export const db = drizzle(client);
+export { db };
