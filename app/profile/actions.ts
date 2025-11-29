@@ -6,6 +6,8 @@ import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { authClient } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
+
 export async function updateProfile(formData: FormData) {
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
@@ -35,6 +37,7 @@ export async function logOut() {
     await auth.api.signOut({
       headers: await headers(),
     });
+    revalidatePath("/");
   } catch (error) {
     console.error("Server Action (Log Out): ", error);
   }

@@ -38,9 +38,9 @@ export default function SignIn() {
                 required
               />
               {/*-------------Error Handling for sign in with password----------*/}
-              {passwordState?.error && (
+              {passwordState?.success === false && (
                 <div className="alert alert-error alert-soft">
-                  {passwordState.error}
+                  {passwordState.message}
                 </div>
               )}
               {/*---------------------------------------------------------------*/}
@@ -67,9 +67,9 @@ export default function SignIn() {
               {/*--------------------------Error Handling and response for magic link*/}
               {magicLinkState && (
                 <>
-                  {magicLinkState.error && (
+                  {magicLinkState?.success === false && (
                     <div className="alert alert-soft alert-error">
-                      {magicLinkState.error}
+                      {magicLinkState.message}
                     </div>
                   )}
                   {magicLinkState.message && (
