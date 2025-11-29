@@ -47,6 +47,7 @@ export default async function Profile() {
                       className="input input-ghost w-full p-0 font-medium bg-transparent border-none focus:outline-none"
                       name="email"
                       defaultValue={user.email}
+                      contentEditable={false}
                     />
                   </div>
                 </div>
@@ -89,6 +90,9 @@ export default async function Profile() {
                   className="btn btn-primary w-full"
                 >
                   Update Profile
+                </button>
+                <button className="btn btn-outline btn-primary w-full mt-4">
+                  Change Email (Sends Verification)
                 </button>
                 <button className="btn btn-accent w-full mt-4">
                   Reset Password
