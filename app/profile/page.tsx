@@ -46,6 +46,7 @@ export default async function Profile() {
                     <input
                       className="input input-ghost w-full p-0 font-medium bg-transparent border-none focus:outline-none"
                       name="email"
+                      disabled
                       defaultValue={user.email}
                       contentEditable={false}
                     />
