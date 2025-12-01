@@ -16,7 +16,7 @@ const Navbar: React.FC = () => {
     },
   ];
   return (
-    <div className="navbar shadow-md px-4 lg:px-40">
+    <div className="navbar sticky shadow-md px-4 lg:px-40">
       <div className="navbar-start">
         <a className="btn btn-ghost normal-case text-xl" href="/">
           Apex Kit

@@ -72,7 +72,7 @@ export default function SignIn() {
                       {magicLinkState.message}
                     </div>
                   )}
-                  {magicLinkState.message && (
+                  {magicLinkState.success === true && (
                     <div className="alert alert-soft alert-success">
                       {magicLinkState.message}
                     </div>

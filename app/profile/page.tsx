@@ -1,5 +1,6 @@
 import { requireAuth } from "@/lib/auth-utils";
 import { updateProfile, logOut } from "./actions";
+import ProfileActions from "./ProfileActions";
 
 export default async function Profile() {
   const user = await requireAuth();
@@ -46,6 +47,7 @@ export default async function Profile() {
                     <input
                       className="input input-ghost w-full p-0 font-medium bg-transparent border-none focus:outline-none"
                       name="email"
+                      disabled
                       defaultValue={user.email}
                       contentEditable={false}
                     />
@@ -85,14 +87,12 @@ export default async function Profile() {
 
               {/* Action Button */}
               <div className="my-5">
+                <ProfileActions />
                 <button
                   formAction={updateProfile}
                   className="btn btn-primary w-full"
                 >
                   Update Profile
-                </button>
-                <button className="btn btn-outline btn-primary w-full mt-4">
-                  Change Email (Sends Verification)
                 </button>
                 <button className="btn btn-accent w-full mt-4">
                   Reset Password
