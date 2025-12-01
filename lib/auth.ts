@@ -20,12 +20,12 @@ if (!EMAIL_API) {
 const emailClient = EMAIL_API
   ? new Resend(EMAIL_API)
   : {
-      emails: {
-        send: async () => {
-          console.error("ApexKit [auth.ts]: Missing email api configuration");
-        },
+    emails: {
+      send: async () => {
+        console.error("ApexKit [auth.ts]: Missing email api configuration");
       },
-    };
+    },
+  };
 //-----------------------------------------------------------------------//
 
 // ToDo: Abstract away email stuff , including email client//
@@ -58,7 +58,7 @@ export const auth = betterAuth({
     magicLink({
       sendMagicLink: async ({ email, token, url }, request) => {
         try {
-          const { data, error } = await emailClient.emails.send({
+          const { error } = await emailClient.emails.send({
             from: "onboarding@resend.dev",
             to: email,
             subject: "Sign in using this magic link",
