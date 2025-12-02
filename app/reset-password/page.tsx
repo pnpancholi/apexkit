@@ -9,27 +9,26 @@ export default async function ResetPasswordPage() {
               <div className="flex  justify-center mb-4">
                 <div className="avatar placeholder">
                   <div className="flex items-center justify-center bg-primary text-primary-content rounded-full w-20">
-                    <span className="text-2xl font-bold">user name</span>
+                    <span className="text-2xl font-bold">U</span>
                   </div>
                 </div>
               </div>
-
-              {/* Welcome with Name */}
+              {/*Header Text */}
               <h2 className="text-3xl font-bold mb-2">
-                Welcome back, user name
+                Reset Your Password
               </h2>
 
               {/* User Info Cards */}
               <div className="space-y-4">
-                <div className="flex flex-col items-center gap-4 p-4 bg-base-200 rounded-lg">
+                <div className="flex flex-col items-center space-y-4 p-2  rounded-lg">
                   <input
-                    className="input input-ghost w-full p-0 font-medium bg-transparent  focus:outline-none"
+                    className="input input-ghost w-full p-2 font-medium bg-base-200  focus:outline-none"
                     type="password"
                     placeholder="Type Your New Password"
                   />
 
                   <input
-                    className="input input-ghost w-full p-0 font-medium bg-transparent focus:outline-none"
+                    className="input input-ghost w-full p-2 font-medium bg-base-200 focus:outline-none"
                     type="password"
                     placeholder="Confirm Your New Password"
                   />

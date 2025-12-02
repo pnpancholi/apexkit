@@ -6,6 +6,7 @@ import * as schema from "@/schema/auth";
 import { Resend } from "resend";
 import { magicLinkEmail } from "./magiclink";
 
+
 // ---------------------- Guards -----------------------------------------//
 if (!db) {
   console.error("ApexKit [auth.ts]: database not available");
@@ -38,7 +39,7 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     sendResetPassword: async ({ user, url, token }, req) => {
-      await emailClient.emails.send({
+      void emailClient.emails.send({
         from: "onboarding@resend.dev",
         to: user.email,
         subject: "Reset your password",
@@ -87,6 +88,6 @@ export const auth = betterAuth({
   },
   //---------------------------------------//
   databaseOptions: {
-    autoSetup: true, // creates user , sessions, etc
+    autoSetup: true, // creates user , sessions, and verification
   },
 });

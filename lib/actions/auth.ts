@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import { signIn } from "../auth-client";
 import { authClient } from "../auth-client";
-import { auth } from "../auth";
 
 type ActionResponse = { success: boolean; message: string };
 
@@ -54,6 +53,18 @@ export async function signUp(
   } else {
     redirect("/sign-in");
   }
+}
+
+export async function requestPasswordReset(_: any, formData: FormData): Promise<ActionResponse> {
+  const email = formData.get("email") as string
+  try {
+    await authClient.requestPasswordReset({
+      email,
+    })
+  } catch (error) {
+    return { success: false, message: "We do not recognise that email" }
+  }
+  return { success: true, message: "Check your inbox" }
 }
 
 // export async function signOut(): Promise<ActionResponse> {
