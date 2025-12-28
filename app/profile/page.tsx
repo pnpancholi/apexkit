@@ -4,7 +4,6 @@ import ProfileActions from "./ProfileActions";
 
 export default async function Profile() {
   const user = await requireAuth();
-
   return (
     <div className="flex min-h-screen bg-base-200 justify-center px-4 py-12">
       <div className="w-full max-w-md">
@@ -90,7 +89,7 @@ export default async function Profile() {
                 <ProfileActions />
                 <button
                   formAction={updateProfile}
-                  className="btn btn-primary w-full"
+                  className="btn btn-primary w-full mt-4"
                 >
                   Update Profile
                 </button>

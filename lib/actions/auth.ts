@@ -67,6 +67,21 @@ export async function requestPasswordReset(_: any, formData: FormData): Promise<
   return { success: true, message: "Check your inbox" }
 }
 
+export async function updateEmail(newEmail: string) {
+  console.log("new email", newEmail)
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!newEmail || !emailRegex.test(newEmail)) {
+    return { success: false, message: "Invalid email address" }
+  }
+  console.log("new email passed regex")
+  try {
+    await authClient.changeEmail({ newEmail })
+    return { success: true, message: "Verification email sent to the new email address" }
+  } catch (error) {
+    return { success: false, message: "Something went wrong" }
+  }
+}
 // export async function signOut(): Promise<ActionResponse> {
 //   const { data, error } = await authClient.signOut();
 //   if (error) {
