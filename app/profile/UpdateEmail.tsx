@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 export default function UpdateEmail() {
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
+  const [response, setResponse] = useState<{ success: boolean, message: string } | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   // @dev: this takes care of providing a good user experience with modal
   // 1. Close on esc key
@@ -29,7 +31,10 @@ export default function UpdateEmail() {
   }
 
   const handleUpdateEmail = async () => {
+    setIsLoading(true)
     const res = await updateEmail(email)
+    setResponse(res)
+    setIsLoading(false)
   }
   return (
     <>
@@ -48,11 +53,15 @@ export default function UpdateEmail() {
             <div className="form-control">
               <h3 className="font-bold text-xl mb-10">Update Email</h3>
               <input type="text" className="input" placeholder="Enter your new email" value={email} onChange={e => setEmail(e.target.value)} />
-              <button className="btn btn-primary" type="button" onClick={handleUpdateEmail}>Update email</button>
+              <button className={`btn ${isLoading ? "btn-disabled" : "btn-primary"}`} type="button" onClick={handleUpdateEmail}>{isLoading ? "Updating..." : "Update Email"}</button>
+              {response && (
+                <p className={`mt-4 p-2 rounded-lg  ${response.success ? "bg-success/10 text-success" : "bg-error/10 text-error"}`}>{response.message}</p>
+              )}
             </div>
           </div>
-        </div>
-      )}
+        </div >
+      )
+      }
     </>
   );
 }

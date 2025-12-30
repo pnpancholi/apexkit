@@ -60,6 +60,7 @@ export async function requestPasswordReset(_: any, formData: FormData): Promise<
   try {
     await authClient.requestPasswordReset({
       email,
+      redirectTo: "/reset-password"
     })
   } catch (error) {
     return { success: false, message: "We do not recognise that email" }
@@ -67,6 +68,26 @@ export async function requestPasswordReset(_: any, formData: FormData): Promise<
   return { success: true, message: "Check your inbox" }
 }
 
+export async function resetPassword(_: any, formData: FormData): Promise<ActionResponse> {
+  const newPassword = formData.get("password") as string
+
+  if (!newPassword || newPassword.length < 8) {
+    return { success: false, message: "Password must be at least 8 characters" }
+  }
+
+  try {
+    const { error } = await authClient.resetPassword({
+      newPassword
+    })
+    if (error) {
+      return { success: false, message: "Failed to reset password, Try again" }
+    }
+    return { success: true, message: "Password reset successfully !" }
+  } catch (error) {
+    console.error("auth.ts [resetPassword]: Unexpected error while resetting password", error)
+    return { success: false, message: "Something went wrong, Please try again later!" }
+  }
+}
 export async function updateEmail(newEmail: string) {
   console.log("new email", newEmail)
 
@@ -81,6 +102,7 @@ export async function updateEmail(newEmail: string) {
   } catch (error) {
     return { success: false, message: "Something went wrong" }
   }
+
 }
 // export async function signOut(): Promise<ActionResponse> {
 //   const { data, error } = await authClient.signOut();

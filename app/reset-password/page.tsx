@@ -1,4 +1,9 @@
+"use client"
+import { useActionState } from "react"
+import { resetPassword } from "@/lib/actions/auth";
+
 export default async function ResetPasswordPage() {
+  const [resetPasswordState, resetPasswordAction, resetPasswordPending] = useActionState(resetPassword, null)
   return (
     <div className="flex min-h-screen bg-base-200 justify-center px-4 py-12">
       <div className="w-full max-w-md">
@@ -37,7 +42,7 @@ export default async function ResetPasswordPage() {
 
               {/* Action Button */}
               <div className="my-5">
-                <button className="btn btn-primary w-full mt-4">
+                <button className="btn btn-primary w-full mt-4" disabled={resetPasswordPending} formAction={resetPasswordAction} >
                   Reset Password
                 </button>
               </div>

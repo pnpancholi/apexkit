@@ -8,6 +8,8 @@ import { magicLinkEmail } from "./magiclink";
 
 
 // ---------------------- Guards -----------------------------------------//
+// -----------------------------------------------------------------------//
+// -----------------------------------------------------------------------//
 if (!db) {
   console.error("ApexKit [auth.ts]: database not available");
 }
@@ -28,6 +30,8 @@ const emailClient = EMAIL_API
     },
   };
 //-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//----------------------------------------------------------------------//
 
 // ToDo: Abstract away email stuff , including email client//
 export const auth = betterAuth({
@@ -58,7 +62,8 @@ export const auth = betterAuth({
   },
   emailVerification: {
     enabled: true,
-    sendVerificationEmail: async ({ user, url }) => {
+    callbackUrl: "/profile",
+    sendVerificationEmail: async ({ user, url, token }) => {
       try {
         await emailClient.emails.send({
           from: "onboarding@resend.dev",
@@ -66,7 +71,7 @@ export const auth = betterAuth({
           subject: "Verify your email",
           html: `
             <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px;">
-            <h2>Verify Your Email</h2>
+            <h2>Verify Your New Email</h2>
             <p>Click the button below to confirm your email address:</p>
             <div style="text-align: center; margin: 30px 0;">
               <a href="${url}" style="background: #0066ff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">
