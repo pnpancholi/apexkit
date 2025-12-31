@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const Navbar: React.FC = () => {
@@ -69,7 +70,7 @@ const Navbar: React.FC = () => {
             </li>
           </ul>
         </div>
-        <button className="btn btn-primary">Sign In</button>
+        <Link href="/sign-in" className="btn btn-primary">Sign In</Link>
       </div>
     </div>
   );

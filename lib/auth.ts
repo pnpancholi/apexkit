@@ -6,7 +6,10 @@ import * as schema from "@/schema/auth";
 import { Resend } from "resend";
 import { magicLinkEmail } from "./magiclink";
 
+
 // ---------------------- Guards -----------------------------------------//
+// -----------------------------------------------------------------------//
+// -----------------------------------------------------------------------//
 if (!db) {
   console.error("ApexKit [auth.ts]: database not available");
 }
@@ -27,6 +30,8 @@ const emailClient = EMAIL_API
     },
   };
 //-----------------------------------------------------------------------//
+//-----------------------------------------------------------------------//
+//----------------------------------------------------------------------//
 
 // ToDo: Abstract away email stuff , including email client//
 export const auth = betterAuth({
@@ -38,7 +43,7 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     sendResetPassword: async ({ user, url, token }, req) => {
-      await emailClient.emails.send({
+      void emailClient.emails.send({
         from: "onboarding@resend.dev",
         to: user.email,
         subject: "Reset your password",
@@ -50,9 +55,44 @@ export const auth = betterAuth({
     },
   },
   // Allowing user to update email
+  // ----------------------------
+  // ---------------------------
   user: {
     changeEmail: { enabled: true },
   },
+  emailVerification: {
+    enabled: true,
+    callbackUrl: "/profile",
+    sendVerificationEmail: async ({ user, url, token }) => {
+      try {
+        await emailClient.emails.send({
+          from: "onboarding@resend.dev",
+          to: user.email,
+          subject: "Verify your email",
+          html: `
+            <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px;">
+            <h2>Verify Your New Email</h2>
+            <p>Click the button below to confirm your email address:</p>
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="${url}" style="background: #0066ff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">
+                Verify Email
+              </a>
+            </div>
+            <p>Or copy and paste this link:</p>
+            <p><a href="${url}">${url}</a></p>
+            <p style="color: #666; font-size: 12px;">This link expires in 1 hour.</p>
+            </div>
+          `,
+        })
+        console.log("Email verification sent")
+      } catch (error) {
+        console.error("Failed to send verificaion email", error)
+      }
+    }
+  },
+  // ------------------------------
+  // ------------------------------
+  // ------------------------------
   // Authentication with magicLink
   plugins: [
     magicLink({
@@ -72,8 +112,13 @@ export const auth = betterAuth({
       expiresIn: 300,
     }),
   ],
-
+  // ------------------------------
+  // ------------------------------
+  // ------------------------------
   // Logging
+  // ------------------------------
+  // ------------------------------
+  // ------------------------------
   callbacks: {
     onError: (error: any) => {
       console.error("Better Auth Error:", error);
@@ -85,8 +130,10 @@ export const auth = betterAuth({
       console.log("Sign-in success:", user.email);
     },
   },
-  //---------------------------------------//
+  //----------------------------------
+  //----------------------------------
+  //----------------------------------
   databaseOptions: {
-    autoSetup: true, // creates user , sessions, etc
+    autoSetup: true, // creates user , sessions, and verification
   },
 });

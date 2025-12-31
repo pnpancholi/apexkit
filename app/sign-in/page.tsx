@@ -91,7 +91,7 @@ export default function SignIn() {
             </form>
 
             {/*---------------------------------Resetting----------------------------*/}
-            <div className="text-center text-sm space-y-1">
+            <div className="flex flex-col text-center text-sm space-y-1">
               <Link href="/forgot-password" className="link">
                 Forgot Password ?
               </Link>
