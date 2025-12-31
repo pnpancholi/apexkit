@@ -1,9 +1,55 @@
 "use client"
-import { useActionState } from "react"
+import { useState } from "react"
 import { resetPassword } from "@/lib/actions/auth";
 
-export default async function ResetPasswordPage() {
-  const [resetPasswordState, resetPasswordAction, resetPasswordPending] = useActionState(resetPassword, null)
+
+const RESPONSE_STYLES = {
+  success: "bg-success/10 p-4 rounded-lg border-success text-success",
+  error: "bg-error/10 p-4 rounded-lg border-error text-error",
+}
+
+export default function ResetPasswordPage() {
+  const [newPassword, setNewPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
+  const [feedback, setFeedback] = useState<{
+    success: boolean,
+    message: string
+  } | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleResetPassword = async () => {
+    const params = new URLSearchParams(window.location.search)
+    const token = params.get("token")
+    setIsLoading(true)
+    if (newPassword !== confirmPassword) {
+      setFeedback({ success: false, message: "Passwords do not match" })
+      setIsLoading(false)
+      return
+    }
+    if (newPassword.length < 8) {
+      setFeedback({ success: false, message: "Password must be at least 8 character" })
+      setIsLoading(false)
+      return
+    }
+    try {
+      const res = await resetPassword(newPassword, token)
+
+      if (res.success && res.success === true) {
+        setFeedback({ success: true, message: "Password reset successfully, Redirecting..." })
+        setTimeout(() => {
+          window.location.href = "/sign-in"
+        }, 3000)
+      }
+      else {
+        setFeedback({ success: false, message: "Failed to reset password, Try again" })
+      }
+    } catch (error) {
+      console.error("Unexpected Error: ", error)
+      setFeedback({ success: false, message: "Something went wrong, Please try again later!" })
+    } finally {
+      setIsLoading(false)
+    }
+  }
   return (
     <div className="flex min-h-screen bg-base-200 justify-center px-4 py-12">
       <div className="w-full max-w-md">
@@ -29,21 +75,27 @@ export default async function ResetPasswordPage() {
                   <input
                     className="input input-ghost w-full p-2 font-medium bg-base-200  focus:outline-none"
                     type="password"
+                    value={newPassword}
+                    onChange={e => setNewPassword(e.target.value)}
                     placeholder="Type Your New Password"
                   />
 
                   <input
                     className="input input-ghost w-full p-2 font-medium bg-base-200 focus:outline-none"
                     type="password"
+                    value={confirmPassword}
+                    onChange={e => setConfirmPassword(e.target.value)}
                     placeholder="Confirm Your New Password"
                   />
                 </div>
               </div>
-
+              {feedback && (
+                <p className={`${RESPONSE_STYLES[feedback.success ? "success" : "error"]}`}>{feedback.message}</p>
+              )}
               {/* Action Button */}
               <div className="my-5">
-                <button className="btn btn-primary w-full mt-4" disabled={resetPasswordPending} formAction={resetPasswordAction} >
-                  Reset Password
+                <button className="btn btn-primary w-full mt-4" type="button" disabled={isLoading} onClick={handleResetPassword}>
+                  {isLoading ? "Resetting Password..." : "Reset Password"}
                 </button>
               </div>
             </form>

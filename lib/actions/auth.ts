@@ -68,16 +68,15 @@ export async function requestPasswordReset(_: any, formData: FormData): Promise<
   return { success: true, message: "Check your inbox" }
 }
 
-export async function resetPassword(_: any, formData: FormData): Promise<ActionResponse> {
-  const newPassword = formData.get("password") as string
-
+export async function resetPassword(newPassword: string, token: string): Promise<ActionResponse> {
   if (!newPassword || newPassword.length < 8) {
     return { success: false, message: "Password must be at least 8 characters" }
   }
 
   try {
     const { error } = await authClient.resetPassword({
-      newPassword
+      newPassword,
+      token
     })
     if (error) {
       return { success: false, message: "Failed to reset password, Try again" }
