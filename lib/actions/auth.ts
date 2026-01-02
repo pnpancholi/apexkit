@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
-import { signIn } from "../auth-client";
 import { authClient } from "../auth-client";
 
+// @dev: expected reponse type for auth endpoints to consistency in components and pages
 type ActionResponse = { success: boolean; message: string };
 
 export async function signInWithPassword(
@@ -10,7 +10,7 @@ export async function signInWithPassword(
 ): Promise<ActionResponse> {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
-  const { data, error } = await signIn.email({ email, password });
+  const { data, error } = await authClient.signIn.email({ email, password });
   if (error) {
     return { success: false, message: "Invalid email or password" };
   } else {
@@ -23,7 +23,7 @@ export async function sendMagicLink(
   formData: FormData,
 ): Promise<ActionResponse> {
   const email = formData.get("email") as string;
-  const { data, error } = await signIn.magicLink({
+  const { data, error } = await authClient.signIn.magicLink({
     email,
     callbackURL: "/",
     newUserCallbackURL: "/",
@@ -87,19 +87,17 @@ export async function resetPassword(newPassword: string, token: string): Promise
     return { success: false, message: "Something went wrong, Please try again later!" }
   }
 }
-export async function updateEmail(newEmail: string) {
-  console.log("new email", newEmail)
-
+export async function updateEmail(newEmail: string): Promise<ActionResponse> {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
   if (!newEmail || !emailRegex.test(newEmail)) {
     return { success: false, message: "Invalid email address" }
   }
-  console.log("new email passed regex")
   try {
     await authClient.changeEmail({ newEmail })
     return { success: true, message: "Verification email sent to the new email address" }
   } catch (error) {
-    return { success: false, message: "Something went wrong" }
+    return { success: false, message: "Something went wrong, Please try again later" }
   }
 
 }
