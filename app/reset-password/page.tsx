@@ -19,7 +19,7 @@ export default function ResetPasswordPage() {
 
   const handleResetPassword = async () => {
     const params = new URLSearchParams(window.location.search)
-    const token = params.get("token")
+    const token = params.get("token") as string
     setIsLoading(true)
     if (newPassword !== confirmPassword) {
       setFeedback({ success: false, message: "Passwords do not match" })
