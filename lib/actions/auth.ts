@@ -127,11 +127,4 @@ export async function updateEmail(newEmail: string): Promise<ActionResponse> {
   }
 
 }
-// export async function signOut(): Promise<ActionResponse> {
-//   const { data, error } = await authClient.signOut();
-//   if (error) {
-//     return { success: false, message: "Something went wrong" };
-//   } else {
-//     redirect("/");
-//   }
-// }
+
