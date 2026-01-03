@@ -41,21 +41,4 @@ export async function logOut() {
   }
 }
 
-// "use server";
-// import { auth } from "@/lib/auth";
-// import { redirect } from "next/navigation";
 
-// export async function updateProfile(formData: FormData) {
-//   const name = formData.get("name") as string;
-//   const email = formData.get("email") as string;
-
-//   try {
-//     console.log("auth api", auth.api);
-//     const result = await auth.api.updateUser({ name, email });
-//     if (result) {
-//       return { result };
-//     }
-//   } catch (error) {
-//     console.error("Server Actions: can no update profile page", error);
-//   }
-// }

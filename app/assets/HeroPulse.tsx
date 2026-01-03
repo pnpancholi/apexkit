@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 export default function HeroPulse() {
 
 
-  const WORDS = ["concious developers.", "solo-preneurs.", "visionary teams."];
+  const WORDS = ["concious developers.", "solo-preneurs.", "fast-paced teams."];
 
   const [text, setText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
-  const [typingSpeed, setTypingSpeed] = useState(150);
+  const [typingSpeed, setTypingSpeed] = useState(300);
 
   useEffect(() => {
     const handleTyping = () => {
@@ -20,7 +20,7 @@ export default function HeroPulse() {
         : fullText.substring(0, text.length + 1)
       );
 
-      setTypingSpeed(isDeleting ? 30 : 150);
+      setTypingSpeed(isDeleting ? 35 : 300);
 
       if (!isDeleting && text === fullText) {
         setTimeout(() => setIsDeleting(true), 1500);
