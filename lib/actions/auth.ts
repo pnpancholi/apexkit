@@ -1,40 +1,7 @@
 import { redirect } from "next/navigation";
 import { authClient } from "../auth-client";
 
-// @dev: expected reponse type for auth endpoints to consistency in components and pages
 type ActionResponse = { success: boolean; message: string };
-
-export async function signInWithPassword(
-  _: any,
-  formData: FormData,
-): Promise<ActionResponse> {
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
-  const { data, error } = await authClient.signIn.email({ email, password });
-  if (error) {
-    return { success: false, message: "Invalid email or password" };
-  } else {
-    redirect("/profile");
-  }
-}
-
-export async function sendMagicLink(
-  _: any,
-  formData: FormData,
-): Promise<ActionResponse> {
-  const email = formData.get("email") as string;
-  const { data, error } = await authClient.signIn.magicLink({
-    email,
-    callbackURL: "/",
-    newUserCallbackURL: "/",
-    errorCallbackURL: "/",
-  });
-  if (error) {
-    return { success: false, message: "Sorry, we don't recognise that email" };
-  } else {
-    return { success: true, message: "Magic link is on its way" };
-  }
-}
 
 export async function signUp(
   _: any,
@@ -43,29 +10,85 @@ export async function signUp(
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
-  const { data, error } = await authClient.signUp.email({
-    name,
-    email,
-    password,
-  });
-  if (error) {
-    return { success: false, message: "Failed to create an account!" };
-  } else {
-    redirect("/sign-in");
+
+  try {
+    const { error } = await authClient.signUp.email({
+      name,
+      email,
+      password,
+    });
+    if (error) {
+      return { success: false, message: "Failed to create an account!" };
+    }
+
+  } catch (error) {
+    console.error("[signUp]: Unexpected error", error)
+    return { success: false, message: "Something went wrong, Please try again later" }
+  }
+
+  redirect("/sign-in")
+}
+
+
+export async function signInWithPassword(
+  _: any,
+  formData: FormData,
+): Promise<ActionResponse> {
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+  try {
+    const { error } = await authClient.signIn.email({ email, password });
+    if (error) {
+      return { success: false, message: "Invalid email or password" };
+    } else {
+      redirect("/profile");
+    }
+  } catch (error) {
+    console.error("[signInWithPassword]: Unexpected error", error)
+    return { success: false, message: "Something went wrong, Please try again later" }
+  }
+}
+
+export async function sendMagicLink(
+  _: any,
+  formData: FormData,
+): Promise<ActionResponse> {
+  const email = formData.get("email") as string;
+
+  try {
+    const { error } = await authClient.signIn.magicLink({
+      email,
+      callbackURL: "/",
+      newUserCallbackURL: "/",
+      errorCallbackURL: "/",
+    });
+    if (error) {
+      return { success: false, message: "Sorry, we don't recognise that email" };
+    } else {
+      return { success: true, message: "Magic link is on its way" };
+    }
+  } catch (error) {
+    console.error("[sendMagicLink]: Unexpected error", error)
+    return { success: false, message: "Something went wrong, Please try again later" }
   }
 }
 
 export async function requestPasswordReset(_: any, formData: FormData): Promise<ActionResponse> {
   const email = formData.get("email") as string
   try {
-    await authClient.requestPasswordReset({
+    const { error } = await authClient.requestPasswordReset({
       email,
       redirectTo: "/reset-password"
     })
+    if (error) {
+      return { success: false, message: "We do not recognise that email" }
+    }
+
+    return { success: true, message: "Check your inbox" }
   } catch (error) {
-    return { success: false, message: "We do not recognise that email" }
+    console.error("[requestPasswordReset]: Unexpected error", error)
+    return { success: false, message: "Something went wrong, Please try again later" }
   }
-  return { success: true, message: "Check your inbox" }
 }
 
 export async function resetPassword(newPassword: string, token: string): Promise<ActionResponse> {
@@ -84,7 +107,7 @@ export async function resetPassword(newPassword: string, token: string): Promise
     return { success: true, message: "Password reset successfully !" }
   } catch (error) {
     console.error("auth.ts [resetPassword]: Unexpected error while resetting password", error)
-    return { success: false, message: "Something went wrong, Please try again later!" }
+    return { success: false, message: "Something went wrong, Please try again later" }
   }
 }
 export async function updateEmail(newEmail: string): Promise<ActionResponse> {
@@ -94,9 +117,13 @@ export async function updateEmail(newEmail: string): Promise<ActionResponse> {
     return { success: false, message: "Invalid email address" }
   }
   try {
-    await authClient.changeEmail({ newEmail })
+    const { error } = await authClient.changeEmail({ newEmail })
+    if (error) {
+      return { success: false, message: "We do not recognise that email" }
+    }
     return { success: true, message: "Verification email sent to the new email address" }
   } catch (error) {
+    console.error("[updateEmail]: Unexpected error", error)
     return { success: false, message: "Something went wrong, Please try again later" }
   }
 

@@ -3,9 +3,8 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "./db";
 import { magicLink } from "better-auth/plugins";
 import * as schema from "@/schema/auth";
-import { Resend } from "resend";
-import { magicLinkEmail } from "./magiclink";
-
+import { emailProvider } from "./emailProvider"
+import { magicLinkTemplate, verifyEmailTemplate, resetPasswordTemplate } from "./EmailTemplates"
 
 // ---------------------- Guards -----------------------------------------//
 // -----------------------------------------------------------------------//
@@ -13,22 +12,6 @@ import { magicLinkEmail } from "./magiclink";
 if (!db) {
   console.error("ApexKit [auth.ts]: database not available");
 }
-
-const EMAIL_API = process.env.EMAIL_API?.trim();
-
-if (!EMAIL_API) {
-  console.error("ApexKit [auth.ts]: Missing email api");
-}
-
-const emailClient = EMAIL_API
-  ? new Resend(EMAIL_API)
-  : {
-    emails: {
-      send: async () => {
-        console.error("ApexKit [auth.ts]: Missing email api configuration");
-      },
-    },
-  };
 //-----------------------------------------------------------------------//
 //-----------------------------------------------------------------------//
 //----------------------------------------------------------------------//
@@ -43,13 +26,9 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     sendResetPassword: async ({ user, url, token }, req) => {
-      void emailClient.emails.send({
-        from: "onboarding@resend.dev",
-        to: user.email,
-        subject: "Reset your password",
-        text: `Click the link to reset your password: ${url}`,
-      });
+      await emailProvider.send(user.email, resetPasswordTemplate(url))
     },
+    // toDO: send email to password updates//
     onPasswordReset: async ({ user }, req) => {
       console.log(`Password for ${user.email} updated`);
     },
@@ -64,30 +43,7 @@ export const auth = betterAuth({
     enabled: true,
     callbackUrl: "/profile",
     sendVerificationEmail: async ({ user, url, token }) => {
-      try {
-        await emailClient.emails.send({
-          from: "onboarding@resend.dev",
-          to: user.email,
-          subject: "Verify your email",
-          html: `
-            <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px;">
-            <h2>Verify Your New Email</h2>
-            <p>Click the button below to confirm your email address:</p>
-            <div style="text-align: center; margin: 30px 0;">
-              <a href="${url}" style="background: #0066ff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">
-                Verify Email
-              </a>
-            </div>
-            <p>Or copy and paste this link:</p>
-            <p><a href="${url}">${url}</a></p>
-            <p style="color: #666; font-size: 12px;">This link expires in 1 hour.</p>
-            </div>
-          `,
-        })
-        console.log("Email verification sent")
-      } catch (error) {
-        console.error("Failed to send verificaion email", error)
-      }
+      await emailProvider.send(user.email, verifyEmailTemplate(url))
     }
   },
   // ------------------------------
@@ -97,17 +53,7 @@ export const auth = betterAuth({
   plugins: [
     magicLink({
       sendMagicLink: async ({ email, token, url }, request) => {
-        try {
-          await emailClient.emails.send({
-            from: "onboarding@resend.dev",
-            to: email,
-            subject: "Sign in using this magic link",
-            html: magicLinkEmail(url),
-          });
-        } catch (error) {
-          console.error("Failed to send maic link", error);
-          throw error;
-        }
+        await emailProvider.send(email, magicLinkTemplate(url))
       },
       expiresIn: 300,
     }),
