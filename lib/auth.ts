@@ -10,7 +10,7 @@ import { magicLinkTemplate, verifyEmailTemplate, resetPasswordTemplate } from ".
 // -----------------------------------------------------------------------//
 // -----------------------------------------------------------------------//
 if (!db) {
-  console.error("ApexKit [auth.ts]: database not available");
+  console.error("[auth.ts]: database not available");
 }
 //-----------------------------------------------------------------------//
 //-----------------------------------------------------------------------//
@@ -37,14 +37,15 @@ export const auth = betterAuth({
   // ----------------------------
   // ---------------------------
   user: {
-    changeEmail: { enabled: true },
+    changeEmail: { enabled: true, callbackUrl: "/profile" },
   },
   emailVerification: {
     enabled: true,
     callbackUrl: "/profile",
     sendVerificationEmail: async ({ user, url, token }) => {
       await emailProvider.send(user.email, verifyEmailTemplate(url))
-    }
+    },
+
   },
   // ------------------------------
   // ------------------------------

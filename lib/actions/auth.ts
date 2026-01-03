@@ -40,13 +40,12 @@ export async function signInWithPassword(
     const { error } = await authClient.signIn.email({ email, password });
     if (error) {
       return { success: false, message: "Invalid email or password" };
-    } else {
-      redirect("/profile");
     }
   } catch (error) {
     console.error("[signInWithPassword]: Unexpected error", error)
     return { success: false, message: "Something went wrong, Please try again later" }
   }
+  redirect("/profile");
 }
 
 export async function sendMagicLink(
@@ -119,7 +118,7 @@ export async function updateEmail(newEmail: string): Promise<ActionResponse> {
   try {
     const { error } = await authClient.changeEmail({ newEmail })
     if (error) {
-      return { success: false, message: "We do not recognise that email" }
+      return { success: false, message: "This email is invalid" }
     }
     return { success: true, message: "Verification email sent to the new email address" }
   } catch (error) {
