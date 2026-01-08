@@ -22,7 +22,8 @@ export default async function Profile() {
 
               {/* Welcome with Name */}
               <h2 className="text-3xl font-bold mb-2">
-                Welcome back, {user.name}!
+                Welcome,
+                <p > {user.name}!</p>
               </h2>
 
               {/* User Info Cards */}

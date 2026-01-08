@@ -1,6 +1,7 @@
 "use client";
 import { updateEmail } from "@/lib/actions/auth";
 import { useEffect, useState } from "react";
+import { Mail } from "lucide-react"
 
 export default function UpdateEmail() {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,7 +38,7 @@ export default function UpdateEmail() {
       setResponse(res)
       setTimeout(() => {
         setIsOpen(false)
-      }, 1000)
+      }, 2000)
     }
     setResponse(res)
     setIsLoading(false)
@@ -58,8 +59,16 @@ export default function UpdateEmail() {
           <div className="modal-box space-y-6 animate-in fade-in duration-300 space-y-6 min-h-[200px]">
             <div className="form-control">
               <h3 className="font-bold text-xl mb-10">Update Email</h3>
-              <input type="text" className="input" placeholder="Enter your new email" value={email} onChange={e => setEmail(e.target.value)} disabled={isLoading} />
-              <button className={`btn ${isLoading ? "btn-disabled" : "btn-primary"}`} type="button" onClick={handleUpdateEmail}>{isLoading ? "Updating..." : "Update Email"}</button>
+              <div className="join">
+                <div>
+                  <label className="input validator join-item">
+                    <Mail />
+                    <input type="email" placeholder="Enter your new email" value={email} onChange={e => setEmail(e.target.value)} required />
+                  </label>
+                </div>
+                <button className={`btn join-item ${isLoading ? "btn-disabled" : "btn-primary"}`} type="button" onClick={handleUpdateEmail}>{isLoading ? "Updating..." : "Update Email"}</button>
+              </div>
+
               {response && (
                 <p className={`mt-4 p-2 rounded-lg  ${response.success ? "bg-success/10 text-success" : "bg-error/10 text-error"}`}>{response.message}</p>
               )}

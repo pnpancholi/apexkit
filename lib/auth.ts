@@ -37,11 +37,10 @@ export const auth = betterAuth({
   // ----------------------------
   // ---------------------------
   user: {
-    changeEmail: { enabled: true, callbackUrl: "/profile" },
+    changeEmail: { enabled: true },
   },
   emailVerification: {
     enabled: true,
-    callbackUrl: "/profile",
     sendVerificationEmail: async ({ user, url, token }) => {
       await emailProvider.send(user.email, verifyEmailTemplate(url))
     },
