@@ -1,7 +1,8 @@
 import Link from "next/link";
 import React from "react";
+import type { Session } from "@/types/auth"
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC<{ user: Session | null }> = async (user) => {
   const navLinks = [
     {
       name: "blog",
@@ -16,6 +17,9 @@ const Navbar: React.FC = () => {
       url: "/contact",
     },
   ];
+
+  console.log(user)
+
   return (
     <div className="navbar sticky shadow-md px-4 lg:px-40">
       <div className="navbar-start">
@@ -25,16 +29,19 @@ const Navbar: React.FC = () => {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal">
-          {navLinks.map((link) => (
-            <li key={link.name}>
-              <a
-                href={link.url}
-                className=" capitalize relative after:absolute after:left-1/2 after:bottom-0 after:h-0.5 after:w-0 after:-translate-x-1/2 after:bg-primary after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 hover:after:translate-x-0"
-              >
-                {link.name}
-              </a>
-            </li>
-          ))}
+          {!user &&
+
+            navLinks.map((link) => (
+              <li key={link.name}>
+                <a
+                  href={link.url}
+                  className=" capitalize relative after:absolute after:left-1/2 after:bottom-0 after:h-0.5 after:w-0 after:-translate-x-1/2 after:bg-primary after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 hover:after:translate-x-0"
+                >
+                  {link.name}
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </div>
       <div className="navbar-end">

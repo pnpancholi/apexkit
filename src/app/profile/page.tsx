@@ -1,7 +1,11 @@
-import { requireAuth } from "@/lib/auth-utils";
+import { requireAuth } from "@/auth/utils";
+
 import { updateProfile, logOut } from "./actions";
+
+
 import UpdateEmail from "./UpdateEmail"
 export default async function Profile() {
+
   const user = await requireAuth();
   return (
     <div className="flex min-h-screen bg-base-200 justify-center px-4 py-12">
@@ -22,7 +26,8 @@ export default async function Profile() {
 
               {/* Welcome with Name */}
               <h2 className="text-3xl font-bold mb-2">
-                Welcome back, {user.name}!
+                Welcome,
+                <p > {user.name}!</p>
               </h2>
 
               {/* User Info Cards */}

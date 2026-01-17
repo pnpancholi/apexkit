@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { signInWithPassword, sendMagicLink } from "@/lib/actions/auth";
+import { signInWithPassword, sendMagicLink } from "@/actions/auth";
 import Link from "next/link";
 
 export default function SignIn() {

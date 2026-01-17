@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useActionState } from "react";
-import { signUp } from "@/lib/actions/auth";
+import { signUp } from "@/actions/auth";
 
 export default function SignUp() {
   const [signUpState, signUpAction, signUpPending] = useActionState(

@@ -1,10 +1,10 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { db } from "./db";
+import { db } from "@/db/index";
 import { magicLink } from "better-auth/plugins";
-import * as schema from "@/schema/auth";
-import { emailProvider } from "./emailProvider"
-import { magicLinkTemplate, verifyEmailTemplate, resetPasswordTemplate } from "./EmailTemplates"
+import * as schema from "@/db/schema/auth";
+import { emailProvider } from "@/email/emailProvider"
+import { magicLinkTemplate, verifyEmailTemplate, resetPasswordTemplate } from "@/email/EmailTemplates"
 
 // ---------------------- Guards -----------------------------------------//
 // -----------------------------------------------------------------------//
@@ -37,11 +37,10 @@ export const auth = betterAuth({
   // ----------------------------
   // ---------------------------
   user: {
-    changeEmail: { enabled: true, callbackUrl: "/profile" },
+    changeEmail: { enabled: true },
   },
   emailVerification: {
     enabled: true,
-    callbackUrl: "/profile",
     sendVerificationEmail: async ({ user, url, token }) => {
       await emailProvider.send(user.email, verifyEmailTemplate(url))
     },

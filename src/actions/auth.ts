@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { authClient } from "../auth-client";
+import { authClient } from "@/auth/client";
 
 type ActionResponse = { success: boolean; message: string };
 

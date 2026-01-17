@@ -1,6 +1,7 @@
 "use client"
-import { requestPasswordReset } from "@/lib/actions/auth";
+import { requestPasswordReset } from "@/actions/auth";
 import { useActionState } from "react";
+import { FileLock } from "lucide-react"
 
 export default function ForgotPassword() {
   const [resetPasswordState, resetPasswordAction, resetPasswordPending] = useActionState(requestPasswordReset, null)
@@ -15,7 +16,7 @@ export default function ForgotPassword() {
               <div className="flex  justify-center mb-4">
                 <div className="avatar placeholder">
                   <div className="flex items-center justify-center bg-primary text-primary-content rounded-full w-20">
-                    <span className="text-2xl font-bold">U</span>
+                    <FileLock />
                   </div>
                 </div>
               </div>
