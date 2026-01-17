@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { getUser } from "@/auth/utils";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,15 +21,16 @@ export const metadata: Metadata = {
     "The blazing fast tool to help you build your next billion dollar, unicorn company",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user = await getUser()
   return (
     <html lang="en" className="h-full">
       <body className={`${geistSans.variable} ${geistMono.variable} h-full overscroll-y-none`}>
-        <Navbar />
+        <Navbar user />
         <div className="flex flex-col min-h-screen">{children}</div>
         <Footer />
       </body>
