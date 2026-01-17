@@ -1,7 +1,7 @@
 "use client"
 import { useState } from "react"
-import { resetPassword } from "@/lib/actions/auth";
-
+import { resetPassword } from "@/actions/auth";
+import { RectangleEllipsis } from "lucide-react"
 
 const RESPONSE_STYLES = {
   success: "bg-success/10 p-4 rounded-lg border-success text-success",
@@ -60,7 +60,7 @@ export default function ResetPasswordPage() {
               <div className="flex  justify-center mb-4">
                 <div className="avatar placeholder">
                   <div className="flex items-center justify-center bg-primary text-primary-content rounded-full w-20">
-                    <span className="text-2xl font-bold">U</span>
+                    <RectangleEllipsis />
                   </div>
                 </div>
               </div>

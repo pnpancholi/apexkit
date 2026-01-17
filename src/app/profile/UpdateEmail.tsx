@@ -1,5 +1,5 @@
 "use client";
-import { updateEmail } from "@/lib/actions/auth";
+import { updateEmail } from "@/actions/auth";
 import { useEffect, useState } from "react";
 import { Mail } from "lucide-react"
 
