@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { getUser } from "@/auth/utils";
 
 const geistSans = Geist({
@@ -30,7 +30,7 @@ export default async function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body className={`${geistSans.variable} ${geistMono.variable} h-full overscroll-y-none`}>
-        <Navbar user />
+        <Navbar user={user} />
         <div className="flex flex-col min-h-screen">{children}</div>
         <Footer />
       </body>

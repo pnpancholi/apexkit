@@ -1,10 +1,10 @@
-import { pgTable, text, timestamp, boolean, uuid } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, uuid, primaryKey } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(), //Better-Auth expects this.
   name: text("name").notNull(),
   email: text("email").notNull().unique(), // one account per email
-  emailVerified: boolean("email_verfied").default(false),
+  emailVerified: boolean("email_verified").default(false),
   image: text("image"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
@@ -31,8 +31,8 @@ export const account = pgTable("account", {
     .references(() => user.id, { onDelete: "cascade" }),
   providerId: text("provider_id").notNull(),
   providerAccountId: text("provider_account_id").notNull().default("none"),
-  access_token: text("access_token"),
-  referesh_token: text("refresh_token"),
+  accessToken: text("access_token"),
+  refreshToken: text("refresh_token"),
   idToken: text("id_token"),
   accessTokenExpiresAt: timestamp("access_token_expires_at"),
   refreshTokenExpiresAt: timestamp("refresh_token_expires_at"),
@@ -43,10 +43,12 @@ export const account = pgTable("account", {
 });
 
 export const verificationToken = pgTable("verification_table", {
-  indentifier: text("identifier").notNull(),
+  identifier: text("identifier").notNull(),
   token: text("token").notNull(),
   expires: timestamp("expires").notNull(),
-});
+}, (table) => ({
+  pk: primaryKey({ columns: [table.identifier, table.token] }),
+}));
 export const verification = pgTable("verification", {
   id: text("id").primaryKey(),
   identifier: text("identifier").notNull(),

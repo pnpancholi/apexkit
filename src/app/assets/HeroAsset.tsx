@@ -1,90 +1,103 @@
-import { ArrowRight, Terminal, LayoutDashboard, Database, Shield, Play } from "lucide-react";
+import { ArrowRight, Terminal, LayoutDashboard, Database, Shield, Play, Loader2 } from "lucide-react";
+
 export default function HeroAsset() {
   return (
     <>
-      {/* Product Preview / Dashboard Mockup */}
-      <div className="relative w-full max-w-6xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-700 fill-mode-backwards">
-        <div className="absolute -inset-1 bg-gradient-to-r from-primary via-secondary to-accent rounded-xl blur opacity-30"></div>
-        <div className="relative rounded-xl border border-white/10 bg-card/80 backdrop-blur-xl shadow-2xl overflow-hidden">
+      <div className="relative w-full max-w-6xl mx-auto perspective-1000">
+        {/* Ambient Background Glows */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-primary/20 via-primary/5 to-secondary/20 blur-[100px] rounded-full mix-blend-screen opacity-50 animate-pulse-slow pointer-events-none"></div>
+        <div className="absolute -inset-1 bg-gradient-to-r from-primary via-transparent to-secondary rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+
+        {/* Mian Floating Container - Levitation Effect */}
+        <div className="relative rounded-xl border border-white/10 bg-black/40 backdrop-blur-xl shadow-2xl overflow-hidden animate-float ring-1 ring-white/5">
+          <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-50 pointer-events-none"></div>
+
           {/* Browser Header */}
-          <div className="h-12 border-b border-white/10 bg-white/5 flex items-center px-4 gap-2">
+          <div className="relative h-12 border-b border-white/10 bg-white/5 flex items-center px-4 gap-2 backdrop-blur-md z-20">
             <div className="flex gap-2">
-              <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50"></div>
-              <div className="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50"></div>
-              <div className="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/50"></div>
+              <div className="w-3 h-3 rounded-full bg-[#FF5F56] shadow-sm"></div>
+              <div className="w-3 h-3 rounded-full bg-[#FFBD2E] shadow-sm"></div>
+              <div className="w-3 h-3 rounded-full bg-[#27C93F] shadow-sm"></div>
             </div>
-            <div className="flex-1 flex justify-center">
-              <div className="h-6 w-64 bg-white/5 rounded-full flex items-center justify-center text-xs text-muted-foreground font-mono">
-                yourcompany.com
+
+            <div className="flex-1 flex justify-center ml-4">
+              <div className="h-7 w-80 bg-black/20 rounded-md flex items-center justify-center text-xs text-muted-foreground/60 font-mono border border-white/5 shadow-inner">
+                <span className="flex items-center gap-2">
+                  <Shield className="w-3 h-3" />
+                  https://apexkit.dev
+                </span>
               </div>
             </div>
+
+            <div className="w-16"></div> {/* Spacer balance */}
           </div>
 
-          {/* Dashboard Content Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-12 divide-y md:divide-y-0 md:divide-x divide-white/10 h-[400px] md:h-[600px]">
-            {/* Sidebar */}
-            <div className="hidden md:block md:col-span-2 p-4 space-y-4 bg-white/2">
-              <div className="h-8 w-8 bg-primary/20 rounded mb-8"></div>
-              <div className="space-y-2">
-                {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="h-8 w-full bg-white/5 rounded hover:bg-white/10 transition-colors"></div>
+          {/* Main Content Area */}
+          <div className="relative grid grid-cols-1 md:grid-cols-12 h-[500px] md:h-[650px] divide-x divide-white/5 bg-background/20">
+
+            {/* Sidebar (Dimmed) */}
+            <div className="hidden md:block md:col-span-2 p-4 space-y-6 bg-black/20 backdrop-blur-sm">
+              <div className="h-8 w-8 bg-gradient-to-br from-primary to-primary/50 rounded-lg shadow-lg shadow-primary/20 mb-8 animate-pulse-slow"></div>
+              <div className="space-y-3 opacity-60">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <div key={i} className="h-2 w-full bg-white/10 rounded-full"></div>
                 ))}
               </div>
             </div>
 
-            {/* Main Content */}
-            <div className="col-span-12 md:col-span-10 p-6 md:p-8 bg-background/50">
-              <div className="flex justify-between items-center mb-8">
-                <div>
-                  <div className="h-8 w-48 bg-white/10 rounded mb-2"></div>
-                  <div className="h-4 w-32 bg-white/5 rounded"></div>
-                </div>
-                <div className="h-10 w-32 bg-primary/20 rounded"></div>
-              </div>
+            {/* Dashboard Workspace */}
+            <div className="col-span-12 md:col-span-10 p-6 md:p-8 flex flex-col gap-8 bg-gradient-to-b from-transparent to-black/40">
 
-              {/* Stats Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              {/* Header Stats Zone */}
+              <div className="grid grid-cols-3 gap-6">
                 {[
-                  { icon: Shield, color: "text-primary", label: "Auth Users" },
-                  { icon: Database, color: "text-secondary", label: "Database Query" },
-                  { icon: LayoutDashboard, color: "text-accent", label: "API Requests" }
+                  { label: "Active Users", val: "24.5k", color: "text-blue-400", bg: "bg-blue-500/10", border: "border-blue-500/20" },
+                  { label: "Requests/s", val: "1.2k", color: "text-green-400", bg: "bg-green-500/10", border: "border-green-500/20" },
+                  { label: "Avg Latency", val: "45ms", color: "text-orange-400", bg: "bg-orange-500/10", border: "border-orange-500/20" }
                 ].map((stat, i) => (
-                  <div key={i} className="p-4 rounded-lg border border-white/5 bg-white/5">
-                    <stat.icon className={`w-6 h-6 ${stat.color} mb-3`} />
-                    <div className="h-6 w-24 bg-white/10 rounded mb-2"></div>
-                    <div className="h-4 w-16 bg-white/5 rounded"></div>
+                  <div key={i} className={`p-4 rounded-xl border ${stat.border} ${stat.bg} backdrop-blur-md flex flex-col justify-between group hover:brightness-110 transition-all cursor-default`}>
+                    <span className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">{stat.label}</span>
+                    <span className={`text-2xl font-bold ${stat.color} font-mono mt-1`}>{stat.val}</span>
                   </div>
                 ))}
               </div>
 
-              {/* Code Preview Section */}
-              <div className="rounded-lg border border-white/10 bg-[#0D1117] p-4 font-mono text-sm overflow-hidden relative">
-                <div className="absolute top-4 right-4 flex items-center gap-2 text-xs text-muted-foreground">
-                  <Terminal className="w-3 h-3" /> tsx
+              {/* Execution Status Overlay */}
+              <div className="absolute bottom-4 right-4 bg-[#1F2430] border border-white/10 rounded-lg p-3 shadow-xl backdrop-blur-md flex items-center gap-3 animate-slide-in-right opacity-0" style={{ animationDelay: '1000ms', animationFillMode: 'forwards' }}>
+                <div className="relative">
+                  <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                  <div className="w-2 h-2 rounded-full bg-green-500 absolute inset-0 animate-ping"></div>
                 </div>
-                <div className="space-y-1 text-muted-foreground">
-                  <div className="flex"><span className="text-primary">import </span> {"{"} auth {"}"} <span className="text-primary"> from </span> <span className="text-green-300"> "@/lib/auth"</span>;</div>
-                  <div className="flex"><span className="text-primary">import</span> {"{"} db {"}"} <span className="text-primary">from</span> <span className="text-green-300">"@/db"</span>;</div>
-                  <div className="h-2"></div>
-                  <div className="flex"><span className="text-primary">export</span> <span className="text-secondary">async</span> <span className="text-primary">function</span> <span className="text-yellow-300">signup</span>(formData: FormData) {"{"}</div>
-                  <div className="pl-4 flex"><span className="text-muted-foreground">// 1. Type-safe validation & auth</span></div>
-                  <div className="pl-4 flex"><span className="text-primary">const</span> session = <span className="text-primary">await</span> auth.<span className="text-blue-400">validateRequest</span>();</div>
-                  <div className="pl-4 flex"><span className="text-primary">if</span> (!session) <span className="text-primary">throw</span> <span className="text-primary">new</span> <span className="text-yellow-300">Error</span>(<span className="text-green-300">"Unauthorized"</span>);</div>
-                  <div className="h-2"></div>
-                  <div className="pl-4 flex"><span className="text-muted-foreground">// 2. Create user with full type safety</span></div>
-                  <div className="pl-4 flex"><span className="text-primary">const</span> user = <span className="text-primary">await</span> db.<span className="text-blue-400">user</span>.<span className="text-blue-400">create</span>({"{"}</div>
-                  <div className="pl-8 flex">email: formData.<span className="text-blue-400">get</span>(<span className="text-green-300">"email"</span>),</div>
-                  <div className="pl-8 flex">role: <span className="text-green-300">"admin"</span>,</div>
-                  <div className="pl-4 flex">{"}"});</div>
-                  <div className="h-2"></div>
-                  <div className="pl-4 flex"><span className="text-primary">return</span> redirect(<span className="text-green-300">"/dashboard"</span>);</div>
-                  <div>{"}"}</div>
+                <div className="text-xs">
+                  <div className="text-green-400 font-semibold">Checks Passed</div>
+                  <div className="text-muted-foreground">0ms compilation</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Custom Keyframes for animations */}
+      <style jsx global>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
+        @keyframes cursor-blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        .animate-cursor-blink {
+            animation: cursor-blink 1s step-end infinite;
+        }
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+      `}</style>
     </>
   )
 }
