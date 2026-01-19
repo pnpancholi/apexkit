@@ -1,8 +1,8 @@
 import Link from "next/link";
 import React from "react";
-import type { Session } from "@/types/auth"
+import type { User } from "@/types/auth"
 
-const Navbar: React.FC<{ user: Session | null }> = async (user) => {
+const Navbar: React.FC<{ user: User | null }> = async ({ user }) => {
   const navLinks = [
     {
       name: "blog",

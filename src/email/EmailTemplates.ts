@@ -1,7 +1,7 @@
 import type { EmailTemplate } from "./emailProvider"
 
 export const magicLinkTemplate = (url: string): EmailTemplate => ({
-  subject: "Sign into your using magic link",
+  subject: "Sign into your account using magic link",
   html: `
     <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px;">
       <h2>Sign in to your account</h2>
@@ -40,11 +40,11 @@ export const resetPasswordTemplate = (url: string): EmailTemplate => ({
   subject: "Reset your password",
   html: `
     <div style="font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px;">
-      <h2>Verify Your Email</h2>
-      <p>Click the button below to confirm your email address:</p>
+      <h2>Reset Your Password</h2>
+      <p>Click the button below to reset your password:</p>
       <div style="text-align: center; margin: 30px 0;">
         <a href="${url}" style="background: #0066ff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">
-          Verify Email
+          Reset Password
         </a>
       </div>
       <p style="color: #666; font-size: 14px;">Or copy and paste this link:</p>
