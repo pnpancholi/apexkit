@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, boolean, uuid, primaryKey } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, primaryKey } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(), //Better-Auth expects this.

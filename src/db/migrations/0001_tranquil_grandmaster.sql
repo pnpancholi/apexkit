@@ -1,0 +1,2 @@
+ALTER TABLE "user" RENAME COLUMN "email_verfied" TO "email_verified";--> statement-breakpoint
+ALTER TABLE "verification_table" ADD CONSTRAINT "verification_table_identifier_token_pk" PRIMARY KEY("identifier","token");
