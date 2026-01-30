@@ -1,13 +1,18 @@
 "use client";
 import Link from "next/link";
 import { useActionState } from "react";
-import { signUp } from "@/actions/auth";
+import { signInWithGoogle, signUp } from "@/actions/auth";
+import { FaGoogle } from "react-icons/fa";
 
 export default function SignUp() {
   const [signUpState, signUpAction, signUpPending] = useActionState(
     signUp,
     null,
   );
+  const [signUpWithGoogleState, signUpWithGoogleAction, signUpWithGooglePending] = useActionState(
+    signInWithGoogle,
+    null
+  )
   return (
     <div className="flex min-h-screen justify-center bg-base-200 px-4 py-12">
       <div className="w-full max-w-md">
@@ -47,11 +52,15 @@ export default function SignUp() {
               <button
                 type="submit"
                 formAction={signUpAction}
-                className="btn btn-primary my-5"
+                className="btn btn-primary my-5 w-full"
                 disabled={signUpPending}
               >
                 {signUpPending ? "Creating Account" : "Create Account"}
               </button>
+              <div className="divider">Or</div>
+              <button type="button" onClick={signInWithGoogle} className="btn btn-secondary my-2 w-full" disabled={signUpWithGooglePending}>
+                <FaGoogle />
+                Sign In with Google</button>
             </form>
 
             <div>

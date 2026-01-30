@@ -128,3 +128,13 @@ export async function updateEmail(newEmail: string): Promise<ActionResponse> {
 
 }
 
+export async function signInWithGoogle() {
+  try {
+    const data = await authClient.signIn.social({ provider: "google", callbackURL: "/profile" })
+    console.log("social login", data)
+
+  } catch (error) {
+    console.error("[signInWithGoogle]: Unexpected error", error)
+    return { success: false, message: "Something went wrong, Please try again later" }
+  }
+}

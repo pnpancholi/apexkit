@@ -77,7 +77,19 @@ const Navbar: React.FC<{ user: User | null }> = async ({ user }) => {
             </li>
           </ul>
         </div>
-        <Link href="/sign-in" className="btn btn-primary">Sign In</Link>
+        {user ?
+          <Link href="/profile">
+            <div className="avatar placeholder">
+              <div className="flex items-center justify-center bg-primary text-primary-content rounded-full w-10">
+                <span className="text-sm">
+                  {user.name?.charAt(0).toUpperCase()}
+                </span>
+              </div>
+            </div>
+          </Link>
+          :
+          <Link href="/sign-in" className="btn btn-primary">Sign In</Link>
+        }
       </div>
     </div>
   );

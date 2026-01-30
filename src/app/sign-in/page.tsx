@@ -1,8 +1,9 @@
 "use client";
 
 import { useActionState } from "react";
-import { signInWithPassword, sendMagicLink } from "@/actions/auth";
+import { signInWithPassword, sendMagicLink, signInWithGoogle } from "@/actions/auth";
 import Link from "next/link";
+import { FaGoogle } from "react-icons/fa"
 
 export default function SignIn() {
   const [passwordState, passwordAction, passwordPending] = useActionState(
@@ -46,14 +47,15 @@ export default function SignIn() {
               {/*---------------------------------------------------------------*/}
               <button
                 type="submit"
-                className="btn btn-primary my-5"
+                className="btn btn-primary my-5 w-full"
                 formAction={passwordAction}
                 disabled={passwordPending}
               >
                 {passwordPending ? "Signing In..." : "Sign In with Password"}
               </button>
             </form>
-            <div className="divider">OR</div>
+            <button className="btn btn-secondary my-2" onClick={signInWithGoogle}><FaGoogle />Sign In with Google</button>
+            <div className="divider"> Or</div>
 
             {/*-----------------------Magic Link--------------------------------*/}
             <form className="space-y-4">
@@ -82,7 +84,7 @@ export default function SignIn() {
               {/*--------------------------------------------------------------------*/}
               <button
                 type="submit"
-                className="btn btn-secondary my-2"
+                className="btn btn-secondary my-5 w-full"
                 formAction={magicLinkAction}
                 disabled={magicLinkPending}
               >
