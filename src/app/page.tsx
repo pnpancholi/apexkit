@@ -3,9 +3,7 @@
 import { FingerprintPattern, ShieldX, Rocket, Braces, Palette, Zap } from "lucide-react"
 import Hero from "@/assets/Hero"
 import HeroPulse from "@/assets/HeroPulse"
-import FingerPrint from "@/assets/FingerPrint"
-import ProgressiveUI from "@/assets/ProgressiveUI"
-import DBSwitch from "@/assets/DBSwitch"
+import Link from "next/link"
 
 export default function Home() {
   const featuresList = [
@@ -72,11 +70,10 @@ export default function Home() {
   return (
     <>
       <section className="relative min-h-screen flex flex-col items-center pt-32 pb-16 overflow-hidden">
-        <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]">
-          <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/20 opacity-20 blur-[100px]"></div>
-        </div>
+        {/*Grid*/}
+        <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
         {/*Hero Section*/}
-        <div className="flex flex-col items-center justify-center text-center px-4">
+        <div className="z-10 flex flex-col items-center justify-center text-center px-4">
           <div className="space-y-8 max-w-4xl mx-auto">
             <h1 className="text-5xl font-bold mb-8 text-primary">
               Start Your Next Venture
@@ -93,8 +90,10 @@ export default function Home() {
               No config overhead. No surprise invoices.
             </p>
             <div className="flex justify-center gap-4">
-              <button className="btn btn-primary btn-lg">Read the docs</button>
-              <button className="btn btn-accent btn-lg">Switch Theme</button>
+              <a href="https://docs.apexkit.site" target="_blank"
+                rel="noopener noreferrer" className="btn btn-primary btn-lg">Read the docs</a>
+              <a href="https://github.com/pnpancholi/apexkit" target="_blank"
+                rel="noopener noreferrer" className="btn btn-accent btn-lg">Source Code</a>
             </div>
             <Hero />
           </div>
