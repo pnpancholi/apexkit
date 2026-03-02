@@ -50,7 +50,7 @@ export default function Home() {
     {
       name: "Next JS",
       imageURL:
-        "https://assets.vercel.com/image/upload/v1662130272/nextjs-black-logo.svg",
+        "https://cdn.simpleicons.org/nextdotjs/white",
     },
     {
       name: "TypeScript",
@@ -59,14 +59,14 @@ export default function Home() {
     },
     {
       name: "Tailwind CSS",
-      imageURL: "https://tailwindcss.com/favicons/favicon-32x32.png",
+      imageURL: "https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg",
     },
 
-    { name: "daisy UI", imageURL: "https://daisyui.com/favicon.ico" },
-    { name: "Better Auth", imageURL: "https://www.better-auth.com/logo.svg" },
+    { name: "daisy UI", imageURL: "https://img.daisyui.com/images/daisyui/daisyui-logo-2000.png" },
+    { name: "Better Auth", imageURL: "https://i.postimg.cc/mgL1ZvKR/better-auth-logo-dark-136b122f.png" },
     {
-      name: "Drizzle",
-      imageURL: "https://drizzle.team/assets/logo.svg",
+      name: "Drizzle ORM",
+      imageURL: "https://orm.drizzle.team/svg/drizzle.svg",
     },
   ];
   return (

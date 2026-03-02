@@ -2,7 +2,7 @@
 
 @plugin "daisyui" {
     themes:
-        night --default;
+        sunset --default;
     root: ":root";
     logs: true;
 }
