@@ -152,37 +152,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Text Section - Right side */}
-      {/*--------------------------------------------Why ApexKit Section ----------------------------*/}
-      <section className="py-16 bg-base-100 text-base-content">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-4">Why ApexKit</h2>
-          {/*---------------------------------------------------*/}
-          <div className="card lg:card-side bg-base-200 shadow-xl hover:shadow-2xl transition-all duration-300">
-            <figure className="flex-1 p-8 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-l-2xl">
-              <FingerPrint />
-            </figure>
-            <div className="card-body flex-1 justify-between text-right p-8">
-              <div>
-                <h2 className="card-title text-3xl font-bold text-primary justify-end mb-2">
-                  Authentication!
-                </h2>
-                <p className="text-base-content/80 leading-relaxed mt-4">
-                  Complete authentication system with email/password, OAuth providers,
-                  magic links, and password reset flows. Production-ready and fully
-                  customizable to match your brand.
-                </p>
-              </div>
-              <div className="mt-6">
-                <button className="btn btn-primary btn-md">Learn More</button>
-              </div>
-            </div>
-          </div>
-
-          <ProgressiveUI />
-          <DBSwitch />
-        </div>
-      </section>
       {/*Made by - ribbon footer*/}
       <p className="text-sm text-base-content/60 text-center py-12">
         Built with{" "}
