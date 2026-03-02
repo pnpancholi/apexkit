@@ -86,8 +86,7 @@ const Navbar: React.FC<{ user: User | null }> = async ({ user }) => {
                 </span>
               </div>
             </div>
-          </Link>
-          :
+          </Link> :
           <Link href="/sign-in" className="btn btn-primary">Sign In</Link>
         }
       </div>
