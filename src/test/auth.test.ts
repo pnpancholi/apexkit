@@ -28,7 +28,7 @@ beforeEach(() => {
 //-------------Imports---------------------//
 import { redirect } from "next/navigation"
 import { authClient } from "@/auth/client"
-import { signUp } from "@/actions/auth"
+import { signInWithPassword, signUp } from "@/actions/auth"
 
 describe("Sign-Up", () => {
   const formData = new FormData()
@@ -65,12 +65,23 @@ describe("Sign-In With Email", () => {
   formData.append("password", "mystrongpassword")
 
   it("redirects to /profile on success", async () => {
+    vi.mocked(authClient.signIn.email).mockResolvedValue({ error: null, data: null })
+    await signInWithPassword(null, formData)
 
+    expect(redirect).toHaveBeenCalledWith("/profile")
   })
   it("catched error on signIn error", async () => {
+    vi.mocked(authClient.signIn.email).mockResolvedValue({ error: { message: "Invalid email or password" }, data: null })
+    const res = await signInWithPassword(null, formData)
+
+    expect(res).toEqual({ success: false, message: "Invalid email or password" })
+    expect(redirect).not.toHaveBeenCalled()
 
   })
   it("handles unexpected error on signIn", async () => {
+    vi.mocked(authClient.signIn.email).mockRejectedValue(new Error("Network Error"))
+    const res = await signInWithPassword(null, formData)
 
+    expect(res).toEqual({ success: false, message: "Something went wrong, Please try again later" })
   })
 })
