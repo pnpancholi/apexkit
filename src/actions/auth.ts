@@ -128,7 +128,7 @@ export async function updateEmail(newEmail: string): Promise<ActionResponse> {
 
 }
 
-export async function signInWithGoogle() {
+export async function signInWithGoogle(): Promise<ActionResponse> {
   try {
     const data = await authClient.signIn.social({ provider: "google", callbackURL: "/profile" })
     console.log("social login", data)

@@ -28,7 +28,7 @@ beforeEach(() => {
 //-------------Imports---------------------//
 import { redirect } from "next/navigation"
 import { authClient } from "@/auth/client"
-import { requestPasswordReset, resetPassword, sendMagicLink, signInWithGoogle, signInWithPassword, signUp } from "@/actions/auth"
+import { requestPasswordReset, resetPassword, sendMagicLink, signInWithGoogle, signInWithPassword, signUp, updateEmail } from "@/actions/auth"
 import { warn } from "console"
 
 describe("Sign-Up", () => {
@@ -231,6 +231,42 @@ describe("Sign-In With Google", () => {
       provider: "google",
       callbackURL: "/profile",
     })
+    expect(res).toEqual({ success: false, message: "Something went wrong, Please try again later" })
+  })
+})
+
+describe("Update Email", () => {
+  const newEmail = "new.test@example.com"
+
+  it("sends verification email on successful update", async () => {
+    vi.mocked(authClient.changeEmail).mockResolvedValue({ error: null, data: null })
+    const res = await updateEmail(newEmail)
+
+    expect(authClient.changeEmail).toHaveBeenCalledWith({ newEmail })
+    expect(res).toEqual({ success: true, message: "Verification email sent to the new email address" })
+  })
+
+  it("returns error for invalid email format", async () => {
+    const invalidEmail = "invalid@email"
+    const res = await updateEmail(invalidEmail)
+
+    expect(authClient.changeEmail).not.toHaveBeenCalled()
+    expect(res).toEqual({ success: false, message: "Invalid email address" })
+  })
+
+  it("returns error on update email failure", async () => {
+    vi.mocked(authClient.changeEmail).mockResolvedValue({ error: { message: "This email is invalid" }, data: null })
+    const res = await updateEmail(newEmail)
+
+    expect(authClient.changeEmail).toHaveBeenCalledWith({ newEmail })
+    expect(res).toEqual({ success: false, message: "This email is invalid" })
+  })
+
+  it("handles unexpected error on update email", async () => {
+    vi.mocked(authClient.changeEmail).mockRejectedValue(new Error("Network Error"))
+    const res = await updateEmail(newEmail)
+
+    expect(authClient.changeEmail).toHaveBeenCalledWith({ newEmail })
     expect(res).toEqual({ success: false, message: "Something went wrong, Please try again later" })
   })
 })
