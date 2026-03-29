@@ -28,7 +28,7 @@ beforeEach(() => {
 //-------------Imports---------------------//
 import { redirect } from "next/navigation"
 import { authClient } from "@/auth/client"
-import { requestPasswordReset, resetPassword, sendMagicLink, signInWithPassword, signUp } from "@/actions/auth"
+import { requestPasswordReset, resetPassword, sendMagicLink, signInWithGoogle, signInWithPassword, signUp } from "@/actions/auth"
 import { warn } from "console"
 
 describe("Sign-Up", () => {
@@ -206,6 +206,30 @@ describe("Reset Password", () => {
     expect(authClient.resetPassword).toHaveBeenCalledWith({
       newPassword,
       token,
+    })
+    expect(res).toEqual({ success: false, message: "Something went wrong, Please try again later" })
+  })
+})
+
+describe("Sign-In With Google", () => {
+  it("calls authClient.signIn.social on success", async () => {
+    vi.mocked(authClient.signIn.social).mockResolvedValue({ error: null, data: { url: "/profile" } })
+    const res = await signInWithGoogle()
+
+    expect(authClient.signIn.social).toHaveBeenCalledWith({
+      provider: "google",
+      callbackURL: "/profile",
+    })
+    expect(res).toEqual({ success: true, message: "success" })
+  })
+
+  it("handles unexpected error on social sign-in", async () => {
+    vi.mocked(authClient.signIn.social).mockRejectedValue(new Error("Network Error"))
+    const res = await signInWithGoogle()
+
+    expect(authClient.signIn.social).toHaveBeenCalledWith({
+      provider: "google",
+      callbackURL: "/profile",
     })
     expect(res).toEqual({ success: false, message: "Something went wrong, Please try again later" })
   })

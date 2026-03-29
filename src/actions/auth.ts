@@ -132,6 +132,7 @@ export async function signInWithGoogle() {
   try {
     const data = await authClient.signIn.social({ provider: "google", callbackURL: "/profile" })
     console.log("social login", data)
+    return { success: true, message: "success" }
 
   } catch (error) {
     console.error("[signInWithGoogle]: Unexpected error", error)
