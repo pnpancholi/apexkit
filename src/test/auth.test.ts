@@ -28,7 +28,7 @@ beforeEach(() => {
 //-------------Imports---------------------//
 import { redirect } from "next/navigation"
 import { authClient } from "@/auth/client"
-import { requestPasswordReset, sendMagicLink, signInWithPassword, signUp } from "@/actions/auth"
+import { requestPasswordReset, resetPassword, sendMagicLink, signInWithPassword, signUp } from "@/actions/auth"
 import { warn } from "console"
 
 describe("Sign-Up", () => {
@@ -160,6 +160,52 @@ describe("Request Password Reset", () => {
     expect(authClient.requestPasswordReset).toHaveBeenCalledWith({
       email: "test01@email.com",
       redirectTo: "/reset-password",
+    })
+    expect(res).toEqual({ success: false, message: "Something went wrong, Please try again later" })
+  })
+})
+
+describe("Reset Password", () => {
+  const newPassword = "newpassword123"
+  const token = "mysafetoken"
+
+  it("resets password successfully", async () => {
+    vi.mocked(authClient.resetPassword).mockResolvedValue({ error: null, data: null })
+    const res = await resetPassword(newPassword, token)
+
+    expect(authClient.resetPassword).toHaveBeenCalledWith({
+      newPassword,
+      token,
+    })
+    expect(res).toEqual({ success: true, message: "Password reset successfully !" })
+  })
+
+  it("returns error if password is too short", async () => {
+    const shortPassword = "short"
+    const res = await resetPassword(shortPassword, token)
+
+    expect(authClient.resetPassword).not.toHaveBeenCalled()
+    expect(res).toEqual({ success: false, message: "Password must be at least 8 characters" })
+  })
+
+  it("returns error on reset password failure", async () => {
+    vi.mocked(authClient.resetPassword).mockResolvedValue({ error: { message: "Failed to reset password, Try again" }, data: null })
+    const res = await resetPassword(newPassword, token)
+
+    expect(authClient.resetPassword).toHaveBeenCalledWith({
+      newPassword,
+      token,
+    })
+    expect(res).toEqual({ success: false, message: "Failed to reset password, Try again" })
+  })
+
+  it("handles unexpected error on reset password", async () => {
+    vi.mocked(authClient.resetPassword).mockRejectedValue(new Error("Network Error"))
+    const res = await resetPassword(newPassword, token)
+
+    expect(authClient.resetPassword).toHaveBeenCalledWith({
+      newPassword,
+      token,
     })
     expect(res).toEqual({ success: false, message: "Something went wrong, Please try again later" })
   })
