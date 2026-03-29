@@ -28,7 +28,7 @@ beforeEach(() => {
 //-------------Imports---------------------//
 import { redirect } from "next/navigation"
 import { authClient } from "@/auth/client"
-import { signInWithPassword, signUp } from "@/actions/auth"
+import { sendMagicLink, signInWithPassword, signUp } from "@/actions/auth"
 
 describe("Sign-Up", () => {
   const formData = new FormData()
@@ -82,6 +82,50 @@ describe("Sign-In With Email", () => {
     vi.mocked(authClient.signIn.email).mockRejectedValue(new Error("Network Error"))
     const res = await signInWithPassword(null, formData)
 
+    expect(res).toEqual({ success: false, message: "Something went wrong, Please try again later" })
+  })
+})
+
+describe("Magic Link Sign-In", () => {
+  const formData = new FormData()
+  formData.append("email", "test01@email.com")
+
+  it("sends a magic link on success", async () => {
+    vi.mocked(authClient.signIn.magicLink).mockResolvedValue({ error: null, data: null })
+    const res = await sendMagicLink(null, formData)
+
+    expect(authClient.signIn.magicLink).toHaveBeenCalledWith({
+      email: "test01@email.com",
+      callbackURL: "/",
+      newUserCallbackURL: "/",
+      errorCallbackURL: "/",
+    })
+    expect(res).toEqual({ success: true, message: "Magic link is on its way" })
+  })
+
+  it("catches error when email is not recognized", async () => {
+    vi.mocked(authClient.signIn.magicLink).mockResolvedValue({ error: { message: "Sorry, we don't recognise that email" }, data: null })
+    const res = await sendMagicLink(null, formData)
+
+    expect(authClient.signIn.magicLink).toHaveBeenCalledWith({
+      email: "test01@email.com",
+      callbackURL: "/",
+      newUserCallbackURL: "/",
+      errorCallbackURL: "/",
+    })
+    expect(res).toEqual({ success: false, message: "Sorry, we don't recognise that email" })
+  })
+
+  it("handles unexpected error on sending magic link", async () => {
+    vi.mocked(authClient.signIn.magicLink).mockRejectedValue(new Error("Network Error"))
+    const res = await sendMagicLink(null, formData)
+
+    expect(authClient.signIn.magicLink).toHaveBeenCalledWith({
+      email: "test01@email.com",
+      callbackURL: "/",
+      newUserCallbackURL: "/",
+      errorCallbackURL: "/",
+    })
     expect(res).toEqual({ success: false, message: "Something went wrong, Please try again later" })
   })
 })
