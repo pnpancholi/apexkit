@@ -28,7 +28,8 @@ beforeEach(() => {
 //-------------Imports---------------------//
 import { redirect } from "next/navigation"
 import { authClient } from "@/auth/client"
-import { sendMagicLink, signInWithPassword, signUp } from "@/actions/auth"
+import { requestPasswordReset, sendMagicLink, signInWithPassword, signUp } from "@/actions/auth"
+import { warn } from "console"
 
 describe("Sign-Up", () => {
   const formData = new FormData()
@@ -125,6 +126,40 @@ describe("Magic Link Sign-In", () => {
       callbackURL: "/",
       newUserCallbackURL: "/",
       errorCallbackURL: "/",
+    })
+    expect(res).toEqual({ success: false, message: "Something went wrong, Please try again later" })
+  })
+})
+
+describe("Request Password Reset", () => {
+  const formData = new FormData()
+  formData.append("email", "test01@email.com")
+
+  it("Redirects to /reset-password on success", async () => {
+    vi.mocked(authClient.requestPasswordReset).mockResolvedValue({ error: null, data: null })
+    const res = await requestPasswordReset(null, formData)
+
+    expect(res).toEqual({ success: true, message: "Check your inbox" })
+  })
+
+  it("catches error when email is not recognized", async () => {
+    vi.mocked(authClient.requestPasswordReset).mockResolvedValue({ error: { message: "We do not recognise that email" }, data: null })
+    const res = await requestPasswordReset(null, formData)
+
+    expect(authClient.requestPasswordReset).toHaveBeenCalledWith({
+      email: "test01@email.com",
+      redirectTo: "/reset-password",
+    })
+    expect(res).toEqual({ success: false, message: "We do not recognise that email" })
+  })
+
+  it("handles unexpected error on request password reset", async () => {
+    vi.mocked(authClient.requestPasswordReset).mockRejectedValue(new Error("Network Error"))
+    const res = await requestPasswordReset(null, formData)
+
+    expect(authClient.requestPasswordReset).toHaveBeenCalledWith({
+      email: "test01@email.com",
+      redirectTo: "/reset-password",
     })
     expect(res).toEqual({ success: false, message: "Something went wrong, Please try again later" })
   })
