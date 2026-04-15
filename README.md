@@ -58,7 +58,7 @@ pnpm run dev
 ApexKit is a solo-developer, open-source project. Here’s how to get help:
 
 ### 1. Documentation  
-99 % of questions are already answered in the docs → start here.
+99 % of questions are already answered in the docs → [start here](https://docs.apexkit.site)
 
 ### 2. GitHub Issues  
 Perfect for bugs, feature requests, or documentation fixes.  
