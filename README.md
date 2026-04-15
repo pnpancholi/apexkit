@@ -36,7 +36,7 @@ Enabling builders to ship prodiuction-grade software rapidly.
 
 | Feature                        | Included | Notes                                                                     | 
 |--------------------------------|----------|---------------------------------------------------------------------------| 
-| Next.js 16 + App Router        | Yes      | (App Router + React Server Components)                                    |
+| Next.js 15 + App Router        | Yes      | (App Router + React Server Components)                                    |
 | Drizzle ORM                    | Yes      | type-safe, SQL, and flexible to works with DB solution of your choice.    |
 | Better Auth                    | Yes      | Fine-tuned authentication without vendor lock-in                          |
 | TailwindCSS + DaisyUI          | Yes      | beautiful and accessible UI out of the box                                |
@@ -70,6 +70,6 @@ Quick questions, “how do I…?”, showcase your builds.
 
 ### 4. Paid / Priority Support  
 Need guaranteed response time or 1-on-1 help?  
-→ DM me on Twitter @yourhandle or email hello@yourdomain.com
+→ DM me on Twitter @knowpradhumna
 
 I reply as fast as I can, but I also have a day job — thanks for understanding 🙌
