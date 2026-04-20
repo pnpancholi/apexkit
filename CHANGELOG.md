@@ -3,13 +3,34 @@
 ## [Unreleased]
 
 ### Added
+
+### Changed
+
+### Removed
+
+### Fixed
+
+## [0.2.0] - 2026-04-20
+
+### Added
+- Vitest for unit and integration testing.
+
+### Changed
+
+### Removed
+
+### Fixed
+
+## [0.1.0] - 2026-04-20
+
+### Added
 - Initial project setup with ApexKit base features:
     - Next.js 16 with App Router and React Server Components.
     - Drizzle ORM for type-safe database interactions.
     - Better Auth for robust authentication flows.
     - TailwindCSS and DaisyUI for modern UI styling.
     - TypeScript for enhanced type safety and developer experience.
-    - Vitest for unit and integration testing.
+
 
 ### Changed
 - Prepared for codebase cleanup and optimization, including:
