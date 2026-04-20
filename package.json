@@ -6,6 +6,8 @@
     "test": "vitest",
     "test:watch": "vitest --watch",
     "test:coverage": "vitest --coverage",
+    "lint": "biome lint ./src",
+    "fmt": "biome format --write ./src",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -32,6 +34,7 @@
     "tailwindcss": "^4.1.12"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.4.12",
     "@types/node": "^20.19.24",
     "@types/pg": "^8.15.6",
     "@types/react": "^19",

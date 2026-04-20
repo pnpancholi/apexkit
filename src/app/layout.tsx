@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getUser } from "@/auth/utils";
 
-//For font awesome// 
+//For font awesome//
 import { Inter } from "next/font/google";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
@@ -14,28 +14,28 @@ config.autoAddCss = false;
 const inter = Inter({ subsets: ["latin"] });
 
 const jMono = JetBrains_Mono({
-  subsets: ["latin"]
-})
+	subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
-  title: "ApexKit",
-  description:
-    "The blazing fast tool to help you build your next billion dollar, unicorn company",
+	title: "ApexKit",
+	description:
+		"The blazing fast tool to help you build your next billion dollar, unicorn company",
 };
 
 export default async function RootLayout({
-  children,
+	children,
 }: Readonly<{
-  children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-  const user = await getUser()
-  return (
-    <html lang="en" className="h-full">
-      <body className={`${jMono.className}  h-full overscroll-y-none`}>
-        <Navbar user={user} />
-        <div className="flex flex-col min-h-screen">{children}</div>
-        <Footer />
-      </body>
-    </html>
-  );
+	const user = await getUser();
+	return (
+		<html lang="en" className="h-full">
+			<body className={`${jMono.className}  h-full overscroll-y-none`}>
+				<Navbar user={user} />
+				<div className="flex flex-col min-h-screen">{children}</div>
+				<Footer />
+			</body>
+		</html>
+	);
 }

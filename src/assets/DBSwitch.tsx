@@ -1,50 +1,55 @@
 export default function DatabaseConfigFade() {
-  return (
-    <div className="w-full max-w-2xl mx-auto">
+	return (
+		<div className="w-full max-w-2xl mx-auto">
+			{/* Code Editor Card */}
+			<div className="bg-base-300 rounded-2xl p-6 border border-base-content/10 shadow-xl">
+				{/* Window Controls */}
+				<div className="flex items-center gap-2 mb-4">
+					<div className="w-3 h-3 rounded-full bg-error"></div>
+					<div className="w-3 h-3 rounded-full bg-warning"></div>
+					<div className="w-3 h-3 rounded-full bg-success"></div>
+					<span className="ml-2 text-xs text-base-content/60">.env.local</span>
+				</div>
 
-      {/* Code Editor Card */}
-      <div className="bg-base-300 rounded-2xl p-6 border border-base-content/10 shadow-xl">
+				{/* Code Content */}
+				<div className="font-mono text-sm space-y-2">
+					{/* Comment Line */}
+					<div className="text-base-content/50"># Database Configuration</div>
 
-        {/* Window Controls */}
-        <div className="flex items-center gap-2 mb-4">
-          <div className="w-3 h-3 rounded-full bg-error"></div>
-          <div className="w-3 h-3 rounded-full bg-warning"></div>
-          <div className="w-3 h-3 rounded-full bg-success"></div>
-          <span className="ml-2 text-xs text-base-content/60">.env.local</span>
-        </div>
+					{/* DATABASE_URL Line */}
+					<div className="flex items-center">
+						<span className="text-warning">DATABASE_URL</span>
+						<span className="text-base-content">=</span>
+						<span className="text-success">&quot;postgresql://user:pass@</span>
 
-        {/* Code Content */}
-        <div className="font-mono text-sm space-y-2">
-          {/* Comment Line */}
-          <div className="text-base-content/50"># Database Configuration</div>
+						{/* Animated Domain Part */}
+						<span className="relative inline-block overflow-hidden">
+							<span className="text-success animate-domain-1">
+								db.supabase.co
+							</span>
+							<span className="text-success animate-domain-2 absolute left-0 opacity-0">
+								ep-cool.neon.tech
+							</span>
+							<span className="text-success animate-domain-3 absolute left-0 opacity-0">
+								quiet-sky.fly.dev
+							</span>
+						</span>
 
-          {/* DATABASE_URL Line */}
-          <div className="flex items-center">
-            <span className="text-warning">DATABASE_URL</span>
-            <span className="text-base-content">=</span>
-            <span className="text-success">&quot;postgresql://user:pass@</span>
+						<span className="text-success">/mydb&quot;</span>
+					</div>
 
-            {/* Animated Domain Part */}
-            <span className="relative inline-block overflow-hidden">
-              <span className="text-success animate-domain-1">db.supabase.co</span>
-              <span className="text-success animate-domain-2 absolute left-0 opacity-0">ep-cool.neon.tech</span>
-              <span className="text-success animate-domain-3 absolute left-0 opacity-0">quiet-sky.fly.dev</span>
-            </span>
+					{/* Static Lines */}
+					<div className="text-base-content/70">
+						<span className="text-warning">NEXT_PUBLIC_URL</span>
+						<span className="text-base-content">=</span>
+						<span className="text-success">
+							&quot;http://localhost:3000&quot;
+						</span>
+					</div>
+				</div>
+			</div>
 
-            <span className="text-success">/mydb&quot;</span>
-          </div>
-
-          {/* Static Lines */}
-          <div className="text-base-content/70">
-            <span className="text-warning">NEXT_PUBLIC_URL</span>
-            <span className="text-base-content">=</span>
-            <span className="text-success">&quot;http://localhost:3000&quot;</span>
-          </div>
-        </div>
-
-      </div>
-
-      <style jsx>{`
+			<style jsx>{`
         @keyframes fade-out-left {
           0% { opacity: 1; transform: translateX(0); }
           45% { opacity: 1; transform: translateX(0); }
@@ -87,7 +92,6 @@ export default function DatabaseConfigFade() {
             fade-in-right 3s ease-in-out 6s infinite;
         }
       `}</style>
-
-    </div>
-  );
+		</div>
+	);
 }
