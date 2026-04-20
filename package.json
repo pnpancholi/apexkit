@@ -1,12 +1,12 @@
 {
-  "name": "the-next-startup",
+  "name": "apexit",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "test": "vitest",
     "test:watch": "vitest --watch",
     "test:coverage": "vitest --coverage",
-    "lint": "biome lint ./src",
+    "lint": "biome lint --reporter=summary",
     "fmt": "biome format --write ./src",
     "dev": "next dev",
     "build": "next build",
@@ -34,7 +34,7 @@
     "tailwindcss": "^4.1.12"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.12",
+    "@biomejs/biome": "2.3.11",
     "@types/node": "^20.19.24",
     "@types/pg": "^8.15.6",
     "@types/react": "^19",
