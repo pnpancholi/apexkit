@@ -1,10 +1,10 @@
-import { requireAuth } from "@/auth/utils";
+import { requireAuth } from '@/auth/utils'
 
-import { updateProfile, logOut } from "./actions";
+import { updateProfile, logOut } from './actions'
 
-import UpdateEmail from "./UpdateEmail";
+import UpdateEmail from './UpdateEmail'
 export default async function Profile() {
-  const user = await requireAuth();
+  const user = await requireAuth()
   return (
     <div className="flex min-h-screen bg-base-200 justify-center px-4 py-12">
       <div className="w-full max-w-md">
@@ -15,9 +15,7 @@ export default async function Profile() {
               <div className="flex  justify-center mb-4">
                 <div className="avatar placeholder">
                   <div className="flex items-center justify-center bg-primary text-primary-content rounded-full w-20">
-                    <span className="text-2xl font-bold">
-                      {user.name?.charAt(0).toUpperCase()}
-                    </span>
+                    <span className="text-2xl font-bold">{user.name?.charAt(0).toUpperCase()}</span>
                   </div>
                 </div>
               </div>
@@ -56,17 +54,13 @@ export default async function Profile() {
                 </div>
 
                 <div className="flex items-center gap-4 p-4 bg-base-200 rounded-lg">
-                  <div className="text-2xl">
-                    {user.emailVerified ? "✅" : "⏳"}
-                  </div>
+                  <div className="text-2xl">{user.emailVerified ? '✅' : '⏳'}</div>
                   <div className="text-left">
-                    <p className="text-sm text-base-content/70">
-                      Email Verification
-                    </p>
+                    <p className="text-sm text-base-content/70">Email Verification</p>
                     <p
-                      className={`font-medium ${user.emailVerified ? "text-success" : "text-warning"}`}
+                      className={`font-medium ${user.emailVerified ? 'text-success' : 'text-warning'}`}
                     >
-                      {user.emailVerified ? "Verified" : "Pending Verification"}
+                      {user.emailVerified ? 'Verified' : 'Pending Verification'}
                     </p>
                   </div>
                 </div>
@@ -76,10 +70,10 @@ export default async function Profile() {
                   <div className="text-left">
                     <p className="text-sm text-base-content/70">Member since</p>
                     <p className="font-medium">
-                      {new Date(user.createdAt).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
+                      {new Date(user.createdAt).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
                       })}
                     </p>
                   </div>
@@ -89,19 +83,11 @@ export default async function Profile() {
               {/* Action Button */}
               <div className="my-5">
                 <UpdateEmail />
-                <button
-                  formAction={updateProfile}
-                  className="btn btn-primary w-full mt-4"
-                >
+                <button formAction={updateProfile} className="btn btn-primary w-full mt-4">
                   Update Profile
                 </button>
-                <button className="btn btn-accent w-full mt-4">
-                  Reset Password
-                </button>
-                <button
-                  formAction={logOut}
-                  className="btn btn-outline w-full mt-4"
-                >
+                <button className="btn btn-accent w-full mt-4">Reset Password</button>
+                <button formAction={logOut} className="btn btn-outline w-full mt-4">
                   Sign Out
                 </button>
               </div>
@@ -110,5 +96,5 @@ export default async function Profile() {
         </div>
       </div>
     </div>
-  );
+  )
 }
