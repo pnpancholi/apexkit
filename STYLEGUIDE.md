@@ -2,6 +2,8 @@
 
 This project uses [Biome](https://biomejs.dev/) for linting and formatting. All rules are enforced via `biome.json` at the project root.
 
+Biome comes with a solid set of recommended rules enabled by default, but defaults can change between versions and implicit behaviour is hard to reason about in a team setting. This guide documents the core rules we've explicitly configured — not to override your judgment, but to give the project a consistent, predictable baseline. Rules are grouped by severity and include examples to make the reasoning clear. That said, these are starting points — teams are encouraged to adjust, extend or relax rules as their codebase evolves. Explicit is always better than assumed.
+
 Run the linter with:
 
 ```bash
