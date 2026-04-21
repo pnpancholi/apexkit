@@ -23,7 +23,20 @@
   },
   "linter": {
     "enabled": true,
-    "includes": ["./src/**/*.{tsx,ts,css}"]
+    "includes": ["./src/**/*.{tsx,ts,css}"],
+    "rules": {
+      "correctness": {
+        "noUnusedImports": "error",
+        "noUnusedVariables": "error"
+      },
+      "suspicious": {
+        "noDoubleEquals": "error",
+        "noDuplicateObjectKeys": "error"
+      },
+      "style": {
+        "useConst": "error"
+      }
+    }
   },
   "assist": {
     "enabled": true,
