@@ -27,11 +27,15 @@
     "rules": {
       "correctness": {
         "noUnusedImports": "error",
-        "noUnusedVariables": "error"
+        "noUnusedVariables": "error",
+        "useExhaustiveDependencies": "error"
       },
       "suspicious": {
         "noDoubleEquals": "error",
-        "noDuplicateObjectKeys": "error"
+        "noDuplicateObjectKeys": "error",
+        "noExplicitAny": "warn",
+        "noConsole": "error",
+        "noArrayIndexKey": "error"
       },
       "style": {
         "useConst": "error"

@@ -13,7 +13,8 @@
 ## [0.2.0] - 2026-04-20
 
 ### Added
-- Vitest for unit and integration testing.
+- Vitest Setup
+- Added tests for authentication.
 
 ### Changed
 
