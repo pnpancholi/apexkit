@@ -52,7 +52,12 @@ export default function ForgotPassword() {
               </div>
               {/* Action Button */}
               <div className="my-5">
-                <button className="btn btn-primary w-full mt-4" formAction={resetPasswordAction}>
+                <button
+                  type="submit"
+                  className="btn btn-primary w-full mt-4"
+                  formAction={resetPasswordAction}
+                  disabled={resetPasswordPending}
+                >
                   Request Password Reset
                 </button>
               </div>
