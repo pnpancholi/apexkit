@@ -6,6 +6,7 @@ export default function FingerprintScan() {
         <div className="relative w-64 h-64 mx-auto bg-base-200 rounded-3xl flex items-center justify-center shadow-xl border border-base-content/10 overflow-hidden">
           {/* Fingerprint SVG */}
           <svg
+            aria-label="fingerprint-icon"
             className="w-40 h-40 text-primary"
             viewBox="0 0 24 24"
             fill="none"
@@ -20,6 +21,7 @@ export default function FingerprintScan() {
 
           {/* Success Checkmark - appears after scan */}
           <svg
+            aria-label="checkmark-icon"
             className="absolute w-16 h-16 text-success opacity-0 animate-checkmark-appear"
             viewBox="0 0 24 24"
             fill="none"

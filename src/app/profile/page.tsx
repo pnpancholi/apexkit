@@ -83,11 +83,17 @@ export default async function Profile() {
               {/* Action Button */}
               <div className="my-5">
                 <UpdateEmail />
-                <button formAction={updateProfile} className="btn btn-primary w-full mt-4">
+                <button
+                  type="button"
+                  formAction={updateProfile}
+                  className="btn btn-primary w-full mt-4"
+                >
                   Update Profile
                 </button>
-                <button className="btn btn-accent w-full mt-4">Reset Password</button>
-                <button formAction={logOut} className="btn btn-outline w-full mt-4">
+                <button type="button" className="btn btn-accent w-full mt-4">
+                  Reset Password
+                </button>
+                <button type="button" formAction={logOut} className="btn btn-outline w-full mt-4">
                   Sign Out
                 </button>
               </div>

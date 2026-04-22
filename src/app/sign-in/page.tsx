@@ -46,7 +46,7 @@ export default function SignIn() {
                 {passwordPending ? 'Signing In...' : 'Sign In with Password'}
               </button>
             </form>
-            <button className="btn btn-secondary my-2" onClick={signInWithGoogle}>
+            <button type="button" className="btn btn-secondary my-2" onClick={signInWithGoogle}>
               <FaGoogle />
               Sign In with Google
             </button>

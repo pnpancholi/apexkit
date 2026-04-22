@@ -1,4 +1,4 @@
-import { betterAuth } from 'better-auth'
+import { betterAuth, User } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { db } from '@/db/index'
 import { magicLink } from 'better-auth/plugins'
@@ -29,11 +29,12 @@ export const auth = betterAuth({
   // Authentication with email and password
   emailAndPassword: {
     enabled: true,
-    sendResetPassword: async ({ user, url, token }, req) => {
+    // can take token aswell//
+    sendResetPassword: async ({ user, url }) => {
       await emailProvider.send(user.email, resetPasswordTemplate(url))
     },
     // toDO: send email to password updates//
-    onPasswordReset: async ({ user }, req) => {
+    onPasswordReset: async ({ user }) => {
       console.log(`Password for ${user.email} updated`)
     },
   },
@@ -45,7 +46,7 @@ export const auth = betterAuth({
   },
   emailVerification: {
     enabled: true,
-    sendVerificationEmail: async ({ user, url, token }) => {
+    sendVerificationEmail: async ({ user, url }) => {
       await emailProvider.send(user.email, verifyEmailTemplate(url))
     },
   },
@@ -66,7 +67,7 @@ export const auth = betterAuth({
   // Authentication with magicLink
   plugins: [
     magicLink({
-      sendMagicLink: async ({ email, token, url }, request) => {
+      sendMagicLink: async ({ email, url }) => {
         await emailProvider.send(email, magicLinkTemplate(url))
       },
       expiresIn: 300,

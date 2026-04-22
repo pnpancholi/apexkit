@@ -4,6 +4,7 @@ export default function CodeToUI() {
       {/* SVG Code Editor */}
       <div className="relative">
         <svg
+          aria-label="code-editor-icon"
           width="100%"
           height="280"
           viewBox="0 0 800 280"
