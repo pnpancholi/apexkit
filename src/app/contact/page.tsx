@@ -11,7 +11,7 @@ export default function Contact() {
           <div className="card-body">
             <form className="space-y-8 lebel-column">
               <div className="form-control">
-                <label className="label">
+                <label htmlFor="name" className="label">
                   <span className="label-text font-semibold">Your Name</span>
                 </label>
                 <input
@@ -24,7 +24,7 @@ export default function Contact() {
 
               {/* Email */}
               <div className="form-control">
-                <label className="label">
+                <label htmlFor="email" className="label">
                   <span className="label-text font-semibold">Email Address</span>
                 </label>
                 <input
@@ -46,7 +46,7 @@ export default function Contact() {
                   required
                 />
               </div>
-              <button className="btn btn-primary w-full my-10">
+              <button type="button" className="btn btn-primary w-full my-10">
                 <Mail />
                 Send Message
               </button>
