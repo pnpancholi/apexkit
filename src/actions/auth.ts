@@ -3,7 +3,10 @@ import { authClient } from '@/auth/client'
 
 type ActionResponse = { success: boolean; message: string }
 
-export async function signUp(_: any, formData: FormData): Promise<ActionResponse> {
+export async function signUp(
+  _: ActionResponse | null,
+  formData: FormData,
+): Promise<ActionResponse> {
   const name = formData.get('name') as string
   const email = formData.get('email') as string
   const password = formData.get('password') as string
@@ -28,7 +31,10 @@ export async function signUp(_: any, formData: FormData): Promise<ActionResponse
   redirect('/sign-in')
 }
 
-export async function signInWithPassword(_: any, formData: FormData): Promise<ActionResponse> {
+export async function signInWithPassword(
+  _: ActionResponse | null,
+  formData: FormData,
+): Promise<ActionResponse> {
   const email = formData.get('email') as string
   const password = formData.get('password') as string
   try {
@@ -46,7 +52,10 @@ export async function signInWithPassword(_: any, formData: FormData): Promise<Ac
   redirect('/profile')
 }
 
-export async function sendMagicLink(_: any, formData: FormData): Promise<ActionResponse> {
+export async function sendMagicLink(
+  _: ActionResponse | null,
+  formData: FormData,
+): Promise<ActionResponse> {
   const email = formData.get('email') as string
 
   try {
@@ -73,7 +82,10 @@ export async function sendMagicLink(_: any, formData: FormData): Promise<ActionR
   }
 }
 
-export async function requestPasswordReset(_: any, formData: FormData): Promise<ActionResponse> {
+export async function requestPasswordReset(
+  _: ActionResponse | null,
+  formData: FormData,
+): Promise<ActionResponse> {
   const email = formData.get('email') as string
   try {
     const { error } = await authClient.requestPasswordReset({
@@ -145,11 +157,10 @@ export async function updateEmail(newEmail: string): Promise<ActionResponse> {
 
 export async function signInWithGoogle(): Promise<ActionResponse> {
   try {
-    const data = await authClient.signIn.social({
+    await authClient.signIn.social({
       provider: 'google',
       callbackURL: '/profile',
     })
-    console.log('social login', data)
     return { success: true, message: 'success' }
   } catch (error) {
     console.error('[signInWithGoogle]: Unexpected error', error)

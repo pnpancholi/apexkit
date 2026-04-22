@@ -22,6 +22,7 @@
         - Implemented rigorous tests for password reset functionality, validating new password criteria, successful resets, and error conditions.
         - Added tests for Google social sign-in, confirming integration and error resilience.
         - Developed tests for email update functionality, verifying successful updates, invalid email formats, and various error states.
+- Style guide with Biome
 
 ### Changed
 

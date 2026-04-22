@@ -34,7 +34,11 @@
         "noDoubleEquals": "error",
         "noDuplicateObjectKeys": "error",
         "noExplicitAny": "warn",
-        "noConsole": "error",
+        "noConsole": {
+          "options": {
+            "allow": ["error"]
+          }
+        },
         "noArrayIndexKey": "error"
       },
       "style": {
