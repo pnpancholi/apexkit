@@ -28,7 +28,7 @@ export default function UpdateEmail() {
     }
   }, [isOpen])
 
-  const handleBackdropClick = (e: React.MouseEvent) => {
+  const handleBackdropClick = (e: React.MouseEvent | React.KeyboardEvent) => {
     if (e.target === e.currentTarget) {
       setIsOpen(false)
     }
@@ -58,7 +58,11 @@ export default function UpdateEmail() {
         Update Email
       </button>
       {isOpen && (
-        <div className={`modal ${isOpen ? 'modal-open' : ''}`} onClick={handleBackdropClick}>
+        <dialog
+          className={`modal ${isOpen ? 'modal-open' : ''}`}
+          onClick={handleBackdropClick}
+          onKeyDown={handleBackdropClick}
+        >
           <div className="modal-box space-y-6 animate-in fade-in duration-300 space-y-6 min-h-[200px]">
             <div className="form-control">
               <h3 className="font-bold text-xl mb-10">Update Email</h3>
@@ -83,7 +87,6 @@ export default function UpdateEmail() {
                   {isLoading ? 'Updating...' : 'Update Email'}
                 </button>
               </div>
-
               {response && (
                 <p
                   className={`mt-4 p-2 rounded-lg  ${response.success ? 'bg-success/10 text-success' : 'bg-error/10 text-error'}`}
@@ -93,7 +96,7 @@ export default function UpdateEmail() {
               )}
             </div>
           </div>
-        </div>
+        </dialog>
       )}
     </>
   )
