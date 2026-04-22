@@ -1,17 +1,14 @@
-import type { Metadata } from 'next'
-import { JetBrains_Mono } from 'next/font/google'
 import './globals.css'
+import { JetBrains_Mono } from 'next/font/google'
+import type { Metadata } from 'next'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { getUser } from '@/auth/utils'
 
 //For font awesome//
-import { Inter } from 'next/font/google'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
-
-const inter = Inter({ subsets: ['latin'] })
 
 const jMono = JetBrains_Mono({
   subsets: ['latin'],
