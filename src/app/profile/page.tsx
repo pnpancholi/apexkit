@@ -1,6 +1,6 @@
 import { requireAuth } from '@/auth/utils'
 
-import { updateProfile, logOut } from './actions'
+import { logOut, updateProfile } from './actions'
 
 import UpdateEmail from './UpdateEmail'
 export default async function Profile() {

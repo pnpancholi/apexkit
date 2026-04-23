@@ -1,12 +1,12 @@
 import './globals.css'
-import { JetBrains_Mono } from 'next/font/google'
-import type { Metadata } from 'next'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import { getUser } from '@/auth/utils'
 
 //For font awesome//
 import { config } from '@fortawesome/fontawesome-svg-core'
+import type { Metadata } from 'next'
+import { JetBrains_Mono } from 'next/font/google'
+import { getUser } from '@/auth/utils'
+import Footer from '@/components/Footer'
+import Navbar from '@/components/Navbar'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
 

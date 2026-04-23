@@ -1,4 +1,4 @@
-import { describe, expect, it, vi, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 //---------------------------------------------//
 //------------Mocks----------------------------//
@@ -27,7 +27,6 @@ beforeEach(() => {
 
 //-------------Imports---------------------//
 import { redirect } from 'next/navigation'
-import { authClient } from '@/auth/client'
 import {
   requestPasswordReset,
   resetPassword,
@@ -37,6 +36,7 @@ import {
   signUp,
   updateEmail,
 } from '@/actions/auth'
+import { authClient } from '@/auth/client'
 
 describe('Sign-Up', () => {
   const formData = new FormData()

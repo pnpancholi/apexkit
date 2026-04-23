@@ -7,6 +7,7 @@
     "test:watch": "vitest --watch",
     "test:coverage": "vitest --coverage",
     "lint": "biome lint --reporter=summary",
+    "check": "biome check --write --reporter=summary ./src/",
     "fmt": "biome format --write ./src",
     "dev": "next dev",
     "build": "next build",

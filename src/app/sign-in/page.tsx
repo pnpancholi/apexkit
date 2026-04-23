@@ -1,9 +1,9 @@
 'use client'
 
-import { useActionState } from 'react'
-import { signInWithPassword, sendMagicLink, signInWithGoogle } from '@/actions/auth'
 import Link from 'next/link'
+import { useActionState } from 'react'
 import { FaGoogle } from 'react-icons/fa'
+import { sendMagicLink, signInWithGoogle, signInWithPassword } from '@/actions/auth'
 
 export default function SignIn() {
   const [passwordState, passwordAction, passwordPending] = useActionState(signInWithPassword, null)

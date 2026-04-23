@@ -1,16 +1,13 @@
 'use client'
 import Link from 'next/link'
 import { useActionState } from 'react'
-import { signInWithGoogle, signUp } from '@/actions/auth'
 import { FaGoogle } from 'react-icons/fa'
+import { signInWithGoogle, signUp } from '@/actions/auth'
 
 export default function SignUp() {
   const [signUpState, signUpAction, signUpPending] = useActionState(signUp, null)
   // ToDo: refactor to a simple useState hook
-  const [_, _, signUpWithGooglePending] = useActionState(
-    signInWithGoogle,
-    null,
-  )
+  const [_, _, signUpWithGooglePending] = useActionState(signInWithGoogle, null)
   return (
     <div className="flex min-h-screen justify-center bg-base-200 px-4 py-12">
       <div className="w-full max-w-md">

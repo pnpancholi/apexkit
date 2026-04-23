@@ -1,6 +1,6 @@
-import { auth } from '@/auth/index'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
+import { auth } from '@/auth/index'
 
 export async function getUser() {
   try {

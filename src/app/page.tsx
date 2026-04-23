@@ -1,9 +1,9 @@
 'use client'
 
-import { FingerprintPattern, ShieldX, Rocket, Braces, Palette, Zap } from 'lucide-react'
+import { Braces, FingerprintPattern, Palette, Rocket, ShieldX, Zap } from 'lucide-react'
+import Link from 'next/link'
 import Hero from '@/assets/Hero'
 import HeroPulse from '@/assets/HeroPulse'
-import Link from 'next/link'
 
 export default function Home() {
   const featuresList = [

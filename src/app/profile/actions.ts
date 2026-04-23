@@ -1,10 +1,10 @@
 'use server'
-import { auth } from '@/auth/index'
-import { db } from '@/db/index'
-import { user } from '@/db/schema/auth'
 import { eq } from 'drizzle-orm'
 import { revalidatePath } from 'next/cache'
 import { headers } from 'next/headers'
+import { auth } from '@/auth/index'
+import { db } from '@/db/index'
+import { user } from '@/db/schema/auth'
 
 export async function updateProfile(formData: FormData) {
   const name = formData.get('name') as string

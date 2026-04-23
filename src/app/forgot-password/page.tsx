@@ -1,7 +1,7 @@
 'use client'
-import { requestPasswordReset } from '@/actions/auth'
-import { useActionState } from 'react'
 import { FileLock } from 'lucide-react'
+import { useActionState } from 'react'
+import { requestPasswordReset } from '@/actions/auth'
 
 export default function ForgotPassword() {
   const [resetPasswordState, resetPasswordAction, resetPasswordPending] = useActionState(

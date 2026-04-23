@@ -1,7 +1,7 @@
 'use client'
-import { updateEmail } from '@/actions/auth'
-import { useEffect, useState } from 'react'
 import { Mail } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { updateEmail } from '@/actions/auth'
 
 export default function UpdateEmail() {
   const [isOpen, setIsOpen] = useState(false)

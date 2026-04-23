@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React from 'react'
+import type React from 'react'
 import type { User } from '@/types/auth'
 
 const Navbar: React.FC<{ user: User | null }> = async ({ user }) => {

@@ -1,14 +1,14 @@
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
-import { db } from '@/db/index'
 import { magicLink } from 'better-auth/plugins'
+import { db } from '@/db/index'
 import * as schema from '@/db/schema/auth'
-import { emailProvider } from '@/email/emailProvider'
 import {
   magicLinkTemplate,
-  verifyEmailTemplate,
   resetPasswordTemplate,
+  verifyEmailTemplate,
 } from '@/email/EmailTemplates'
+import { emailProvider } from '@/email/emailProvider'
 
 // ---------------------- Guards -----------------------------------------//
 // -----------------------------------------------------------------------//

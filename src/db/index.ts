@@ -1,7 +1,7 @@
 import { drizzle } from 'drizzle-orm/postgres-js'
 import 'dotenv/config'
-import postgres from 'postgres'
 import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js'
+import postgres from 'postgres'
 
 const DATABASE_URL = process.env.DATABASE_URL?.trim()
 let db: PostgresJsDatabase | null = null
