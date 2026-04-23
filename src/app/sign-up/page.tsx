@@ -6,7 +6,8 @@ import { FaGoogle } from 'react-icons/fa'
 
 export default function SignUp() {
   const [signUpState, signUpAction, signUpPending] = useActionState(signUp, null)
-  const [signUpWithGoogleState, signUpWithGoogleAction, signUpWithGooglePending] = useActionState(
+  // ToDo: refactor to a simple useState hook
+  const [_, _, signUpWithGooglePending] = useActionState(
     signInWithGoogle,
     null,
   )

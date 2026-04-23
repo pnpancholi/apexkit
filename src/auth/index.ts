@@ -1,4 +1,4 @@
-import { betterAuth, User } from 'better-auth'
+import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { db } from '@/db/index'
 import { magicLink } from 'better-auth/plugins'
@@ -15,6 +15,7 @@ import {
 // -----------------------------------------------------------------------//
 if (!db) {
   console.error('[auth.ts]: database not available')
+  throw new Error('[auth.ts]: database not available')
 }
 //-----------------------------------------------------------------------//
 //-----------------------------------------------------------------------//
@@ -81,12 +82,15 @@ export const auth = betterAuth({
   // ------------------------------
   // ------------------------------
   callbacks: {
+    // biome-ignore lint/suspicious/noExplicitAny: better-auth callbacks not typed
     onError: (error: any) => {
       console.error('Better Auth Error:', error)
     },
+    // biome-ignore lint/suspicious/noExplicitAny: better-auth callbacks not typed
     onSignUp: ({ user }: any) => {
       console.log('Sign-up success:', user.email)
     },
+    // biome-ignore lint/suspicious/noExplicitAny: better-auth callbacks not typed
     onSignIn: ({ user }: any) => {
       console.log('Sign-in success:', user.email)
     },
