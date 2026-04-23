@@ -1,7 +1,5 @@
 'use client'
-
 import { Braces, FingerprintPattern, Palette, Rocket, ShieldX, Zap } from 'lucide-react'
-import Link from 'next/link'
 import Hero from '@/assets/Hero'
 import HeroPulse from '@/assets/HeroPulse'
 
@@ -121,9 +119,9 @@ export default function Home() {
           <p className="text-lg mb-12 max-w-2xl mx-auto">Everything you need, Nothing you don't</p>
           {/*grid to showcase features*/}
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {featuresList.map((feature, index) => (
+            {featuresList.map((feature) => (
               <div
-                key={index}
+                key={feature.title}
                 className="card bg-base-200 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="card-body items-center text-center">
@@ -145,8 +143,14 @@ export default function Home() {
           <p className="text-xl text-base-content/70 mb-12 max-w-2xl mx-auto">Lorem ipsum.</p>
 
           <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16 opacity-80">
-            {builtWithTools.map((tool, index) => (
-              <a key={index} className="flex flex-col justify-center items-center gap-10 md:gap-16">
+            {builtWithTools.map((tool) => (
+              <a
+                href={tool.imageURL}
+                target="_blank"
+                rel="noopener noreferrer"
+                key={tool.name}
+                className="flex flex-col justify-center items-center gap-10 md:gap-16"
+              >
                 <img src={tool.imageURL} alt={tool.name} className="h-20 mb-2 object-contain" />
                 <p className="text-sm">{tool.name}</p>
               </a>

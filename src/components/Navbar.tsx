@@ -44,7 +44,7 @@ const Navbar: React.FC<{ user: User | null }> = async ({ user }) => {
       </div>
       <div className="navbar-end">
         <div className="dropdown">
-          <label tabIndex={0} className="btn btn-ghost lg:hidden">
+          <label htmlFor="navbar-menu" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -52,6 +52,7 @@ const Navbar: React.FC<{ user: User | null }> = async ({ user }) => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
+              <title>Menu</title>
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -60,18 +61,21 @@ const Navbar: React.FC<{ user: User | null }> = async ({ user }) => {
               />
             </svg>
           </label>
-          <ul
-            tabIndex={0}
-            className="menu menu-compact dropdown-content w-screen fixed z-50 mt-3 p-4 shadow bg-base-100 inset-x-0 rounded-none items-center"
-          >
+          <ul className="menu menu-compact dropdown-content w-screen fixed z-50 mt-3 p-4 shadow bg-base-100 inset-x-0 rounded-none items-center">
             <li>
-              <a className="text-lg font-medium">Blog</a>
+              <a href="/blog" className="text-lg font-medium">
+                Blog
+              </a>
             </li>
             <li>
-              <a className="text-lg font-medium">About</a>
+              <a href="/about" className="text-lg font-medium">
+                About
+              </a>
             </li>
             <li>
-              <a className="text-lg font-medium">Contact</a>
+              <a href="/contact" className="text-lg font-medium">
+                Contact
+              </a>
             </li>
           </ul>
         </div>
