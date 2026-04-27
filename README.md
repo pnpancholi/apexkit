@@ -79,6 +79,6 @@ Quick questions, “how do I…?”, showcase your builds.
 
 ### 4. Paid / Priority Support  
 Need guaranteed response time or 1-on-1 help?  
-→ DM me on Twitter @yourhandle or email hello@yourdomain.com
+→ DM me on Twitter @knowpradhumna
 
 I reply as fast as I can, but I also have a day job — thanks for understanding 🙌
