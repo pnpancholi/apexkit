@@ -1,13 +1,17 @@
 'use client'
 import Link from 'next/link'
-import { useActionState } from 'react'
+import React from 'react'
 import { FaGoogle } from 'react-icons/fa'
 import { signInWithGoogle, signUp } from '@/actions/auth'
 
 export default function SignUp() {
-  const [signUpState, signUpAction, signUpPending] = useActionState(signUp, null)
-  // ToDo: refactor to a simple useState hook
-  const [_, _, signUpWithGooglePending] = useActionState(signInWithGoogle, null)
+  const [signUpState, signUpAction, signUpPending] = React.useActionState(signUp, null)
+  const [GoogleAuthLoading, setGoogleAuthLoading] = React.useState(false)
+
+  const handleGoogleAuth = () => {
+    setGoogleAuthLoading(true)
+    signInWithGoogle()
+  }
   return (
     <div className="flex min-h-screen justify-center bg-base-200 px-4 py-12">
       <div className="w-full max-w-md">
@@ -51,9 +55,9 @@ export default function SignUp() {
               <div className="divider">Or</div>
               <button
                 type="button"
-                onClick={signInWithGoogle}
+                onClick={handleGoogleAuth}
                 className="btn btn-secondary my-2 w-full"
-                disabled={signUpWithGooglePending}
+                disabled={GoogleAuthLoading}
               >
                 <FaGoogle />
                 Sign In with Google

@@ -23,6 +23,7 @@ if (!db) {
 
 // ToDo: Abstract away email stuff , including email client//
 export const auth = betterAuth({
+  baseURL: process.env.BETTER_AUTH_URL || 'http://localhost:3000',
   database: drizzleAdapter(db, {
     provider: 'pg',
     schema, // important for mapping tables
