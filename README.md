@@ -1,6 +1,8 @@
+<div align="center">
 # ApexKit
 
 An opinionated Next.js starter kit — built for the speed indie hackers crave and the stability enterprises demand.
+</div>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Docs](https://img.shields.io/badge/Docs-apexkit.site-blue.svg)](https://docs.apexkit.site)
