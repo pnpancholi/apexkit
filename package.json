@@ -1,8 +1,14 @@
 {
-  "name": "the-next-startup",
+  "name": "apexit",
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage",
+    "lint": "biome lint --reporter=summary",
+    "check": "biome check --write --reporter=summary ./src/",
+    "fmt": "biome format --write ./src",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -29,12 +35,16 @@
     "tailwindcss": "^4.1.12"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.3.11",
     "@types/node": "^20.19.24",
     "@types/pg": "^8.15.6",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^6.0.1",
     "drizzle-kit": "^0.31.7",
     "lucide-react": "^0.555.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vite": "^8.0.0",
+    "vitest": "^4.1.0"
   }
 }

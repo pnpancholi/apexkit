@@ -1,32 +1,28 @@
-import type { Metadata } from "next";
-import { JetBrains_Mono } from "next/font/google";
-import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import { getUser } from "@/auth/utils";
+import './globals.css'
 
-//For font awesome// 
-import { Inter } from "next/font/google";
-import { config } from "@fortawesome/fontawesome-svg-core";
-import "@fortawesome/fontawesome-svg-core/styles.css";
-config.autoAddCss = false;
-
-const inter = Inter({ subsets: ["latin"] });
+//For font awesome//
+import { config } from '@fortawesome/fontawesome-svg-core'
+import type { Metadata } from 'next'
+import { JetBrains_Mono } from 'next/font/google'
+import { getUser } from '@/auth/utils'
+import Footer from '@/components/Footer'
+import Navbar from '@/components/Navbar'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+config.autoAddCss = false
 
 const jMono = JetBrains_Mono({
-  subsets: ["latin"]
+  subsets: ['latin'],
 })
 
 export const metadata: Metadata = {
-  title: "ApexKit",
-  description:
-    "The blazing fast tool to help you build your next billion dollar, unicorn company",
-};
+  title: 'ApexKit',
+  description: 'The blazing fast tool to help you build your next billion dollar, unicorn company',
+}
 
 export default async function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   const user = await getUser()
   return (
@@ -37,5 +33,5 @@ export default async function RootLayout({
         <Footer />
       </body>
     </html>
-  );
+  )
 }

@@ -1,72 +1,74 @@
-"use client"
-
-import { FingerprintPattern, ShieldX, Rocket, Braces, Palette, Zap } from "lucide-react"
-import Hero from "@/assets/Hero"
-import HeroPulse from "@/assets/HeroPulse"
-import Link from "next/link"
+'use client'
+import { Braces, FingerprintPattern, Palette, Rocket, ShieldX, Zap } from 'lucide-react'
+import Hero from '@/assets/Hero'
+import HeroPulse from '@/assets/HeroPulse'
 
 export default function Home() {
   const featuresList = [
     {
       icon: FingerprintPattern,
-      title: "Auth that just works",
+      title: 'Auth that just works',
       description:
-        "Complete authentication out of the box. Sign-up, sign-in, magic links, OAuth providers, and password reset flows—all production-ready. Own your data, control your auth.",
+        'Complete authentication out of the box. Sign-up, sign-in, magic links, OAuth providers, and password reset flows—all production-ready. Own your data, control your auth.',
     },
     {
       icon: ShieldX,
-      title: "Avoid Vendor Prison",
+      title: 'Avoid Vendor Prison',
       description:
-        "Use any database provider without rewriting your app. Supabase, Neon, Railway, or your own Postgres—swap in minutes. No lock-in, ever.",
+        'Use any database provider without rewriting your app. Supabase, Neon, Railway, or your own Postgres—swap in minutes. No lock-in, ever.',
     },
     {
       icon: Rocket,
-      title: "Prototype in Hours",
+      title: 'Prototype in Hours',
       description:
-        "Stop copy-pasting boilerplate. Auth, database, and UI components work together from install. Focus on your product, not plumbing. Ship your MVP this weekend.",
+        'Stop copy-pasting boilerplate. Auth, database, and UI components work together from install. Focus on your product, not plumbing. Ship your MVP this weekend.',
     },
     {
       icon: Braces,
-      title: "Type-Safe End-to-End ",
+      title: 'Type-Safe End-to-End ',
       description:
-        "TypeScript everywhere, types that flow from database to frontend. Refactor with confidence, catch bugs early. IntelliSense knows your entire stack.",
+        'TypeScript everywhere, types that flow from database to frontend. Refactor with confidence, catch bugs early. IntelliSense knows your entire stack.',
     },
     {
       icon: Palette,
-      title: "Themes Out of the Box",
+      title: 'Themes Out of the Box',
       description:
-        "Multiple beautiful themes included. Switch with one line of code or build your own. Professional design from day one, no designer required.",
+        'Multiple beautiful themes included. Switch with one line of code or build your own. Professional design from day one, no designer required.',
     },
     {
       icon: Zap,
-      title: "Extensible Core",
+      title: 'Extensible Core',
       description:
         "Add what you need, remove what you don't. Clean architecture that bends to your vision—not the other way around. Refactor with confidence, scale without rewrites",
     },
-  ];
+  ]
   const builtWithTools = [
     {
-      name: "Next JS",
-      imageURL:
-        "https://cdn.simpleicons.org/nextdotjs/white",
+      name: 'Next JS',
+      imageURL: 'https://cdn.simpleicons.org/nextdotjs/white',
     },
     {
-      name: "TypeScript",
-      imageURL:
-        "https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg",
+      name: 'TypeScript',
+      imageURL: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg',
     },
     {
-      name: "Tailwind CSS",
-      imageURL: "https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg",
+      name: 'Tailwind CSS',
+      imageURL: 'https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg',
     },
 
-    { name: "daisy UI", imageURL: "https://img.daisyui.com/images/daisyui/daisyui-logo-2000.png" },
-    { name: "Better Auth", imageURL: "https://i.postimg.cc/mgL1ZvKR/better-auth-logo-dark-136b122f.png" },
     {
-      name: "Drizzle ORM",
-      imageURL: "https://orm.drizzle.team/svg/drizzle.svg",
+      name: 'daisy UI',
+      imageURL: 'https://img.daisyui.com/images/daisyui/daisyui-logo-2000.png',
     },
-  ];
+    {
+      name: 'Better Auth',
+      imageURL: 'https://i.postimg.cc/mgL1ZvKR/better-auth-logo-dark-136b122f.png',
+    },
+    {
+      name: 'Drizzle ORM',
+      imageURL: 'https://orm.drizzle.team/svg/drizzle.svg',
+    },
+  ]
   return (
     <>
       <section className="relative min-h-screen flex flex-col items-center pt-32 pb-16 overflow-hidden">
@@ -75,25 +77,36 @@ export default function Home() {
         {/*Hero Section*/}
         <div className="z-10 flex flex-col items-center justify-center text-center px-4">
           <div className="space-y-8 max-w-4xl mx-auto">
-            <h1 className="text-5xl font-bold mb-8 text-primary">
-              Start Your Next Venture
-            </h1>
+            <h1 className="text-5xl font-bold mb-8 text-primary">Start Your Next Venture</h1>
             <h1 className="text-7xl font-bold tracking-tight mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200 fill-mode-backwards">
               The architecture for <br />
-              <span className="text-accent"><HeroPulse /></span>
+              <span className="text-accent">
+                <HeroPulse />
+              </span>
             </h1>
             <p className="py-6 max-w-2xl mx-auto">
-              The ultimate starting point for any web application. Robust enough
-              for enterprise scale, fast enough for hackathon deadlines. Stop
-              configuring, start shipping.
+              The ultimate starting point for any web application. Robust enough for enterprise
+              scale, fast enough for hackathon deadlines. Stop configuring, start shipping.
               <br />
               No config overhead. No surprise invoices.
             </p>
             <div className="flex justify-center gap-4">
-              <a href="https://docs.apexkit.site" target="_blank"
-                rel="noopener noreferrer" className="btn btn-primary btn-lg">Read the docs</a>
-              <a href="https://github.com/pnpancholi/apexkit" target="_blank"
-                rel="noopener noreferrer" className="btn btn-accent btn-lg">Source Code</a>
+              <a
+                href="https://docs.apexkit.site"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary btn-lg"
+              >
+                Read the docs
+              </a>
+              <a
+                href="https://github.com/pnpancholi/apexkit"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-accent btn-lg"
+              >
+                Source Code
+              </a>
             </div>
             <Hero />
           </div>
@@ -103,14 +116,12 @@ export default function Home() {
       <section className="py-16 bg-base-100 text-base-content">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-4">Features</h2>
-          <p className="text-lg mb-12 max-w-2xl mx-auto">
-            Everything you need, Nothing you don't
-          </p>
+          <p className="text-lg mb-12 max-w-2xl mx-auto">Everything you need, Nothing you don't</p>
           {/*grid to showcase features*/}
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {featuresList.map((feature, index) => (
+            {featuresList.map((feature) => (
               <div
-                key={index}
+                key={feature.title}
                 className="card bg-base-200 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="card-body items-center text-center">
@@ -129,21 +140,18 @@ export default function Home() {
           <h3 className="text-3xl font-bold mb-4">
             Built on the mordern ecosystem, loved by developers
           </h3>
-          <p className="text-xl text-base-content/70 mb-12 max-w-2xl mx-auto">
-            Lorem ipsum.
-          </p>
+          <p className="text-xl text-base-content/70 mb-12 max-w-2xl mx-auto">Lorem ipsum.</p>
 
           <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16 opacity-80">
-            {builtWithTools.map((tool, index) => (
+            {builtWithTools.map((tool) => (
               <a
-                key={index}
+                href={tool.imageURL}
+                target="_blank"
+                rel="noopener noreferrer"
+                key={tool.name}
                 className="flex flex-col justify-center items-center gap-10 md:gap-16"
               >
-                <img
-                  src={tool.imageURL}
-                  alt={tool.name}
-                  className="h-20 mb-2 object-contain"
-                />
+                <img src={tool.imageURL} alt={tool.name} className="h-20 mb-2 object-contain" />
                 <p className="text-sm">{tool.name}</p>
               </a>
             ))}
@@ -153,8 +161,7 @@ export default function Home() {
 
       {/*Made by - ribbon footer*/}
       <p className="text-sm text-base-content/60 text-center py-12">
-        Built with{" "}
-        <span className="font-bold text-primary">sheer stubbornness</span>— by{" "}
+        Built with <span className="font-bold text-primary">sheer stubbornness</span>— by{' '}
         <a
           href="https://twitter.com/knowpradhumna"
           className="font-semibold text-primary hover:underline"
@@ -163,5 +170,5 @@ export default function Home() {
         </a>
       </p>
     </>
-  );
+  )
 }

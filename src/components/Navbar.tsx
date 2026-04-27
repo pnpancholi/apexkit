@@ -1,22 +1,22 @@
-import Link from "next/link";
-import React from "react";
-import type { User } from "@/types/auth"
+import Link from 'next/link'
+import type React from 'react'
+import type { User } from '@/types/auth'
 
 const Navbar: React.FC<{ user: User | null }> = async ({ user }) => {
   const navLinks = [
     {
-      name: "blog",
-      url: "/blog",
+      name: 'blog',
+      url: '/blog',
     },
     {
-      name: "about",
-      url: "/about",
+      name: 'about',
+      url: '/about',
     },
     {
-      name: "contact",
-      url: "/contact",
+      name: 'contact',
+      url: '/contact',
     },
-  ];
+  ]
 
   console.log(user)
 
@@ -30,7 +30,6 @@ const Navbar: React.FC<{ user: User | null }> = async ({ user }) => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal">
           {!user &&
-
             navLinks.map((link) => (
               <li key={link.name}>
                 <a
@@ -40,13 +39,12 @@ const Navbar: React.FC<{ user: User | null }> = async ({ user }) => {
                   {link.name}
                 </a>
               </li>
-            ))
-          }
+            ))}
         </ul>
       </div>
       <div className="navbar-end">
         <div className="dropdown">
-          <label tabIndex={0} className="btn btn-ghost lg:hidden">
+          <label htmlFor="navbar-menu" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -54,6 +52,7 @@ const Navbar: React.FC<{ user: User | null }> = async ({ user }) => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
+              <title>Menu</title>
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -62,36 +61,40 @@ const Navbar: React.FC<{ user: User | null }> = async ({ user }) => {
               />
             </svg>
           </label>
-          <ul
-            tabIndex={0}
-            className="menu menu-compact dropdown-content w-screen fixed z-50 mt-3 p-4 shadow bg-base-100 inset-x-0 rounded-none items-center"
-          >
+          <ul className="menu menu-compact dropdown-content w-screen fixed z-50 mt-3 p-4 shadow bg-base-100 inset-x-0 rounded-none items-center">
             <li>
-              <a className="text-lg font-medium">Blog</a>
+              <a href="/blog" className="text-lg font-medium">
+                Blog
+              </a>
             </li>
             <li>
-              <a className="text-lg font-medium">About</a>
+              <a href="/about" className="text-lg font-medium">
+                About
+              </a>
             </li>
             <li>
-              <a className="text-lg font-medium">Contact</a>
+              <a href="/contact" className="text-lg font-medium">
+                Contact
+              </a>
             </li>
           </ul>
         </div>
-        {user ?
+        {user ? (
           <Link href="/profile">
             <div className="avatar placeholder">
               <div className="flex items-center justify-center bg-primary text-primary-content rounded-full w-10">
-                <span className="text-sm">
-                  {user.name?.charAt(0).toUpperCase()}
-                </span>
+                <span className="text-sm">{user.name?.charAt(0).toUpperCase()}</span>
               </div>
             </div>
-          </Link> :
-          <Link href="/sign-in" className="btn btn-primary">Sign In</Link>
-        }
+          </Link>
+        ) : (
+          <Link href="/sign-in" className="btn btn-primary">
+            Sign In
+          </Link>
+        )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

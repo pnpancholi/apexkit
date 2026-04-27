@@ -1,26 +1,23 @@
-"use client";
-import Link from "next/link";
-import { useActionState } from "react";
-import { signInWithGoogle, signUp } from "@/actions/auth";
-import { FaGoogle } from "react-icons/fa";
+'use client'
+import Link from 'next/link'
+import React from 'react'
+import { FaGoogle } from 'react-icons/fa'
+import { signInWithGoogle, signUp } from '@/actions/auth'
 
 export default function SignUp() {
-  const [signUpState, signUpAction, signUpPending] = useActionState(
-    signUp,
-    null,
-  );
-  const [signUpWithGoogleState, signUpWithGoogleAction, signUpWithGooglePending] = useActionState(
-    signInWithGoogle,
-    null
-  )
+  const [signUpState, signUpAction, signUpPending] = React.useActionState(signUp, null)
+  const [GoogleAuthLoading, setGoogleAuthLoading] = React.useState(false)
+
+  const handleGoogleAuth = () => {
+    setGoogleAuthLoading(true)
+    signInWithGoogle()
+  }
   return (
     <div className="flex min-h-screen justify-center bg-base-200 px-4 py-12">
       <div className="w-full max-w-md">
         <div className="card bg-base-100 shadow-2xl mt-25">
           <div className="card-body text-center">
-            <h2 className="card-title justify-center test-2xl">
-              Create Account
-            </h2>
+            <h2 className="card-title justify-center test-2xl">Create Account</h2>
             <form className="space-y-4">
               <input
                 className="input input-bordered w-full"
@@ -44,9 +41,7 @@ export default function SignUp() {
                 required
               />
               {signUpState?.success === false && (
-                <div className="alert alert-error alert-soft">
-                  {signUpState.message}
-                </div>
+                <div className="alert alert-error alert-soft">{signUpState.message}</div>
               )}
 
               <button
@@ -55,12 +50,18 @@ export default function SignUp() {
                 className="btn btn-primary my-5 w-full"
                 disabled={signUpPending}
               >
-                {signUpPending ? "Creating Account" : "Create Account"}
+                {signUpPending ? 'Creating Account' : 'Create Account'}
               </button>
               <div className="divider">Or</div>
-              <button type="button" onClick={signInWithGoogle} className="btn btn-secondary my-2 w-full" disabled={signUpWithGooglePending}>
+              <button
+                type="button"
+                onClick={handleGoogleAuth}
+                className="btn btn-secondary my-2 w-full"
+                disabled={GoogleAuthLoading}
+              >
                 <FaGoogle />
-                Sign In with Google</button>
+                Sign In with Google
+              </button>
             </form>
 
             <div>
@@ -72,5 +73,5 @@ export default function SignUp() {
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,10 +1,8 @@
 export default function DatabaseConfigFade() {
   return (
     <div className="w-full max-w-2xl mx-auto">
-
       {/* Code Editor Card */}
       <div className="bg-base-300 rounded-2xl p-6 border border-base-content/10 shadow-xl">
-
         {/* Window Controls */}
         <div className="flex items-center gap-2 mb-4">
           <div className="w-3 h-3 rounded-full bg-error"></div>
@@ -27,8 +25,12 @@ export default function DatabaseConfigFade() {
             {/* Animated Domain Part */}
             <span className="relative inline-block overflow-hidden">
               <span className="text-success animate-domain-1">db.supabase.co</span>
-              <span className="text-success animate-domain-2 absolute left-0 opacity-0">ep-cool.neon.tech</span>
-              <span className="text-success animate-domain-3 absolute left-0 opacity-0">quiet-sky.fly.dev</span>
+              <span className="text-success animate-domain-2 absolute left-0 opacity-0">
+                ep-cool.neon.tech
+              </span>
+              <span className="text-success animate-domain-3 absolute left-0 opacity-0">
+                quiet-sky.fly.dev
+              </span>
             </span>
 
             <span className="text-success">/mydb&quot;</span>
@@ -41,7 +43,6 @@ export default function DatabaseConfigFade() {
             <span className="text-success">&quot;http://localhost:3000&quot;</span>
           </div>
         </div>
-
       </div>
 
       <style jsx>{`
@@ -87,7 +88,6 @@ export default function DatabaseConfigFade() {
             fade-in-right 3s ease-in-out 6s infinite;
         }
       `}</style>
-
     </div>
-  );
+  )
 }

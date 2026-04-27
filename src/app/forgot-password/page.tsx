@@ -1,10 +1,13 @@
-"use client"
-import { requestPasswordReset } from "@/actions/auth";
-import { useActionState } from "react";
-import { FileLock } from "lucide-react"
+'use client'
+import { FileLock } from 'lucide-react'
+import { useActionState } from 'react'
+import { requestPasswordReset } from '@/actions/auth'
 
 export default function ForgotPassword() {
-  const [resetPasswordState, resetPasswordAction, resetPasswordPending] = useActionState(requestPasswordReset, null)
+  const [resetPasswordState, resetPasswordAction, resetPasswordPending] = useActionState(
+    requestPasswordReset,
+    null,
+  )
 
   return (
     <div className="flex min-h-screen bg-base-200 justify-center px-4 py-12">
@@ -21,9 +24,7 @@ export default function ForgotPassword() {
                 </div>
               </div>
               {/*Header Text */}
-              <h2 className="text-3xl font-bold mb-2">
-                Forgot Your Password ?
-              </h2>
+              <h2 className="text-3xl font-bold mb-2">Forgot Your Password ?</h2>
 
               {/* User Info Cards */}
               <div className="space-y-6">
@@ -40,7 +41,6 @@ export default function ForgotPassword() {
                       <div className="alert alert-soft alert-error">
                         {resetPasswordState.message}
                       </div>
-
                     )}
                     {resetPasswordState?.success === true && (
                       <div className="alert alert-soft alert-success">
@@ -52,7 +52,12 @@ export default function ForgotPassword() {
               </div>
               {/* Action Button */}
               <div className="my-5">
-                <button className="btn btn-primary w-full mt-4" formAction={resetPasswordAction}>
+                <button
+                  type="submit"
+                  className="btn btn-primary w-full mt-4"
+                  formAction={resetPasswordAction}
+                  disabled={resetPasswordPending}
+                >
                   Request Password Reset
                 </button>
               </div>

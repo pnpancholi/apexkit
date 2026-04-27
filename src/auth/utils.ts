@@ -1,23 +1,23 @@
-import { auth } from "@/auth/index";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
+import { headers } from 'next/headers'
+import { redirect } from 'next/navigation'
+import { auth } from '@/auth/index'
 
 export async function getUser() {
   try {
     const session = await auth.api.getSession({
       headers: await headers(),
-    });
-    return session?.user || null;
+    })
+    return session?.user || null
   } catch (error) {
-    console.error("Auth-Utils: failed to get session", error);
-    return null;
+    console.error('Auth-Utils: failed to get session', error)
+    return null
   }
 }
 
 export async function requireAuth() {
-  const user = await getUser();
+  const user = await getUser()
   if (!user) {
-    redirect("/sign-in");
+    redirect('/sign-in')
   }
-  return user;
+  return user
 }
