@@ -1,19 +1,13 @@
-"use client";
+'use client'
 
-import { useActionState } from "react";
-import { signInWithPassword, sendMagicLink, signInWithGoogle } from "@/actions/auth";
-import Link from "next/link";
-import { FaGoogle } from "react-icons/fa"
+import Link from 'next/link'
+import { useActionState } from 'react'
+import { FaGoogle } from 'react-icons/fa'
+import { sendMagicLink, signInWithGoogle, signInWithPassword } from '@/actions/auth'
 
 export default function SignIn() {
-  const [passwordState, passwordAction, passwordPending] = useActionState(
-    signInWithPassword,
-    null,
-  );
-  const [magicLinkState, magicLinkAction, magicLinkPending] = useActionState(
-    sendMagicLink,
-    null,
-  );
+  const [passwordState, passwordAction, passwordPending] = useActionState(signInWithPassword, null)
+  const [magicLinkState, magicLinkAction, magicLinkPending] = useActionState(sendMagicLink, null)
 
   return (
     <div className="flex min-h-screen justify-center bg-base-200 px-4 py-12">
@@ -40,9 +34,7 @@ export default function SignIn() {
               />
               {/*-------------Error Handling for sign in with password----------*/}
               {passwordState?.success === false && (
-                <div className="alert alert-error alert-soft">
-                  {passwordState.message}
-                </div>
+                <div className="alert alert-error alert-soft">{passwordState.message}</div>
               )}
               {/*---------------------------------------------------------------*/}
               <button
@@ -51,10 +43,13 @@ export default function SignIn() {
                 formAction={passwordAction}
                 disabled={passwordPending}
               >
-                {passwordPending ? "Signing In..." : "Sign In with Password"}
+                {passwordPending ? 'Signing In...' : 'Sign In with Password'}
               </button>
             </form>
-            <button className="btn btn-secondary my-2" onClick={signInWithGoogle}><FaGoogle />Sign In with Google</button>
+            <button type="button" className="btn btn-secondary my-2" onClick={signInWithGoogle}>
+              <FaGoogle />
+              Sign In with Google
+            </button>
             <div className="divider"> Or</div>
 
             {/*-----------------------Magic Link--------------------------------*/}
@@ -70,14 +65,10 @@ export default function SignIn() {
               {magicLinkState && (
                 <>
                   {magicLinkState?.success === false && (
-                    <div className="alert alert-soft alert-error">
-                      {magicLinkState.message}
-                    </div>
+                    <div className="alert alert-soft alert-error">{magicLinkState.message}</div>
                   )}
                   {magicLinkState.success === true && (
-                    <div className="alert alert-soft alert-success">
-                      {magicLinkState.message}
-                    </div>
+                    <div className="alert alert-soft alert-success">{magicLinkState.message}</div>
                   )}
                 </>
               )}
@@ -88,7 +79,7 @@ export default function SignIn() {
                 formAction={magicLinkAction}
                 disabled={magicLinkPending}
               >
-                {magicLinkPending ? "Sending  Magic Link" : "Send Magic Link"}
+                {magicLinkPending ? 'Sending  Magic Link' : 'Send Magic Link'}
               </button>
             </form>
 
@@ -105,5 +96,5 @@ export default function SignIn() {
         </div>
       </div>
     </div>
-  );
+  )
 }

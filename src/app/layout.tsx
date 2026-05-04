@@ -1,39 +1,37 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import { getUser } from "@/auth/utils";
+import './globals.css'
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+//For font awesome//
+import { config } from '@fortawesome/fontawesome-svg-core'
+import type { Metadata } from 'next'
+import { JetBrains_Mono } from 'next/font/google'
+import { getUser } from '@/auth/utils'
+import Footer from '@/components/Footer'
+import Navbar from '@/components/Navbar'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+config.autoAddCss = false
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const jMono = JetBrains_Mono({
+  subsets: ['latin'],
+})
 
 export const metadata: Metadata = {
-  title: "The Next Start-Up",
-  description:
-    "The blazing fast tool to help you build your next billion dollar, unicorn company",
-};
+  title: 'ApexKit',
+  description: 'The blazing fast tool to help you build your next billion dollar, unicorn company',
+}
 
 export default async function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   const user = await getUser()
   return (
     <html lang="en" className="h-full">
-      <body className={`${geistSans.variable} ${geistMono.variable} h-full overscroll-y-none`}>
+      <body className={`${jMono.className}  h-full overscroll-y-none`}>
         <Navbar user={user} />
         <div className="flex flex-col min-h-screen">{children}</div>
         <Footer />
       </body>
     </html>
-  );
+  )
 }

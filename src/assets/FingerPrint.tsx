@@ -2,12 +2,11 @@ export default function FingerprintScan() {
   return (
     <div className="w-full max-w-sm mx-auto">
       <div className="relative">
-
         {/* Fingerprint Container */}
         <div className="relative w-64 h-64 mx-auto bg-base-200 rounded-3xl flex items-center justify-center shadow-xl border border-base-content/10 overflow-hidden">
-
           {/* Fingerprint SVG */}
           <svg
+            aria-label="fingerprint-icon"
             className="w-40 h-40 text-primary"
             viewBox="0 0 24 24"
             fill="none"
@@ -22,6 +21,7 @@ export default function FingerprintScan() {
 
           {/* Success Checkmark - appears after scan */}
           <svg
+            aria-label="checkmark-icon"
             className="absolute w-16 h-16 text-success opacity-0 animate-checkmark-appear"
             viewBox="0 0 24 24"
             fill="none"
@@ -35,14 +35,12 @@ export default function FingerprintScan() {
               strokeLinejoin="round"
             />
           </svg>
-
         </div>
 
         {/* Status Text */}
         <div className="text-center mt-6">
           <p className="text-sm font-mono text-base-content/70 animate-status-text"></p>
         </div>
-
       </div>
 
       <style jsx>{`
@@ -103,5 +101,5 @@ export default function FingerprintScan() {
         }
       `}</style>
     </div>
-  );
+  )
 }

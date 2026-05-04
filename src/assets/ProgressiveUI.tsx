@@ -4,6 +4,7 @@ export default function CodeToUI() {
       {/* SVG Code Editor */}
       <div className="relative">
         <svg
+          aria-label="code-editor-icon"
           width="100%"
           height="280"
           viewBox="0 0 800 280"
@@ -53,81 +54,193 @@ export default function CodeToUI() {
 
           {/* Code lines with animation */}
           {/* Line 1 */}
-          <text x="50" y="70" fill="#d8b4fe" fontSize="14" fontFamily="mono" className="animate-line-1">
+          <text
+            x="50"
+            y="70"
+            fill="#d8b4fe"
+            fontSize="14"
+            fontFamily="mono"
+            className="animate-line-1"
+          >
             export default function
           </text>
-          <text x="180" y="70" fill="#ffffff" fontSize="14" fontFamily="mono" className="animate-line-1">
-            {" "}
+          <text
+            x="180"
+            y="70"
+            fill="#ffffff"
+            fontSize="14"
+            fontFamily="mono"
+            className="animate-line-1"
+          >
+            {' '}
           </text>
-          <text x="187" y="70" fill="#22d3ee" fontSize="14" fontFamily="mono" className="animate-line-1">
+          <text
+            x="187"
+            y="70"
+            fill="#22d3ee"
+            fontSize="14"
+            fontFamily="mono"
+            className="animate-line-1"
+          >
             Button
           </text>
-          <text x="225" y="70" fill="#ffffff" fontSize="14" fontFamily="mono" className="animate-line-1">
+          <text
+            x="225"
+            y="70"
+            fill="#ffffff"
+            fontSize="14"
+            fontFamily="mono"
+            className="animate-line-1"
+          >
             ()
           </text>
-          <text x="240" y="70" fill="#ffffff" fontSize="14" fontFamily="mono" className="animate-line-1">
-            {" "}
+          <text
+            x="240"
+            y="70"
+            fill="#ffffff"
+            fontSize="14"
+            fontFamily="mono"
+            className="animate-line-1"
+          >
+            {' '}
           </text>
-          <text x="247" y="70" fill="#ffffff" fontSize="14" fontFamily="mono" className="animate-line-1">
+          <text
+            x="247"
+            y="70"
+            fill="#ffffff"
+            fontSize="14"
+            fontFamily="mono"
+            className="animate-line-1"
+          >
             {`{`}
           </text>
 
           {/* Line 2 */}
-          <text x="70" y="95" fill="#d8b4fe" fontSize="14" fontFamily="mono" className="animate-line-2">
+          <text
+            x="70"
+            y="95"
+            fill="#d8b4fe"
+            fontSize="14"
+            fontFamily="mono"
+            className="animate-line-2"
+          >
             return
           </text>
-          <text x="120" y="95" fill="#ffffff" fontSize="14" fontFamily="mono" className="animate-line-2">
-            {" "}
+          <text
+            x="120"
+            y="95"
+            fill="#ffffff"
+            fontSize="14"
+            fontFamily="mono"
+            className="animate-line-2"
+          >
+            {' '}
           </text>
-          <text x="127" y="95" fill="#ffffff" fontSize="14" fontFamily="mono" className="animate-line-2">
+          <text
+            x="127"
+            y="95"
+            fill="#ffffff"
+            fontSize="14"
+            fontFamily="mono"
+            className="animate-line-2"
+          >
             (
           </text>
 
           {/* Line 3 */}
-          <text x="90" y="120" fill="#4ade80" fontSize="14" fontFamily="mono" className="animate-line-3">
+          <text
+            x="90"
+            y="120"
+            fill="#4ade80"
+            fontSize="14"
+            fontFamily="mono"
+            className="animate-line-3"
+          >
             &lt;button
           </text>
 
           {/* Line 4 */}
-          <text x="110" y="145" fill="#fbbf24" fontSize="14" fontFamily="mono" className="animate-line-4">
+          <text
+            x="110"
+            y="145"
+            fill="#fbbf24"
+            fontSize="14"
+            fontFamily="mono"
+            className="animate-line-4"
+          >
             className
           </text>
-          <text x="175" y="145" fill="#ffffff" fontSize="14" fontFamily="mono" className="animate-line-4">
+          <text
+            x="175"
+            y="145"
+            fill="#ffffff"
+            fontSize="14"
+            fontFamily="mono"
+            className="animate-line-4"
+          >
             =
           </text>
-          <text x="185" y="145" fill="#34d399" fontSize="14" fontFamily="mono" className="animate-line-4">
+          <text
+            x="185"
+            y="145"
+            fill="#34d399"
+            fontSize="14"
+            fontFamily="mono"
+            className="animate-line-4"
+          >
             "px-6 py-3 rounded-lg font-medium"
           </text>
 
           {/* Line 5 */}
-          <text x="90" y="170" fill="#4ade80" fontSize="14" fontFamily="mono" className="animate-line-5">
+          <text
+            x="90"
+            y="170"
+            fill="#4ade80"
+            fontSize="14"
+            fontFamily="mono"
+            className="animate-line-5"
+          >
             &gt;
           </text>
 
           {/* Line 6 */}
-          <text x="110" y="195" fill="#ffffff" fontSize="14" fontFamily="mono" className="animate-line-6">
+          <text
+            x="110"
+            y="195"
+            fill="#ffffff"
+            fontSize="14"
+            fontFamily="mono"
+            className="animate-line-6"
+          >
             Click me
           </text>
 
           {/* Line 7 */}
-          <text x="90" y="220" fill="#4ade80" fontSize="14" fontFamily="mono" className="animate-line-7">
+          <text
+            x="90"
+            y="220"
+            fill="#4ade80"
+            fontSize="14"
+            fontFamily="mono"
+            className="animate-line-7"
+          >
             &lt;/button&gt;
           </text>
 
           {/* Line 8 */}
-          <text x="50" y="245" fill="#ffffff" fontSize="14" fontFamily="mono" className="animate-line-8">
+          <text
+            x="50"
+            y="245"
+            fill="#ffffff"
+            fontSize="14"
+            fontFamily="mono"
+            className="animate-line-8"
+          >
             {`}`}
           </text>
 
           {/* Cursor */}
-          <rect
-            x="68"
-            y="258"
-            width="2"
-            height="16"
-            fill="#22d3ee"
-            className="animate-pulse"
-          />
+          <rect x="68" y="258" width="2" height="16" fill="#22d3ee" className="animate-pulse" />
 
           {/* Status bar */}
           <rect x="0" y="260" width="800" height="20" fill="#111827" />
@@ -165,5 +278,5 @@ export default function CodeToUI() {
         }
       `}</style>
     </div>
-  );
+  )
 }

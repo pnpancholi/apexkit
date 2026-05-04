@@ -2,7 +2,6 @@ export default function Hero() {
   return (
     <div className="w-full max-w-6xl mx-auto px-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
         {/* Left Side: Traditional Setup */}
         <div className="bg-gradient-to-br from-error/10 to-base-200 rounded-2xl p-8 shadow-xl">
           <div className="mb-6">
@@ -127,8 +126,8 @@ export default function Hero() {
             <div className="badge badge-success mb-2">With Apex Kit</div>
             <h3 className="text-3xl font-bold text-success mb-2">Under 30 Minutes</h3>
             <p className="text-sm text-base-content/70">
-              Configure your API keys, and get up and running in minutes.
-              Hack it to your liking easily when you need to.
+              Configure your API keys, and get up and running in minutes. Hack it to your liking
+              easily when you need to.
             </p>
           </div>
 
@@ -267,8 +266,7 @@ export default function Hero() {
             </div>
           </div>
         </div>
-
       </div>
     </div>
-  );
+  )
 }

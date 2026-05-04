@@ -1,9 +1,12 @@
 @import "tailwindcss";
 
 @plugin "daisyui" {
-    themes:
-        light,
-        sunset --default;
-    root: ":root";
-    logs: true;
+  themes: sunset --default;
+  root: ":root";
+  logs: true;
+}
+
+/* Smooth scrolling*/
+html {
+  scroll-behavior: smooth;
 }

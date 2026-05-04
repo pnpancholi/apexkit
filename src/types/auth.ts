@@ -1,19 +1,19 @@
 export interface User {
-  id: string;
-  email: string;
-  name: string | null;
-  image?: string | null;
-  emailVerified: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  id: string
+  email: string
+  name: string | null
+  image?: string | null
+  emailVerified: boolean
+  createdAt: Date
+  updatedAt: Date
 }
 
 export interface Session {
-  user: User;
+  user: User
   session: {
-    id: string;
-    expiresAt: Date;
-    token: string;
-    userId: string;
-  };
+    id: string
+    expiresAt: Date
+    token: string
+    userId: string
+  }
 }

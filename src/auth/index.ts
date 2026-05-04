@@ -1,16 +1,21 @@
-import { betterAuth } from "better-auth";
-import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { db } from "@/db/index";
-import { magicLink } from "better-auth/plugins";
-import * as schema from "@/db/schema/auth";
-import { emailProvider } from "@/email/emailProvider"
-import { magicLinkTemplate, verifyEmailTemplate, resetPasswordTemplate } from "@/email/EmailTemplates"
+import { betterAuth } from 'better-auth'
+import { drizzleAdapter } from 'better-auth/adapters/drizzle'
+import { magicLink } from 'better-auth/plugins'
+import { db } from '@/db/index'
+import * as schema from '@/db/schema/auth'
+import {
+  magicLinkTemplate,
+  resetPasswordTemplate,
+  verifyEmailTemplate,
+} from '@/email/EmailTemplates'
+import { emailProvider } from '@/email/emailProvider'
 
 // ---------------------- Guards -----------------------------------------//
 // -----------------------------------------------------------------------//
 // -----------------------------------------------------------------------//
 if (!db) {
-  console.error("[auth.ts]: database not available");
+  console.error('[auth.ts]: database not available')
+  throw new Error('[auth.ts]: database not available')
 }
 //-----------------------------------------------------------------------//
 //-----------------------------------------------------------------------//
@@ -18,19 +23,21 @@ if (!db) {
 
 // ToDo: Abstract away email stuff , including email client//
 export const auth = betterAuth({
+  baseURL: process.env.BETTER_AUTH_URL || 'http://localhost:3000',
   database: drizzleAdapter(db, {
-    provider: "pg",
+    provider: 'pg',
     schema, // important for mapping tables
   }),
   // Authentication with email and password
   emailAndPassword: {
     enabled: true,
-    sendResetPassword: async ({ user, url, token }, req) => {
+    // can take token aswell//
+    sendResetPassword: async ({ user, url }) => {
       await emailProvider.send(user.email, resetPasswordTemplate(url))
     },
     // toDO: send email to password updates//
-    onPasswordReset: async ({ user }, req) => {
-      console.log(`Password for ${user.email} updated`);
+    onPasswordReset: async ({ user }) => {
+      console.log(`Password for ${user.email} updated`)
     },
   },
   // Allowing user to update email
@@ -41,21 +48,20 @@ export const auth = betterAuth({
   },
   emailVerification: {
     enabled: true,
-    sendVerificationEmail: async ({ user, url, token }) => {
+    sendVerificationEmail: async ({ user, url }) => {
       await emailProvider.send(user.email, verifyEmailTemplate(url))
     },
-
   },
   //-------------------------------
   //-------------------------------
   //-------------------------------
-  // Social Login 
+  // Social Login
   socialProviders: {
     google: {
-      prompt: "select_account",
+      prompt: 'select_account',
       clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
-    }
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    },
   },
   // ------------------------------
   // ------------------------------
@@ -63,7 +69,7 @@ export const auth = betterAuth({
   // Authentication with magicLink
   plugins: [
     magicLink({
-      sendMagicLink: async ({ email, token, url }, request) => {
+      sendMagicLink: async ({ email, url }) => {
         await emailProvider.send(email, magicLinkTemplate(url))
       },
       expiresIn: 300,
@@ -77,14 +83,17 @@ export const auth = betterAuth({
   // ------------------------------
   // ------------------------------
   callbacks: {
+    // biome-ignore lint/suspicious/noExplicitAny: better-auth callbacks not typed
     onError: (error: any) => {
-      console.error("Better Auth Error:", error);
+      console.error('Better Auth Error:', error)
     },
+    // biome-ignore lint/suspicious/noExplicitAny: better-auth callbacks not typed
     onSignUp: ({ user }: any) => {
-      console.log("Sign-up success:", user.email);
+      console.log('Sign-up success:', user.email)
     },
+    // biome-ignore lint/suspicious/noExplicitAny: better-auth callbacks not typed
     onSignIn: ({ user }: any) => {
-      console.log("Sign-in success:", user.email);
+      console.log('Sign-in success:', user.email)
     },
   },
   //----------------------------------
@@ -93,4 +102,4 @@ export const auth = betterAuth({
   databaseOptions: {
     autoSetup: true, // creates user , sessions, and verification
   },
-});
+})

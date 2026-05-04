@@ -1,7 +1,16 @@
-# ApexKit
+<div align="center">
+<h1> ApexKit </h1>
 
-An opinionated Next.js starter kit — built for the speed indie hackers crave and the stability enterprises demand.
+<h3>An opinionated Next.js starter kit — built for the speed indie hackers crave and the stability enterprises demand.</h3>
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Docs](https://img.shields.io/badge/Docs-apexkit.site-blue.svg)](https://docs.apexkit.site)
+[![X/Twitter](https://img.shields.io/badge/X-@knowpradhumna-black.svg)](https://x.com/knowpradhumna)
+[![Last Commit](https://img.shields.io/github/last-commit/pnpancholi/apexkit.svg)](https://github.com/pnpancholi/apexkit/commits/main)
+
+</div>
+
+<h2> What is ApexKit? </h2>
 ApexKit is an opinionated Next.js starter kit designed to help builders ship real products faster — without the usual headaches of vendor lock-in or endless decision-making about tools and libraries. When you're a solo developer or part of a small team validating an idea — whether for a hackathon, an incubator, or your own startup — time spent configuring authentication, email services, UI components, or database setups takes valuable time away from focusing on your core idea and unique features. These are repetitive tasks that slow you down when speed is everything.
 
 But rapid prototyping shouldn’t come at the cost of performance, scalability, or future flexibility. Many “quick-start” solutions sacrifice performance, trap you in vendor ecosystems, or leave behind technical debt that becomes expensive — in both time and money — the moment your project gains traction. Suddenly, you’re stuck refactoring, migrating, or paying for subscriptions that don’t truly help you grow.
@@ -58,7 +67,7 @@ pnpm run dev
 ApexKit is a solo-developer, open-source project. Here’s how to get help:
 
 ### 1. Documentation  
-99 % of questions are already answered in the docs → [start here](https://docs.apexkit.site)
+99 % of questions are already answered in the [docs](https://docs.apexkit.site).
 
 ### 2. GitHub Issues  
 Perfect for bugs, feature requests, or documentation fixes.  
