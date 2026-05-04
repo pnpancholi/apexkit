@@ -18,8 +18,6 @@ const Navbar: React.FC<{ user: User | null }> = async ({ user }) => {
     },
   ]
 
-  console.log(user)
-
   return (
     <div className="navbar sticky shadow-md px-4 lg:px-40 bg-base-100 z-[10]">
       <div className="navbar-start">
