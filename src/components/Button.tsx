@@ -46,7 +46,7 @@ export default function Button({
       type={type}
       onClick={onClick}
       disabled={disabled || isLoading}
-      className={`${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${colorClasses[color]} ${className}}`}
+      className={`${baseClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${colorClasses[color]} ${className}`}
     >
       {isLoading ? (
         <>
