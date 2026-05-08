@@ -2,6 +2,7 @@
 import { FileLock } from 'lucide-react'
 import { useActionState } from 'react'
 import { requestPasswordReset } from '@/actions/auth'
+import Button from '@/components/Button'
 
 export default function ForgotPassword() {
   const [resetPasswordState, resetPasswordAction, resetPasswordPending] = useActionState(
@@ -14,7 +15,7 @@ export default function ForgotPassword() {
       <div className="w-full max-w-md">
         <div className="card bg-base-100 shadow-2xl">
           <div className="card-body text-center">
-            <form>
+            <form action={resetPasswordAction}>
               {/* Profile Avatar */}
               <div className="flex  justify-center mb-4">
                 <div className="avatar placeholder">
@@ -52,14 +53,14 @@ export default function ForgotPassword() {
               </div>
               {/* Action Button */}
               <div className="my-5">
-                <button
+                <Button
                   type="submit"
-                  className="btn btn-primary w-full mt-4"
-                  formAction={resetPasswordAction}
-                  disabled={resetPasswordPending}
+                  color="primary"
+                  className="w-full mt-4"
+                  isLoading={resetPasswordPending}
                 >
                   Request Password Reset
-                </button>
+                </Button>
               </div>
             </form>
           </div>

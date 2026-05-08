@@ -1,16 +1,17 @@
-import { ReactNode } from 'react'
+import type React from 'react'
 
 interface ButtonProps {
-  children: ReactNode
-  color: 'primary' | 'secondary' | 'accent' | 'success' | 'error'
-  variant: 'regular' | 'outlined'
-  size: 'sm' | 'md' | 'lg'
+  children: React.ReactNode
+  color?: 'primary' | 'secondary' | 'accent' | 'success' | 'error'
+  variant?: 'regular' | 'outlined'
+  size?: 'sm' | 'md' | 'lg'
   isLoading?: boolean
   disabled?: boolean
-  onClick?: () => void
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
   type: 'button' | 'submit' | 'reset'
   className?: string
 }
+
 export default function Button({
   children,
   color = 'primary',

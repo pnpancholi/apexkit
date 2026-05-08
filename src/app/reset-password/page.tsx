@@ -2,6 +2,7 @@
 import { RectangleEllipsis } from 'lucide-react'
 import { useState } from 'react'
 import { resetPassword } from '@/actions/auth'
+import Button from '@/components/Button'
 
 const RESPONSE_STYLES = {
   success: 'bg-success/10 p-4 rounded-lg border-success text-success',
@@ -105,14 +106,15 @@ export default function ResetPasswordPage() {
               )}
               {/* Action Button */}
               <div className="my-5">
-                <button
-                  className="btn btn-primary w-full mt-4"
+                <Button
+                  color="primary"
+                  className="w-full mt-4"
                   type="button"
-                  disabled={isLoading}
-                  onClick={handleResetPassword}
+                  isLoading={isLoading}
+                  onClick={() => handleResetPassword}
                 >
                   {isLoading ? 'Resetting Password...' : 'Reset Password'}
-                </button>
+                </Button>
               </div>
             </form>
           </div>

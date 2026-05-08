@@ -1,6 +1,7 @@
 import { requireAuth } from '@/auth/utils'
-
 import { logOut, updateProfile } from './actions'
+import Button from '@/components/Button'
+import Link from 'next/link'
 
 import UpdateEmail from './UpdateEmail'
 export default async function Profile() {
@@ -83,19 +84,22 @@ export default async function Profile() {
               {/* Action Button */}
               <div className="my-5">
                 <UpdateEmail />
-                <button
+                <Button
                   type="button"
-                  formAction={updateProfile}
-                  className="btn btn-primary w-full mt-4"
+                  //onClick={updateProfile}
+                  color="primary"
+                  className="w-full mt-4"
                 >
                   Update Profile
-                </button>
-                <button type="button" className="btn btn-accent w-full mt-4">
-                  Reset Password
-                </button>
-                <button type="button" formAction={logOut} className="btn btn-outline w-full mt-4">
+                </Button>
+                <Link href="/reset-password">
+                  <Button type="button" color="accent" className="w-full mt-4">
+                    Reset Password
+                  </Button>
+                </Link>
+                <Button type="button" onClick={logOut} variant="outlined" className="w-full mt-4">
                   Sign Out
-                </button>
+                </Button>
               </div>
             </form>
           </div>
