@@ -11,7 +11,7 @@ export default async function Profile() {
       <div className="w-full max-w-md">
         <div className="card bg-base-100 shadow-2xl">
           <div className="card-body text-center">
-            <form>
+            <form action={updateProfile}>
               {/* Profile Avatar */}
               <div className="flex  justify-center mb-4">
                 <div className="avatar placeholder">
@@ -84,12 +84,7 @@ export default async function Profile() {
               {/* Action Button */}
               <div className="my-5">
                 <UpdateEmail />
-                <Button
-                  type="button"
-                  //onClick={updateProfile}
-                  color="primary"
-                  className="w-full mt-4"
-                >
+                <Button type="submit" className="w-full mt-4">
                   Update Profile
                 </Button>
                 <Link href="/reset-password">
