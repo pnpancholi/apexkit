@@ -2,6 +2,7 @@
 import { Mail } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { updateEmail } from '@/actions/auth'
+import Button from '@/components/Button'
 
 export default function UpdateEmail() {
   const [isOpen, setIsOpen] = useState(false)
@@ -48,15 +49,17 @@ export default function UpdateEmail() {
   }
   return (
     <>
-      <button
-        className="btn btn-outline btn-primary w-full mt-4"
+      <Button
+        variant="outlined"
+        color="primary"
+        className="w-full mt-4"
         type="button"
         onClick={() => {
           setIsOpen(true)
         }}
       >
         Update Email
-      </button>
+      </Button>
       {isOpen && (
         <dialog
           className={`modal ${isOpen ? 'modal-open' : ''}`}
@@ -79,13 +82,15 @@ export default function UpdateEmail() {
                     />
                   </label>
                 </div>
-                <button
-                  className={`btn join-item ${isLoading ? 'btn-disabled' : 'btn-primary'}`}
+                <Button
+                  className="join-item"
+                  color="primary"
                   type="button"
                   onClick={handleUpdateEmail}
+                  isLoading={isLoading}
                 >
                   {isLoading ? 'Updating...' : 'Update Email'}
-                </button>
+                </Button>
               </div>
               {response && (
                 <p

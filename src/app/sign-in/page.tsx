@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useActionState } from 'react'
 import { FaGoogle } from 'react-icons/fa'
 import { sendMagicLink, signInWithGoogle, signInWithPassword } from '@/actions/auth'
+import Button from '@/components/Button'
 
 export default function SignIn() {
   const [passwordState, passwordAction, passwordPending] = useActionState(signInWithPassword, null)
@@ -17,7 +18,7 @@ export default function SignIn() {
             <h2 className="card-title justify-center text-2xl">Sign In</h2>
 
             {/*---------------------Email and Password---------------------------*/}
-            <form className="space-y-4">
+            <form className="space-y-4" id="password-form" action={passwordAction}>
               <input
                 name="email"
                 type="email"
@@ -36,24 +37,22 @@ export default function SignIn() {
               {passwordState?.success === false && (
                 <div className="alert alert-error alert-soft">{passwordState.message}</div>
               )}
-              {/*---------------------------------------------------------------*/}
-              <button
+              <Button
                 type="submit"
-                className="btn btn-primary my-5 w-full"
-                formAction={passwordAction}
+                className="w-full"
                 disabled={passwordPending}
+                isLoading={passwordPending}
               >
-                {passwordPending ? 'Signing In...' : 'Sign In with Password'}
-              </button>
+                Sign In With Password
+              </Button>
             </form>
-            <button type="button" className="btn btn-secondary my-2" onClick={signInWithGoogle}>
-              <FaGoogle />
-              Sign In with Google
-            </button>
-            <div className="divider"> Or</div>
+            <Button type="button" color="secondary" className="mt-5" onClick={signInWithGoogle}>
+              <FaGoogle /> Sign In With Google
+            </Button>
+            <div className="divider">Or</div>
 
             {/*-----------------------Magic Link--------------------------------*/}
-            <form className="space-y-4">
+            <form className="space-y-4" id="magic-link-form" action={magicLinkAction}>
               <input
                 name="email"
                 type="email"
@@ -73,14 +72,15 @@ export default function SignIn() {
                 </>
               )}
               {/*--------------------------------------------------------------------*/}
-              <button
+
+              <Button
                 type="submit"
-                className="btn btn-secondary my-5 w-full"
-                formAction={magicLinkAction}
                 disabled={magicLinkPending}
+                isLoading={magicLinkPending}
+                className="w-full my-5"
               >
-                {magicLinkPending ? 'Sending  Magic Link' : 'Send Magic Link'}
-              </button>
+                Send Magic Link
+              </Button>
             </form>
 
             {/*---------------------------------Resetting----------------------------*/}

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import React from 'react'
 import { FaGoogle } from 'react-icons/fa'
 import { signInWithGoogle, signUp } from '@/actions/auth'
+import Button from '@/components/Button'
 
 export default function SignUp() {
   const [signUpState, signUpAction, signUpPending] = React.useActionState(signUp, null)
@@ -18,7 +19,7 @@ export default function SignUp() {
         <div className="card bg-base-100 shadow-2xl mt-25">
           <div className="card-body text-center">
             <h2 className="card-title justify-center test-2xl">Create Account</h2>
-            <form className="space-y-4">
+            <form action={signUpAction} className="space-y-4">
               <input
                 className="input input-bordered w-full"
                 placeholder="Full Name"
@@ -44,24 +45,25 @@ export default function SignUp() {
                 <div className="alert alert-error alert-soft">{signUpState.message}</div>
               )}
 
-              <button
+              <Button
                 type="submit"
-                formAction={signUpAction}
-                className="btn btn-primary my-5 w-full"
-                disabled={signUpPending}
+                color="primary"
+                className="my-5 w-full"
+                isLoading={signUpPending}
               >
                 {signUpPending ? 'Creating Account' : 'Create Account'}
-              </button>
+              </Button>
               <div className="divider">Or</div>
-              <button
+              <Button
                 type="button"
                 onClick={handleGoogleAuth}
-                className="btn btn-secondary my-2 w-full"
-                disabled={GoogleAuthLoading}
+                color="secondary"
+                className="my-2 w-full"
+                isLoading={GoogleAuthLoading}
               >
                 <FaGoogle />
                 Sign In with Google
-              </button>
+              </Button>
             </form>
 
             <div>

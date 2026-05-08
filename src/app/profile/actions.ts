@@ -18,6 +18,10 @@ export async function updateProfile(formData: FormData) {
       console.warn('Server Action (Update Profile): no user id provided')
       return
     }
+    if (!db) {
+      console.error('Server Action (Update Profile): missing db instance')
+      return
+    }
     await db.update(user).set({ name }).where(eq(user.id, session?.user.id))
     console.log('Server Action (Update Profile): Profile Updated')
     revalidatePath('/profile')
