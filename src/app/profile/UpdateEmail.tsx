@@ -2,7 +2,8 @@
 import { Mail } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { updateEmail } from '@/actions/auth'
-import Button from '@/components/Button'
+import Button from '@/components/ui/Button'
+import Card from '@/components/ui/Card'
 
 export default function UpdateEmail() {
   const [isOpen, setIsOpen] = useState(false)
@@ -66,41 +67,41 @@ export default function UpdateEmail() {
           onClick={handleBackdropClick}
           onKeyDown={handleBackdropClick}
         >
-          <div className="modal-box space-y-6 animate-in fade-in duration-300 space-y-6 min-h-[200px]">
-            <div className="form-control">
-              <h3 className="font-bold text-xl mb-10">Update Email</h3>
-              <div className="join">
-                <div>
-                  <label className="input validator join-item">
-                    <Mail />
-                    <input
-                      type="email"
-                      placeholder="Enter your new email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                    />
-                  </label>
-                </div>
-                <Button
-                  className="join-item"
-                  color="primary"
-                  type="button"
-                  onClick={handleUpdateEmail}
-                  isLoading={isLoading}
-                >
-                  {isLoading ? 'Updating...' : 'Update Email'}
-                </Button>
+          <Card
+            title="Update Email"
+            className="modal-box space-y-6 animate-in fade-in duration-300 space-y-6 min-h-[200px]"
+          >
+            <div className="join">
+              <div>
+                <label className="input validator join-item">
+                  <Mail />
+                  <input
+                    type="email"
+                    placeholder="Enter your new email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </label>
               </div>
-              {response && (
-                <p
-                  className={`mt-4 p-2 rounded-lg  ${response.success ? 'bg-success/10 text-success' : 'bg-error/10 text-error'}`}
-                >
-                  {response.message}
-                </p>
-              )}
+              <Button
+                className="join-item"
+                color="primary"
+                type="button"
+                onClick={handleUpdateEmail}
+                isLoading={isLoading}
+              >
+                {isLoading ? 'Updating...' : 'Update Email'}
+              </Button>
             </div>
-          </div>
+            {response && (
+              <p
+                className={`mt-4 p-2 rounded-lg  ${response.success ? 'bg-success/10 text-success' : 'bg-error/10 text-error'}`}
+              >
+                {response.message}
+              </p>
+            )}
+          </Card>
         </dialog>
       )}
     </>
