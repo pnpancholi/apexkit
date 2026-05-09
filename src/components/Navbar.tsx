@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import type React from 'react'
 import type { User } from '@/types/auth'
-import Button from './Button'
+import Button from '@/components/ui/Button'
 
 const Navbar: React.FC<{ user: User | null }> = async ({ user }) => {
   const navLinks = [
