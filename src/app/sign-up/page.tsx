@@ -14,14 +14,15 @@ export default function SignUp() {
   }
   return (
     <div className="flex min-h-screen justify-center bg-base-200 px-4 py-12">
-      <div className="w-full max-w-md"></div>
-      <SignUpForm
-        formState={signUpState}
-        formAction={signUpAction}
-        isPending={signUpPending}
-        googleAuthLoading={googleAuthLoading}
-        handleGoogleAuth={handleGoogleAuth}
-      />
+      <div className="w-full max-w-md">
+        <SignUpForm
+          formState={signUpState}
+          formAction={signUpAction}
+          isPending={signUpPending}
+          googleAuthLoading={googleAuthLoading}
+          handleGoogleAuth={handleGoogleAuth}
+        />
+      </div>
     </div>
   )
 }
