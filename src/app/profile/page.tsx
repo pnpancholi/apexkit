@@ -1,8 +1,8 @@
 import { requireAuth } from '@/auth/utils'
 import { logOut, updateProfile } from './actions'
-import Button from '@/components/Button'
+import Button from '@/components/ui/Button'
 import Link from 'next/link'
-import Card from '@/components/Card'
+import Card from '@/components/ui/Card'
 
 import UpdateEmail from './UpdateEmail'
 export default async function Profile() {

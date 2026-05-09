@@ -1,6 +1,6 @@
 'use client'
 import { Braces, FingerprintPattern, Palette, Rocket, ShieldX, Zap } from 'lucide-react'
-import Card from '@/components/Card'
+import Card from '@/components/ui/Card'
 import Hero from '@/assets/Hero'
 import HeroPulse from '@/assets/HeroPulse'
 

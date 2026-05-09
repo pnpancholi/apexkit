@@ -4,8 +4,8 @@ import Link from 'next/link'
 import { useActionState } from 'react'
 import { FaGoogle } from 'react-icons/fa'
 import { sendMagicLink, signInWithGoogle, signInWithPassword } from '@/actions/auth'
-import Button from '@/components/Button'
-import Card from '@/components/Card'
+import Button from '@/components/ui/Button'
+import Card from '@/components/ui/Card'
 
 export default function SignIn() {
   const [passwordState, passwordAction, passwordPending] = useActionState(signInWithPassword, null)

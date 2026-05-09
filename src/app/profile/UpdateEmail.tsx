@@ -2,8 +2,8 @@
 import { Mail } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { updateEmail } from '@/actions/auth'
-import Button from '@/components/Button'
-import Card from '@/components/Card'
+import Button from '@/components/ui/Button'
+import Card from '@/components/ui/Card'
 
 export default function UpdateEmail() {
   const [isOpen, setIsOpen] = useState(false)
@@ -67,7 +67,10 @@ export default function UpdateEmail() {
           onClick={handleBackdropClick}
           onKeyDown={handleBackdropClick}
         >
-          <Card title="Update Email" className="modal-box space-y-6 animate-in fade-in duration-300 space-y-6 min-h-[200px]">
+          <Card
+            title="Update Email"
+            className="modal-box space-y-6 animate-in fade-in duration-300 space-y-6 min-h-[200px]"
+          >
             <div className="join">
               <div>
                 <label className="input validator join-item">

@@ -2,8 +2,8 @@
 import { RectangleEllipsis } from 'lucide-react'
 import { useState } from 'react'
 import { resetPassword } from '@/actions/auth'
-import Button from '@/components/Button'
-import Card from '@/components/Card'
+import Button from '@/components/ui/Button'
+import Card from '@/components/ui/Card'
 
 const RESPONSE_STYLES = {
   success: 'bg-success/10 p-4 rounded-lg border-success text-success',
