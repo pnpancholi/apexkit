@@ -1,5 +1,6 @@
 'use client'
 import { Braces, FingerprintPattern, Palette, Rocket, ShieldX, Zap } from 'lucide-react'
+import Card from '@/components/Card'
 import Hero from '@/assets/Hero'
 import HeroPulse from '@/assets/HeroPulse'
 
@@ -120,16 +121,12 @@ export default function Home() {
           {/*grid to showcase features*/}
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {featuresList.map((feature) => (
-              <div
+              <Card
                 key={feature.title}
-                className="card bg-base-200 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
-              >
-                <div className="card-body items-center text-center">
-                  <feature.icon className="text-primary h-8 w-8" />
-                  <h3 className="card-title text-xl mb-3">{feature.title}</h3>
-                  <p className="text-base-content/80">{feature.description}</p>
-                </div>
-              </div>
+                icon={<feature.icon className="text-primary h-8 w-8" />}
+                title={feature.title}
+                desc={feature.description}
+              />
             ))}
           </div>
         </div>

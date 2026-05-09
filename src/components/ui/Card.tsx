@@ -2,13 +2,13 @@ import type React from 'react'
 
 interface CardProps {
   icon?: React.ReactNode
-  title: string
+  title?: string
   desc?: string
+  children?: React.ReactNode
   className?: string
 }
-export default function Card({ icon, title, desc, className }: CardProps) {
-  const baseClasses =
-    'card bg-base-200 shadow-xl hover:shadow-2xl transition-all duration-300 hover:translate-y-1'
+export default function Card({ icon, title, desc, className, children }: CardProps) {
+  const baseClasses = 'card bg-base-300 shadow-2xl'
   const titleClasses = 'card-title text-xl mb-3'
   const descClasses = 'text-base-content/80'
 
@@ -16,8 +16,9 @@ export default function Card({ icon, title, desc, className }: CardProps) {
     <div className={`${baseClasses} ${className}`}>
       <div className="card-body items-center text-center">
         {icon}
-        <h3 className={titleClasses}>{title}</h3>
-        <p className={descClasses}>{desc}</p>
+        {title && <h3 className={titleClasses}>{title}</h3>}
+        {desc && <p className={descClasses}>{desc}</p>}
+        {children}
       </div>
     </div>
   )
