@@ -3,6 +3,9 @@ interface InputProps {
   state?: 'success' | 'error' | 'warning'
   className?: string
   type?: 'text' | 'email' | 'password'
+  name: string
+  required?: boolean
+  placeholder: string
 }
 
 export default function Input({
@@ -10,6 +13,9 @@ export default function Input({
   state,
   className = '',
   type = 'text',
+  name,
+  required = false,
+  placeholder,
   ...props
 }: InputProps) {
   const baseClasses = 'input input-bordered w-full'
@@ -29,9 +35,11 @@ export default function Input({
   return (
     <input
       type={type}
+      name={name}
+      required={required}
+      placeholder={placeholder}
       className={`${baseClasses} ${sizeClasses[size]} ${state ? stateClasses[state] : ''} ${className}`}
       {...props}
     />
   )
 }
-

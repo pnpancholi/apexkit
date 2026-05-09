@@ -10,16 +10,17 @@ export default function SignIn() {
 
   return (
     <div className="flex min-h-screen justify-center bg-base-200 px-4 py-12">
-      <div className="w-full max-w-md"></div>
-      <SignInForm
-        passwordState={passwordState}
-        passwordAction={passwordAction}
-        passwordPending={passwordPending}
-        magicLinkState={magicLinkState}
-        magicLinkAction={magicLinkAction}
-        magicLinkPending={magicLinkPending}
-        signInWithGoogle={signInWithGoogle}
-      />
+      <div className="w-full max-w-md">
+        <SignInForm
+          passwordState={passwordState}
+          passwordAction={passwordAction}
+          passwordPending={passwordPending}
+          magicLinkState={magicLinkState}
+          magicLinkAction={magicLinkAction}
+          magicLinkPending={magicLinkPending}
+          signInWithGoogle={signInWithGoogle}
+        />
+      </div>
     </div>
   )
 }

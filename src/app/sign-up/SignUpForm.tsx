@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { FaGoogle } from 'react-icons/fa'
 import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
+import Input from '@/components/ui/Input'
 
 type ActionResponse = { success: boolean; message: string }
 
@@ -23,27 +24,9 @@ export default function SignUpForm({
   return (
     <Card title="Create Account" className="w-full max-w-md bg-base-100 shadow-2xl mt-25">
       <form action={formAction} className="space-y-4">
-        <input
-          className="input input-bordered w-full"
-          placeholder="Full Name"
-          type="name"
-          name="name"
-          required
-        />
-        <input
-          className="input input-bordered w-full"
-          placeholder="Email"
-          type="email"
-          name="email"
-          required
-        />
-        <input
-          className="input input-bordered w-full"
-          placeholder="Password (6+ characters)"
-          type="password"
-          name="password"
-          required
-        />
+        <Input type="text" name="name" required placeholder="Full Name" />
+        <Input type="email" name="email" required placeholder="Email" />
+        <Input type="password" name="password" required placeholder="Password (6+ characters)" />
         {formState?.success === false && (
           <div className="alert alert-error alert-soft">{formState.message}</div>
         )}

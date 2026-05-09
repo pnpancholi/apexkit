@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { FaGoogle } from 'react-icons/fa'
 import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
+import Input from '@/components/ui/Input'
 
 type ActionResponse = { success: boolean; message: string }
 
@@ -27,20 +28,13 @@ export default function SignInForm({
   return (
     <Card title="Sign In" className="w-full max-w-md bg-base-100 shadow-2xl mt-25">
       <form className="space-y-4" id="password-form" action={passwordAction}>
-        <input
+        <Input
           name="email"
           type="email"
           placeholder="Email"
-          className="input input-bordered w-full"
           required
         />
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          className="input input-bordered w-full"
-          required
-        />
+        <Input type="password" name="password" required placeholder="Password" />
         {/*-------------Error Handling for sign in with password----------*/}
         {passwordState?.success === false && (
           <div className="alert alert-error alert-soft">{passwordState.message}</div>
@@ -66,13 +60,7 @@ export default function SignInForm({
 
       {/*-----------------------Magic Link--------------------------------*/}
       <form className="space-y-4" id="magic-link-form" action={magicLinkAction}>
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          className="input input-bordered w-full"
-          required
-        />
+        <Input type="email" name="email" placeholder="Email" required />
         {/*--------------------------Error Handling and response for magic link*/}
         {magicLinkState && (
           <>
