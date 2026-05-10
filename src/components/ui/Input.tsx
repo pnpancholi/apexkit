@@ -18,7 +18,7 @@ export default function Input({
   placeholder,
   ...props
 }: InputProps) {
-  const baseClasses = 'input input-bordered w-full'
+  const baseClasses = 'input w-full rounded-none focus:outline-none focus:ring-0'
 
   const sizeClasses = {
     sm: 'input-sm',

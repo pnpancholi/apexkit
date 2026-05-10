@@ -3,6 +3,7 @@ import { FaGoogle } from 'react-icons/fa'
 import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
+import Alert from '@/components/Alert'
 
 type ActionResponse = { success: boolean; message: string }
 
@@ -27,8 +28,8 @@ export default function SignUpForm({
         <Input type="text" name="name" required placeholder="Full Name" />
         <Input type="email" name="email" required placeholder="Email" />
         <Input type="password" name="password" required placeholder="Password (6+ characters)" />
-        {formState?.success === false && (
-          <div className="alert alert-error alert-soft">{formState.message}</div>
+        {formState?.message && (
+          <Alert type={formState.success ? 'success' : 'error'} message={formState.message} />
         )}
 
         <Button type="submit" color="primary" className="my-5 w-full" isLoading={isPending}>

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { updateEmail } from '@/actions/auth'
 import Button from '@/components/ui/Button'
 import Card from '@/components/ui/Card'
+import Alert from '@/components/Alert'
 
 export default function UpdateEmail() {
   const [isOpen, setIsOpen] = useState(false)
@@ -95,11 +96,10 @@ export default function UpdateEmail() {
               </Button>
             </div>
             {response && (
-              <p
-                className={`mt-4 p-2 rounded-lg  ${response.success ? 'bg-success/10 text-success' : 'bg-error/10 text-error'}`}
-              >
-                {response.message}
-              </p>
+              <Alert
+                type={response.success ? 'success' : 'error'}
+                message={response.message}
+              />
             )}
           </Card>
         </dialog>

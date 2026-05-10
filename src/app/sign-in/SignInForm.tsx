@@ -3,6 +3,7 @@ import { FaGoogle } from 'react-icons/fa'
 import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
+import Alert from '@/components/Alert'
 
 type ActionResponse = { success: boolean; message: string }
 
@@ -28,16 +29,14 @@ export default function SignInForm({
   return (
     <Card title="Sign In" className="w-full max-w-md bg-base-100 shadow-2xl mt-25">
       <form className="space-y-4" id="password-form" action={passwordAction}>
-        <Input
-          name="email"
-          type="email"
-          placeholder="Email"
-          required
-        />
+        <Input name="email" type="email" placeholder="Email" required />
         <Input type="password" name="password" required placeholder="Password" />
         {/*-------------Error Handling for sign in with password----------*/}
-        {passwordState?.success === false && (
-          <div className="alert alert-error alert-soft">{passwordState.message}</div>
+        {passwordState?.message && (
+          <Alert
+            type={passwordState.success ? 'success' : 'error'}
+            message={passwordState.message}
+          />
         )}
         <Button
           type="submit"
@@ -48,12 +47,7 @@ export default function SignInForm({
           Sign In With Password
         </Button>
       </form>
-      <Button
-        type="button"
-        color="secondary"
-        className="w-full mt-5"
-        onClick={signInWithGoogle}
-      >
+      <Button type="button" color="secondary" className="w-full mt-5" onClick={signInWithGoogle}>
         <FaGoogle /> Sign In With Google
       </Button>
       <div className="divider">Or</div>
@@ -64,12 +58,10 @@ export default function SignInForm({
         {/*--------------------------Error Handling and response for magic link*/}
         {magicLinkState && (
           <>
-            {magicLinkState?.success === false && (
-              <div className="alert alert-soft alert-error">{magicLinkState.message}</div>
-            )}
-            {magicLinkState.success === true && (
-              <div className="alert alert-soft alert-success">{magicLinkState.message}</div>
-            )}
+            <Alert
+              type={magicLinkState.success ? 'success' : 'error'}
+              message={magicLinkState.message}
+            />
           </>
         )}
         {/*--------------------------------------------------------------------*/}
@@ -96,3 +88,4 @@ export default function SignInForm({
     </Card>
   )
 }
+

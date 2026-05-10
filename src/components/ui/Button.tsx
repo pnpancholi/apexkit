@@ -23,7 +23,7 @@ export default function Button({
   onClick,
   className = '',
 }: ButtonProps) {
-  const baseClasses = 'btn font-semibold transiton-all'
+  const baseClasses = 'btn font-semibold transiton-all rounded-none'
 
   const colorClasses = {
     primary: 'btn-primary',

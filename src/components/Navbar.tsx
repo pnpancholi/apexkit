@@ -20,10 +20,10 @@ const Navbar: React.FC<{ user: User | null }> = async ({ user }) => {
   ]
 
   return (
-    <div className="navbar sticky shadow-md px-4 lg:px-40 bg-base-100 z-[10]">
+    <div className="navbar fixed top-0 w-full shadow-md px-4 lg:px-40 bg-base-200 z-[20] border-b-text">
       <div className="navbar-start">
         <a className="btn btn-ghost normal-case text-xl" href="/">
-          Apex Kit
+          ApexKit
         </a>
       </div>
       <div className="navbar-center hidden lg:flex">
