@@ -126,6 +126,7 @@ export default function Home() {
                 icon={<feature.icon className="text-primary h-8 w-8" />}
                 title={feature.title}
                 desc={feature.description}
+                hoverable={true}
               />
             ))}
           </div>

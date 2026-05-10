@@ -1,4 +1,6 @@
 import type React from 'react'
+import Button from '@/components/ui/Button'
+import Input from '@/components/ui/Input'
 
 const Footer: React.FC = () => {
   return (
@@ -50,14 +52,15 @@ const Footer: React.FC = () => {
         <fieldset className="w-80">
           <label htmlFor="email">Enter your email address</label>
           <div className="join">
-            <input
+            <Input
               type="text"
               placeholder="username@site.com"
-              className="input input-bordered join-item"
+              className="join-item"
+              name="email"
             />
-            <button type="button" className="btn btn-primary join-item">
+            <Button type="button" color="primary" className="join-item">
               Subscribe
-            </button>
+            </Button>
           </div>
         </fieldset>
       </form>

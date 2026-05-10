@@ -3,6 +3,7 @@ import { FileLock } from 'lucide-react'
 import { useActionState } from 'react'
 import { requestPasswordReset } from '@/actions/auth'
 import Button from '@/components/ui/Button'
+import Alert from '@/components/Alert'
 
 export default function ForgotPassword() {
   const [resetPasswordState, resetPasswordAction, resetPasswordPending] = useActionState(
@@ -37,18 +38,10 @@ export default function ForgotPassword() {
                   required
                 />
                 {resetPasswordState && (
-                  <>
-                    {resetPasswordState?.success === false && (
-                      <div className="alert alert-soft alert-error">
-                        {resetPasswordState.message}
-                      </div>
-                    )}
-                    {resetPasswordState?.success === true && (
-                      <div className="alert alert-soft alert-success">
-                        {resetPasswordState.message}
-                      </div>
-                    )}
-                  </>
+                  <Alert
+                    type={resetPasswordState.success ? 'success' : 'error'}
+                    message={resetPasswordState.message}
+                  />
                 )}
               </div>
               {/* Action Button */}

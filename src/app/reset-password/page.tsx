@@ -1,14 +1,14 @@
 'use client'
+
 import { RectangleEllipsis } from 'lucide-react'
 import { useState } from 'react'
 import { resetPassword } from '@/actions/auth'
 import Button from '@/components/ui/Button'
+import Input from '@/components/ui/Input'
 import Card from '@/components/ui/Card'
+import Alert from '@/components/Alert'
 
-const RESPONSE_STYLES = {
-  success: 'bg-success/10 p-4 rounded-lg border-success text-success',
-  error: 'bg-error/10 p-4 rounded-lg border-error text-error',
-}
+
 
 export default function ResetPasswordPage() {
   const [newPassword, setNewPassword] = useState('')
@@ -78,28 +78,27 @@ export default function ResetPasswordPage() {
             </div>
             {/* User Info Cards */}
             <div className="space-y-4">
-              <div className="flex flex-col items-center space-y-4 p-2  rounded-lg">
-                <input
-                  className="input input-ghost w-full p-2 font-medium bg-base-200  focus:outline-none"
-                  type="password"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  placeholder="Type Your New Password"
-                />
+              <Input
+                type="password"
+                name="newPassword"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="Type Your New Password"
+              />
 
-                <input
-                  className="input input-ghost w-full p-2 font-medium bg-base-200 focus:outline-none"
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  placeholder="Confirm Your New Password"
-                />
-              </div>
+              <Input
+                type="password"
+                name="confirmPassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Confirm Your New Password"
+              />
             </div>
             {feedback && (
-              <p className={`${RESPONSE_STYLES[feedback.success ? 'success' : 'error']}`}>
-                {feedback.message}
-              </p>
+              <Alert
+                type={feedback.success ? 'success' : 'error'}
+                message={feedback.message}
+              />
             )}
             {/* Action Button */}
             <div className="my-5">
