@@ -3,7 +3,7 @@ import { FileLock } from 'lucide-react'
 import { useActionState } from 'react'
 import { requestPasswordReset } from '@/actions/auth'
 import Button from '@/components/ui/Button'
-import Alert from '@/components/Alert'
+import Alert from '@/components/ui/Alert'
 
 export default function ForgotPassword() {
   const [resetPasswordState, resetPasswordAction, resetPasswordPending] = useActionState(

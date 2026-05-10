@@ -3,7 +3,7 @@ import { FaGoogle } from 'react-icons/fa'
 import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
-import Alert from '@/components/Alert'
+import Alert from '@/components/ui/Alert'
 
 type ActionResponse = { success: boolean; message: string }
 

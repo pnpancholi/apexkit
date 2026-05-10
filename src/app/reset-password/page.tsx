@@ -6,9 +6,7 @@ import { resetPassword } from '@/actions/auth'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Card from '@/components/ui/Card'
-import Alert from '@/components/Alert'
-
-
+import Alert from '@/components/ui/Alert'
 
 export default function ResetPasswordPage() {
   const [newPassword, setNewPassword] = useState('')
@@ -81,24 +79,21 @@ export default function ResetPasswordPage() {
               <Input
                 type="password"
                 name="newPassword"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
+                //value={newPassword}
+                //onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="Type Your New Password"
               />
 
               <Input
                 type="password"
                 name="confirmPassword"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                //value={confirmPassword}
+                //onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm Your New Password"
               />
             </div>
             {feedback && (
-              <Alert
-                type={feedback.success ? 'success' : 'error'}
-                message={feedback.message}
-              />
+              <Alert type={feedback.success ? 'success' : 'error'} message={feedback.message} />
             )}
             {/* Action Button */}
             <div className="my-5">
