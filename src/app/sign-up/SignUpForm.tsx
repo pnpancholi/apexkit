@@ -1,26 +1,22 @@
+'use client'
+
+import React from 'react'
 import Link from 'next/link'
 import { FaGoogle } from 'react-icons/fa'
 import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Alert from '@/components/ui/Alert'
-import type { ActionResponse } from '@/types/responses'
+import { signInWithGoogle, signUp } from '@/actions/auth'
 
-interface SignUpFormProps {
-  formState: ActionResponse | null
-  formAction: (FormData: FormData) => void
-  isPending: boolean
-  googleAuthLoading: boolean
-  handleGoogleAuth: () => void
-}
+export default function SignUpForm() {
+  const [formState, formAction, isPending] = React.useActionState(signUp, null)
+  const [googleAuthLoading, setGoogleAuthLoading] = React.useState(false)
 
-export default function SignUpForm({
-  formState,
-  formAction,
-  isPending,
-  googleAuthLoading,
-  handleGoogleAuth,
-}: SignUpFormProps) {
+  const handleGoogleAuth = async () => {
+    setGoogleAuthLoading(true)
+    signInWithGoogle()
+  }
   return (
     <Card title="Create Account" className="w-full max-w-md bg-base-100 shadow-2xl mt-25">
       <form action={formAction} className="space-y-4">

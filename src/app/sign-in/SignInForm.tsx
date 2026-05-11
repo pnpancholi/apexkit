@@ -1,30 +1,24 @@
+'use client'
+
+import React from 'react'
 import Link from 'next/link'
 import { FaGoogle } from 'react-icons/fa'
 import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Alert from '@/components/ui/Alert'
-import type { ActionResponse } from '@/types/responses'
+import { signInWithPassword, sendMagicLink, signInWithGoogle } from '@/actions/auth'
 
-interface SignInFormProps {
-  passwordState: ActionResponse | null
-  passwordAction: (FormData: FormData) => void
-  passwordPending: boolean
-  magicLinkState: ActionResponse | null
-  magicLinkAction: (FormData: FormData) => void
-  magicLinkPending: boolean
-  signInWithGoogle: () => void
-}
+export default function SignInForm() {
+  const [passwordState, passwordAction, passwordPending] = React.useActionState(
+    signInWithPassword,
+    null,
+  )
 
-export default function SignInForm({
-  passwordState,
-  passwordAction,
-  passwordPending,
-  magicLinkState,
-  magicLinkAction,
-  magicLinkPending,
-  signInWithGoogle,
-}: SignInFormProps) {
+  const [magicLinkState, magicLinkAction, magicLinkPending] = React.useActionState(
+    sendMagicLink,
+    null,
+  )
   return (
     <Card title="Sign In" className="w-full max-w-md bg-base-100 shadow-2xl mt-25">
       <form className="space-y-4" id="password-form" action={passwordAction}>
@@ -56,12 +50,10 @@ export default function SignInForm({
         <Input type="email" name="email" placeholder="Email" required />
         {/*--------------------------Error Handling and response for magic link*/}
         {magicLinkState && (
-          <>
-            <Alert
-              type={magicLinkState.success ? 'success' : 'error'}
-              message={magicLinkState.message}
-            />
-          </>
+          <Alert
+            type={magicLinkState.success ? 'success' : 'error'}
+            message={magicLinkState.message}
+          />
         )}
         {/*--------------------------------------------------------------------*/}
 
