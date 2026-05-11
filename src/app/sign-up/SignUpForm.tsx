@@ -4,8 +4,7 @@ import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Alert from '@/components/ui/Alert'
-
-type ActionResponse = { success: boolean; message: string }
+import type { ActionResponse } from '@/types/responses'
 
 interface SignUpFormProps {
   formState: ActionResponse | null

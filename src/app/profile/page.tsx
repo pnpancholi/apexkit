@@ -1,10 +1,11 @@
 import { requireAuth } from '@/auth/utils'
 import { logOut, updateProfile } from './actions'
 import Button from '@/components/ui/Button'
+import Input from '@/components/ui/Input'
 import Link from 'next/link'
 import Card from '@/components/ui/Card'
-
 import UpdateEmail from './UpdateEmail'
+
 export default async function Profile() {
   const user = await requireAuth()
   return (
@@ -33,24 +34,14 @@ export default async function Profile() {
                 <div className="text-2xl">👤</div>
                 <div className="text-left">
                   <p className="text-sm text-base-content/70">Name</p>
-                  <input
-                    className="input input-ghost w-full p-0 font-medium bg-transparent border-none focus:outline-none"
-                    name="name"
-                    defaultValue={user.name}
-                  />
+                  <Input name="name" placeholder={user.name} />
                 </div>
               </div>
               <div className="flex items-center gap-4 p-4 bg-base-200 rounded-lg">
                 <div className="text-2xl">📧</div>
                 <div className="text-left">
                   <p className="text-sm text-base-content/70">Email</p>
-                  <input
-                    className="input input-ghost w-full p-0 font-medium bg-transparent border-none focus:outline-none"
-                    name="email"
-                    disabled
-                    defaultValue={user.email}
-                    contentEditable={false}
-                  />
+                  <Input disabled name="email" placeholder={user.email} />
                 </div>
               </div>
 

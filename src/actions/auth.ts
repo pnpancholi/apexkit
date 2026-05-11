@@ -1,7 +1,6 @@
 import { redirect } from 'next/navigation'
 import { authClient } from '@/auth/client'
-
-type ActionResponse = { success: boolean; message: string }
+import type { ActionResponse } from '@/types'
 
 export async function signUp(
   _: ActionResponse | null,
