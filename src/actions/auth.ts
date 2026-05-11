@@ -1,11 +1,9 @@
 import { redirect } from 'next/navigation'
 import { authClient } from '@/auth/client'
 import type { ActionResponse } from '@/types'
+import { string } from 'better-auth'
 
-export async function signUp(
-  _: ActionResponse | null,
-  formData: FormData,
-): Promise<ActionResponse> {
+export async function signUp(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
   const name = formData.get('name') as string
   const email = formData.get('email') as string
   const password = formData.get('password') as string
@@ -30,10 +28,7 @@ export async function signUp(
   redirect('/sign-in')
 }
 
-export async function signInWithPassword(
-  _: ActionResponse | null,
-  formData: FormData,
-): Promise<ActionResponse> {
+export async function signInWithPassword(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
   const email = formData.get('email') as string
   const password = formData.get('password') as string
   try {
@@ -51,10 +46,7 @@ export async function signInWithPassword(
   redirect('/profile')
 }
 
-export async function sendMagicLink(
-  _: ActionResponse | null,
-  formData: FormData,
-): Promise<ActionResponse> {
+export async function sendMagicLink(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
   const email = formData.get('email') as string
 
   try {
@@ -81,10 +73,7 @@ export async function sendMagicLink(
   }
 }
 
-export async function requestPasswordReset(
-  _: ActionResponse | null,
-  formData: FormData,
-): Promise<ActionResponse> {
+export async function requestPasswordReset(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
   const email = formData.get('email') as string
   try {
     const { error } = await authClient.requestPasswordReset({
@@ -104,6 +93,8 @@ export async function requestPasswordReset(
     }
   }
 }
+
+export async function resetPassword2(FormData: FormData, token: string) { }
 
 export async function resetPassword(newPassword: string, token: string): Promise<ActionResponse> {
   if (!newPassword || newPassword.length < 8) {

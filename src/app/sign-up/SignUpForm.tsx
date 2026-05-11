@@ -12,13 +12,18 @@ import { signInWithGoogle, signUp } from '@/actions/auth'
 export default function SignUpForm() {
   const [formState, formAction, isPending] = React.useActionState(signUp, null)
   const [googleAuthLoading, setGoogleAuthLoading] = React.useState(false)
+  const [googleAuthError, setGoogleAuthError] = React.useState<string | null>(null)
 
   const handleGoogleAuth = async () => {
     setGoogleAuthLoading(true)
-    signInWithGoogle()
+    const res = await signInWithGoogle()
+    setGoogleAuthLoading(false)
+    if (!res.success) {
+      setGoogleAuthError(res.message)
+    }
   }
   return (
-    <Card title="Create Account" className="w-full max-w-md bg-base-100 shadow-2xl mt-25">
+    <Card title="Create Account">
       <form action={formAction} className="space-y-4">
         <Input type="text" name="name" required placeholder="Full Name" />
         <Input type="email" name="email" required placeholder="Email" />
@@ -28,7 +33,7 @@ export default function SignUpForm() {
         )}
 
         <Button type="submit" color="primary" className="my-5 w-full" isLoading={isPending}>
-          {isPending ? 'Creating Account' : 'Create Account'}
+          Create Account
         </Button>
         <div className="divider">Or</div>
         <Button
@@ -41,10 +46,11 @@ export default function SignUpForm() {
           <FaGoogle />
           Sign In with Google
         </Button>
+        {googleAuthError && <Alert type="error" message={googleAuthError} />}
       </form>
 
-      <div>
-        <Link href="/sign-in" className="text-center text-sm">
+      <div className="text-center">
+        <Link href="/sign-in" className="text-sm">
           Already have an account ? Sign In
         </Link>
       </div>

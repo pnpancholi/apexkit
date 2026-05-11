@@ -1,9 +1,11 @@
+'use client'
+
+import React from 'react'
 import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import { FaUnlock } from 'react-icons/fa'
 
-interface ResetPasswordFormProps { }
 export default function ResetPasswordForm() {
   return (
     <Card title="Reset Your Password" className="w-full max-w-md bg-base-100 shadow-2xl">

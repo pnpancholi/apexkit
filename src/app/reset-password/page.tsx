@@ -1,7 +1,4 @@
-'use client'
-
 import ResetPasswordForm from './ResetPasswordForm'
-import { resetPassword } from '@/actions/auth'
 
 export default function ResetPasswordPage() {
   return (
