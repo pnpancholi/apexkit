@@ -1,109 +1,39 @@
 'use client'
-import { Mail } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { updateEmail } from '@/actions/auth'
+
+import React from 'react'
 import Button from '@/components/ui/Button'
-import Card from '@/components/ui/Card'
-import Alert from '@/components/Alert'
+import Modal from '@/components/layout/Modal'
+import Input from '@/components/ui/Input'
+import Alert from '@/components/ui/Alert'
 
 export default function UpdateEmail() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [email, setEmail] = useState('')
-  const [response, setResponse] = useState<{
-    success: boolean
-    message: string
-  } | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isOpen, setOpen] = React.useState(false)
 
-  // @dev: this takes care of providing a good user experience with modal
-  // 1. Close on esc key
-  useEffect(() => {
-    const handleESCKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setIsOpen(false)
-      }
-    }
-    if (isOpen) {
-      document.addEventListener('keydown', handleESCKey)
-    }
-    return () => {
-      document.removeEventListener('keydown', handleESCKey)
-    }
-  }, [isOpen])
-
-  const handleBackdropClick = (e: React.MouseEvent | React.KeyboardEvent) => {
-    if (e.target === e.currentTarget) {
-      setIsOpen(false)
-    }
-  }
-
-  const handleUpdateEmail = async () => {
-    setIsLoading(true)
-    const res = await updateEmail(email)
-    if (res.success) {
-      setResponse(res)
-      setTimeout(() => {
-        setIsOpen(false)
-      }, 2000)
-    }
-    setResponse(res)
-    setIsLoading(false)
-  }
   return (
     <>
       <Button
+        onClick={() => setOpen(true)}
+        color="accent"
         variant="outlined"
-        color="primary"
-        className="w-full mt-4"
         type="button"
-        onClick={() => {
-          setIsOpen(true)
-        }}
+        className="w-full mt-4"
       >
         Update Email
       </Button>
-      {isOpen && (
-        <dialog
-          className={`modal ${isOpen ? 'modal-open' : ''}`}
-          onClick={handleBackdropClick}
-          onKeyDown={handleBackdropClick}
-        >
-          <Card
-            title="Update Email"
-            className="modal-box space-y-6 animate-in fade-in duration-300 space-y-6 min-h-[200px]"
-          >
-            <div className="join">
-              <div>
-                <label className="input validator join-item">
-                  <Mail />
-                  <input
-                    type="email"
-                    placeholder="Enter your new email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </label>
-              </div>
-              <Button
-                className="join-item"
-                color="primary"
-                type="button"
-                onClick={handleUpdateEmail}
-                isLoading={isLoading}
-              >
-                {isLoading ? 'Updating...' : 'Update Email'}
-              </Button>
-            </div>
-            {response && (
-              <Alert
-                type={response.success ? 'success' : 'error'}
-                message={response.message}
-              />
-            )}
-          </Card>
-        </dialog>
-      )}
+      <Modal isOpen={isOpen} onClose={() => setOpen(false)} title="Update Email ">
+        <div className="join w-full my-10">
+          <Input
+            type="email"
+            placeholder="Enter your new email"
+            className="grow join-item"
+            name="email"
+            required
+          />
+          <Button type="button" color="primary" className="join-item">
+            Update
+          </Button>
+        </div>
+      </Modal>
     </>
   )
 }

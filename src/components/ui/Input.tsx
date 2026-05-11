@@ -6,6 +6,7 @@ interface InputProps {
   name: string
   required?: boolean
   placeholder: string
+  disabled?: boolean
 }
 
 export default function Input({
@@ -16,6 +17,7 @@ export default function Input({
   name,
   required = false,
   placeholder,
+  disabled = false,
   ...props
 }: InputProps) {
   const baseClasses = 'input w-full rounded-none focus:outline-none focus:ring-0'
@@ -38,6 +40,7 @@ export default function Input({
       name={name}
       required={required}
       placeholder={placeholder}
+      disabled={disabled}
       className={`${baseClasses} ${sizeClasses[size]} ${state ? stateClasses[state] : ''} ${className}`}
       {...props}
     />
