@@ -1,7 +1,6 @@
 import { redirect } from 'next/navigation'
 import { authClient } from '@/auth/client'
 import type { ActionResponse } from '@/types'
-import { string } from 'better-auth'
 
 export async function signUp(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
   const name = formData.get('name') as string
@@ -94,31 +93,27 @@ export async function requestPasswordReset(_: ActionResponse | null, formData: F
   }
 }
 
-export async function resetPassword2(FormData: FormData, token: string) { }
+export async function resetPassword(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
+  const newPassword = formData.get('newPassword') as string
+  const confirmPassword = formData.get('confirmPassword') as string
+  const token = formData.get('token') as string
 
-export async function resetPassword(newPassword: string, token: string): Promise<ActionResponse> {
   if (!newPassword || newPassword.length < 8) {
-    return {
-      success: false,
-      message: 'Password must be at least 8 characters',
-    }
+    return { success: false, message: 'Password must be at least 8 characters' }
+  }
+  if (newPassword !== confirmPassword) {
+    return { success: false, message: 'Password does not match' }
   }
 
   try {
-    const { error } = await authClient.resetPassword({
-      newPassword,
-      token,
-    })
+    const { error } = await authClient.resetPassword({ newPassword, token })
     if (error) {
-      return { success: false, message: 'Failed to reset password, Try again' }
+      return { success: false, message: 'Failed to reset the password, Try again' }
     }
-    return { success: true, message: 'Password reset successfully !' }
+    return { success: true, message: 'Password reset successfully!' }
   } catch (error) {
     console.error('auth.ts [resetPassword]: Unexpected error while resetting password', error)
-    return {
-      success: false,
-      message: 'Something went wrong, Please try again later',
-    }
+    return { success: false, message: 'Failed to reset password, Try again later' }
   }
 }
 export async function updateEmail(newEmail: string): Promise<ActionResponse> {

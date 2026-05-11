@@ -1,11 +1,10 @@
 import ResetPasswordForm from './ResetPasswordForm'
 
-export default function ResetPasswordPage() {
+export default async function ResetPasswordPage({ searchParams }: { searchParams: Promise<{ token: string }> }) {
+  const { token } = await searchParams
   return (
-    <div className="flex min-h-screen bg-base-200 justify-center px-4 py-12">
-      <div className="w-full max-w-md">
-        <ResetPasswordForm />
-      </div>
+    <div className="w-full max-w-md">
+      <ResetPasswordForm token={token} />
     </div>
   )
 }
