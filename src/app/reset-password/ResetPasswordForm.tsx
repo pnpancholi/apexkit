@@ -17,21 +17,15 @@ export default function ResetPasswordForm({ token }: ResetPasswordFormProps) {
 
   return (
     <Card title="Reset Your Password">
-      <form action={resetAction}>
-        <div className="flex  justify-center mb-4">
-          <div className="avatar placeholder">
-            <div className="flex items-center justify-center bg-primary text-primary-content rounded-full w-20">
-              <FaUnlock size={30} />
-            </div>
-          </div>
+      <form action={resetAction} className="space-y-4">
+        <div className="bg-primary text-primary-content rounded-full w-20 h-20 flex items-center justify-center my-4 mb-10 mx-auto">
+          <FaUnlock size={30} />
         </div>
-        <div className="space-y-5">
-          <Input type="password" name="newPassword" placeholder="Type Your New Password" />
-          <Input type="password" name="confirmPassword" placeholder="Confirm Your New Password" />
-          <input type="hidden" name="token" value={token} />
-        </div>
+        <Input type="password" name="newPassword" placeholder="Type Your New Password" />
+        <Input type="password" name="confirmPassword" placeholder="Confirm Your New Password" />
+        <input type="hidden" name="token" value={token} />
         {resetState?.message && <Alert type={resetState.success ? 'success' : 'error'} message={resetState.message} />}
-        <Button color="primary" className="w-full my-10" type="submit" isLoading={resetPending}>
+        <Button color="primary" className="w-full mt-4" type="submit" isLoading={resetPending}>
           Reset Password
         </Button>
       </form>
