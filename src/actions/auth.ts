@@ -2,10 +2,7 @@ import { redirect } from 'next/navigation'
 import { authClient } from '@/auth/client'
 import type { ActionResponse } from '@/types'
 
-export async function signUp(
-  _: ActionResponse | null,
-  formData: FormData,
-): Promise<ActionResponse> {
+export async function signUp(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
   const name = formData.get('name') as string
   const email = formData.get('email') as string
   const password = formData.get('password') as string
@@ -30,10 +27,7 @@ export async function signUp(
   redirect('/sign-in')
 }
 
-export async function signInWithPassword(
-  _: ActionResponse | null,
-  formData: FormData,
-): Promise<ActionResponse> {
+export async function signInWithPassword(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
   const email = formData.get('email') as string
   const password = formData.get('password') as string
   try {
@@ -51,10 +45,7 @@ export async function signInWithPassword(
   redirect('/profile')
 }
 
-export async function sendMagicLink(
-  _: ActionResponse | null,
-  formData: FormData,
-): Promise<ActionResponse> {
+export async function sendMagicLink(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
   const email = formData.get('email') as string
 
   try {
@@ -81,10 +72,7 @@ export async function sendMagicLink(
   }
 }
 
-export async function requestPasswordReset(
-  _: ActionResponse | null,
-  formData: FormData,
-): Promise<ActionResponse> {
+export async function requestPasswordReset(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
   const email = formData.get('email') as string
   try {
     const { error } = await authClient.requestPasswordReset({
@@ -105,29 +93,27 @@ export async function requestPasswordReset(
   }
 }
 
-export async function resetPassword(newPassword: string, token: string): Promise<ActionResponse> {
+export async function resetPassword(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
+  const newPassword = formData.get('newPassword') as string
+  const confirmPassword = formData.get('confirmPassword') as string
+  const token = formData.get('token') as string
+
   if (!newPassword || newPassword.length < 8) {
-    return {
-      success: false,
-      message: 'Password must be at least 8 characters',
-    }
+    return { success: false, message: 'Password must be at least 8 characters' }
+  }
+  if (newPassword !== confirmPassword) {
+    return { success: false, message: 'Password does not match' }
   }
 
   try {
-    const { error } = await authClient.resetPassword({
-      newPassword,
-      token,
-    })
+    const { error } = await authClient.resetPassword({ newPassword, token })
     if (error) {
-      return { success: false, message: 'Failed to reset password, Try again' }
+      return { success: false, message: 'Failed to reset the password, Try again' }
     }
-    return { success: true, message: 'Password reset successfully !' }
+    return { success: true, message: 'Password reset successfully!' }
   } catch (error) {
     console.error('auth.ts [resetPassword]: Unexpected error while resetting password', error)
-    return {
-      success: false,
-      message: 'Something went wrong, Please try again later',
-    }
+    return { success: false, message: 'Failed to reset password, Try again later' }
   }
 }
 export async function updateEmail(newEmail: string): Promise<ActionResponse> {

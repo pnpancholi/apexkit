@@ -16,8 +16,7 @@ export default function Card({
   children,
   hoverable = false,
 }: CardProps) {
-  const baseClasses =
-    'card bg-base-300 shadow-xl border border-transparent rounded-none border-ring-2'
+  const baseClasses = 'card bg-base-300 shadow-xl border border-transparent rounded-none'
   const titleClasses = 'card-title text-xl mb-3'
   const descClasses = 'text-base-content/80'
   const hoverClasses = hoverable
