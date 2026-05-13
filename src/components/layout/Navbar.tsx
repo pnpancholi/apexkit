@@ -44,20 +44,9 @@ const Navbar: React.FC<{ user: User | null }> = async ({ user }) => {
       <div className="navbar-end">
         <div className="dropdown">
           <label htmlFor="navbar-menu" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <title>Menu</title>
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
             </svg>
           </label>
           <ul className="menu menu-compact dropdown-content w-screen fixed z-50 mt-3 p-4 shadow bg-base-100 inset-x-0 rounded-none items-center">
@@ -87,7 +76,7 @@ const Navbar: React.FC<{ user: User | null }> = async ({ user }) => {
             </div>
           </Link>
         ) : (
-          <Link href="/sign-in" className="btn btn-primary">
+          <Link href="/sign-in" className="btn btn-primary rounded-none">
             Sign In
           </Link>
         )}

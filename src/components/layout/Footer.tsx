@@ -2,7 +2,7 @@ import type React from 'react'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 
-const Footer: React.FC = () => {
+export default function Footer() {
   return (
     <footer className="footer p-4 sm:footer-horizontal bg-base-200 text-base-content py-10 px-40 mt-auto">
       <nav>
@@ -52,12 +52,7 @@ const Footer: React.FC = () => {
         <fieldset className="w-80">
           <label htmlFor="email">Enter your email address</label>
           <div className="join">
-            <Input
-              type="text"
-              placeholder="username@site.com"
-              className="join-item"
-              name="email"
-            />
+            <Input type="text" placeholder="username@site.com" className="join-item" name="email" />
             <Button type="button" color="primary" className="join-item">
               Subscribe
             </Button>
@@ -67,5 +62,3 @@ const Footer: React.FC = () => {
     </footer>
   )
 }
-
-export default Footer
