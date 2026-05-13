@@ -7,9 +7,8 @@ import UpdateEmail from './UpdateEmail'
 import ProfileField from './ProfileField'
 import Link from 'next/link'
 import { FaUser, FaEnvelope, FaClipboardCheck, FaHourglassHalf, FaCalendar } from 'react-icons/fa'
-
-import type { User } from '@/types'
 import { signOut } from '@/actions/auth'
+import type { User } from '@/types'
 
 interface ProfileDetailsProps {
   user: User
@@ -17,7 +16,7 @@ interface ProfileDetailsProps {
 
 export default function ProfileDetails({ user }: ProfileDetailsProps) {
   return (
-    <Card className="w-full max-w-md bg-base-100 shadow-2xl">
+    <Card className="w-full max-w-md">
       <form>
         <div className="bg-primary text-primary-content rounded-full w-20 h-20 flex items-center justify-center my-4 mb-10 mx-auto">
           <span className="text-5xl font-bold">{user.name?.charAt(0).toUpperCase()}</span>
@@ -47,9 +46,6 @@ export default function ProfileDetails({ user }: ProfileDetailsProps) {
 
         <div className="space-y-4">
           <UpdateEmail />
-          <Button type="submit" className="w-full">
-            Update Profile
-          </Button>
           <Link href="/reset-password" className="btn btn-accent w-full  rounded-none ">
             Reset Password
           </Link>
