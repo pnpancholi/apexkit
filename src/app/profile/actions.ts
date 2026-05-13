@@ -36,7 +36,7 @@ export async function logOut() {
     await auth.api.signOut({
       headers: await headers(),
     })
-    revalidatePath('/')
+    revalidatePath('/profile')
   } catch (error) {
     console.error('Server Action (Log Out): ', error)
   }

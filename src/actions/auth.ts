@@ -1,6 +1,7 @@
-import { redirect } from 'next/navigation'
 import { authClient } from '@/auth/client'
 import type { ActionResponse } from '@/types'
+import { auth } from '@/auth'
+import { headers } from 'next/headers'
 
 export async function signUp(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
   const name = formData.get('name') as string
@@ -155,3 +156,15 @@ export async function signInWithGoogle(): Promise<ActionResponse> {
     }
   }
 }
+//
+// export async function signOut() {
+//   try {
+//     await auth.api.signOut({
+//       headers: await headers(),
+//     })
+//     // revalidatePath('/')
+//     redirect('/sign-in')
+//   } catch (error) {
+//     console.error('[signOut]: Unexpected error', error)
+//   }
+// }
