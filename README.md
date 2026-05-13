@@ -51,6 +51,45 @@ Enabling builders to ship prodiuction-grade software rapidly.
 | TailwindCSS + DaisyUI          | Yes      | beautiful and accessible UI out of the box                                |
 | TypeScript                     | Yes      | Type safety is necessary not princess treatment                           |
 
+## Project Structure
+
+```mermaid
+graph TD
+    Root[apexkit/] --> Src[src/]
+    Root --> Public[public/]
+    Root --> Config[Configuration]
+
+    subgraph Src [Source Code]
+        direction LR
+        App[app/] --> Pages[Pages & Routes]
+        Actions[actions/] --> ServerActions[Server Actions]
+        Auth[auth/] --> AuthConfig[Better Auth Config]
+        Components[components/] --> UI[UI & Layouts]
+        DB[db/] --> Drizzle[Drizzle & Schema]
+        Email[email/] --> Mail[Email Templates]
+        Assets[assets/] --> SVGs[Visual Assets]
+        Types[types/] --> TS[TS Definitions]
+    end
+
+    subgraph App [App Router Details]
+        api --> RouteHandlers[API Routes]
+        profile --> UserSettings[Profile Management]
+        auth_pages[Auth Pages] --> signin[sign-in/]
+        auth_pages --> signup[sign-up/]
+    end
+```
+
+### Folder Breakdown
+
+- **`src/app/`**: The heart of the application using Next.js App Router. It contains all pages, global layouts, and API route handlers.
+- **`src/actions/`**: Type-safe **Server Actions** (Next.js 15) for handling form submissions and server-side logic without manual API endpoints.
+- **`src/components/`**: Reusable UI components built with TailwindCSS and DaisyUI. It follows a clean separation between atomic `ui/` elements and structural `layout/` components.
+- **`src/auth/`**: Centralized authentication configuration using **Better Auth**, providing a seamless auth experience without vendor lock-in.
+- **`src/db/`**: Database layer powered by **Drizzle ORM**. It houses your schema definitions and auto-generated SQL migrations.
+- **`src/email/`**: Email service logic and React-based templates for transactional emails like magic links and password resets.
+- **`src/assets/`**: Visual assets and custom SVG components used across the application.
+- **`src/types/`**: Shared TypeScript definitions to maintain strict type safety across the entire stack.
+
 ## Get Started
 ```bash
 git clone https://github.com/PradhumnaPancholi/apex-kit
