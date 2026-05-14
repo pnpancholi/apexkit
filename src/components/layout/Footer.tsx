@@ -1,71 +1,51 @@
-import type React from 'react'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
+import Link from 'next/link'
 
-const Footer: React.FC = () => {
+const footerLinks = {
+  services: [
+    { label: 'Branding', url: '/branding' },
+    { label: 'Design', url: '/design' },
+    { label: 'Marketing', url: '/marketing' },
+    { label: 'Advertisement', url: '/advertisement' },
+  ],
+  company: [
+    { label: 'About', url: '/about' },
+    { label: 'Contact', url: '/contact' },
+    { label: 'Jobs', url: '/jobs' },
+    { label: 'Press', url: '/press' },
+  ],
+  legal: [
+    { label: 'Terms', url: '/terms' },
+    { label: 'Privacy', url: '/privacy' },
+    { label: 'Cookies', url: '/cookies' },
+  ],
+}
+export default function Footer() {
   return (
-    <footer className="footer p-4 sm:footer-horizontal bg-base-200 text-base-content py-10 px-40 mt-auto">
-      <nav>
-        <h6 className="footer-title">Services</h6>
-        <a href="/branding" className="link link-hover">
-          Branding
-        </a>
-        <a href="/design" className="link link-hover">
-          Design
-        </a>
-        <a href="/marketing" className="link link-hover">
-          Marketing
-        </a>
-        <a href="/advertisement" className="link link-hover">
-          Advertisement
-        </a>
-      </nav>
-      <nav>
-        <h6 className="footer-title">Company</h6>
-        <a href="/about" className="link link-hover">
-          About us
-        </a>
-        <a href="/contact" className="link link-hover">
-          Contact
-        </a>
-        <a href="/jobs" className="link link-hover">
-          Jobs
-        </a>
-        <a href="/press" className="link link-hover">
-          Press kit
-        </a>
-      </nav>
-      <nav>
-        <h6 className="footer-title">Legal</h6>
-        <a href="/terms" className="link link-hover">
-          Terms of use
-        </a>
-        <a href="/privacy" className="link link-hover">
-          Privacy policy
-        </a>
-        <a href="/cookies" className="link link-hover">
-          Cookie policy
-        </a>
-      </nav>
+    <footer className="footer sm:footer-horizontal bg-base-200 text-base-content px-6 py-10 md:px-20">
+      {Object.entries(footerLinks).map(([section, items]) => (
+        <nav key={section}>
+          <h6 className="footer-title">{section}</h6>
+          {items.map((item) => (
+            <Link key={item.label} href={item.url}>
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+      ))}
       <form className="ml-auto">
         <h6 className="footer-title">Newsletter</h6>
-        <fieldset className="w-80">
-          <label htmlFor="email">Enter your email address</label>
-          <div className="join">
-            <Input
-              type="text"
-              placeholder="username@site.com"
-              className="join-item"
-              name="email"
-            />
-            <Button type="button" color="primary" className="join-item">
-              Subscribe
-            </Button>
-          </div>
-        </fieldset>
+        <label htmlFor="email" className="mb-1">
+          Enter your email address
+        </label>
+        <div className="join">
+          <Input type="email" placeholder="username@site.com" className="join-item" name="email" />
+          <Button type="submit" color="primary" className="join-item">
+            Subscribe
+          </Button>
+        </div>
       </form>
     </footer>
   )
 }
-
-export default Footer

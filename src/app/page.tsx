@@ -1,124 +1,21 @@
 'use client'
-import { Braces, FingerprintPattern, Palette, Rocket, ShieldX, Zap } from 'lucide-react'
 import Card from '@/components/ui/Card'
-import Hero from '@/assets/Hero'
-import HeroPulse from '@/assets/HeroPulse'
+import Image from 'next/image'
+import { featuresList } from './_data/features'
+import { builtWithTools } from './_data/tools'
+import HeroSection from './HeroSection'
 
 export default function Home() {
-  const featuresList = [
-    {
-      icon: FingerprintPattern,
-      title: 'Auth that just works',
-      description:
-        'Complete authentication out of the box. Sign-up, sign-in, magic links, OAuth providers, and password reset flows—all production-ready. Own your data, control your auth.',
-    },
-    {
-      icon: ShieldX,
-      title: 'Avoid Vendor Prison',
-      description:
-        'Use any database provider without rewriting your app. Supabase, Neon, Railway, or your own Postgres—swap in minutes. No lock-in, ever.',
-    },
-    {
-      icon: Rocket,
-      title: 'Prototype in Hours',
-      description:
-        'Stop copy-pasting boilerplate. Auth, database, and UI components work together from install. Focus on your product, not plumbing. Ship your MVP this weekend.',
-    },
-    {
-      icon: Braces,
-      title: 'Type-Safe End-to-End ',
-      description:
-        'TypeScript everywhere, types that flow from database to frontend. Refactor with confidence, catch bugs early. IntelliSense knows your entire stack.',
-    },
-    {
-      icon: Palette,
-      title: 'Themes Out of the Box',
-      description:
-        'Multiple beautiful themes included. Switch with one line of code or build your own. Professional design from day one, no designer required.',
-    },
-    {
-      icon: Zap,
-      title: 'Extensible Core',
-      description:
-        "Add what you need, remove what you don't. Clean architecture that bends to your vision—not the other way around. Refactor with confidence, scale without rewrites",
-    },
-  ]
-  const builtWithTools = [
-    {
-      name: 'Next JS',
-      imageURL: 'https://cdn.simpleicons.org/nextdotjs/white',
-    },
-    {
-      name: 'TypeScript',
-      imageURL: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg',
-    },
-    {
-      name: 'Tailwind CSS',
-      imageURL: 'https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg',
-    },
-
-    {
-      name: 'daisy UI',
-      imageURL: 'https://img.daisyui.com/images/daisyui/daisyui-logo-2000.png',
-    },
-    {
-      name: 'Better Auth',
-      imageURL: 'https://i.postimg.cc/mgL1ZvKR/better-auth-logo-dark-136b122f.png',
-    },
-    {
-      name: 'Drizzle ORM',
-      imageURL: 'https://orm.drizzle.team/svg/drizzle.svg',
-    },
-  ]
+  const containerClasses = 'container mx-auto px-4 text-center'
+  const sectionHeaderClasses = 'text-4xl font-bold mb-4'
+  const sectionSubtitleClasses = 'text-lg mb-12 max-w-2xl mx-auto'
   return (
     <>
-      <section className="relative min-h-screen flex flex-col items-center pt-32 pb-16 overflow-hidden">
-        {/*Grid*/}
-        <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
-        {/*Hero Section*/}
-        <div className="z-10 flex flex-col items-center justify-center text-center px-4">
-          <div className="space-y-8 max-w-4xl mx-auto">
-            <h1 className="text-5xl font-bold mb-8 text-primary">Start Your Next Venture</h1>
-            <h1 className="text-7xl font-bold tracking-tight mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200 fill-mode-backwards">
-              The architecture for <br />
-              <span className="text-accent">
-                <HeroPulse />
-              </span>
-            </h1>
-            <p className="py-6 max-w-2xl mx-auto">
-              The ultimate starting point for any web application. Robust enough for enterprise
-              scale, fast enough for hackathon deadlines. Stop configuring, start shipping.
-              <br />
-              No config overhead. No surprise invoices.
-            </p>
-            <div className="flex justify-center gap-4">
-              <a
-                href="https://docs.apexkit.site"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-primary btn-lg"
-              >
-                Read the docs
-              </a>
-              <a
-                href="https://github.com/pnpancholi/apexkit"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-accent btn-lg"
-              >
-                Source Code
-              </a>
-            </div>
-            <Hero />
-          </div>
-        </div>
-      </section>
-      {/*Featres Section*/}
-      <section className="py-16 bg-base-100 text-base-content">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-4">Features</h2>
-          <p className="text-lg mb-12 max-w-2xl mx-auto">Everything you need, Nothing you don't</p>
-          {/*grid to showcase features*/}
+      <HeroSection />
+      <section>
+        <div className={containerClasses}>
+          <h2 className={sectionHeaderClasses}>Features</h2>
+          <p className={sectionSubtitleClasses}>Everything you need, Nothing you don't</p>
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {featuresList.map((feature) => (
               <Card
@@ -126,30 +23,37 @@ export default function Home() {
                 icon={<feature.icon className="text-primary h-8 w-8" />}
                 title={feature.title}
                 desc={feature.description}
-                hoverable={true}
+                hoverable
               />
             ))}
           </div>
         </div>
       </section>
-      {/*Built With Section*/}
-      <section className="py-20 bg-base-200">
-        <div className="container mx-auto px-6 text-center">
-          <h3 className="text-3xl font-bold mb-4">
+      <section>
+        <div className={containerClasses}>
+          <h3 className={sectionHeaderClasses}>
             Built on the mordern ecosystem, loved by developers
           </h3>
-          <p className="text-xl text-base-content/70 mb-12 max-w-2xl mx-auto">Lorem ipsum.</p>
+          <p className={sectionSubtitleClasses}>Lorem ipsum.</p>
 
-          <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16 opacity-80">
+          <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16">
             {builtWithTools.map((tool) => (
               <a
-                href={tool.imageURL}
+                href={tool.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 key={tool.name}
                 className="flex flex-col justify-center items-center gap-10 md:gap-16"
               >
-                <img src={tool.imageURL} alt={tool.name} className="h-20 mb-2 object-contain" />
+                <div className="h-16">
+                  <Image
+                    src={tool.imageURL}
+                    alt={tool.name}
+                    width={100}
+                    height={100}
+                    className="object-contain"
+                  />
+                </div>
                 <p className="text-sm">{tool.name}</p>
               </a>
             ))}
@@ -157,7 +61,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/*Made by - ribbon footer*/}
       <p className="text-sm text-base-content/60 text-center py-12">
         Built with <span className="font-bold text-primary">sheer stubbornness</span>— by{' '}
         <a
