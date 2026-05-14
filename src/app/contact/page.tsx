@@ -1,4 +1,4 @@
-import { Mail } from 'lucide-react'
+import { FaPaperPlane } from 'react-icons/fa'
 import Button from '@/components/ui/Button'
 
 export default function Contact() {
@@ -49,7 +49,7 @@ export default function Contact() {
                 />
               </div>
               <Button type="button" color="primary" className="w-full my-10">
-                <Mail />
+                <FaPaperPlane />
                 Send Message
               </Button>
             </form>

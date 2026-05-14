@@ -1,27 +1,33 @@
 export const builtWithTools = [
   {
     name: 'Next JS',
-    imageURL: 'https://cdn.simpleicons.org/nextdotjs/white',
+    imageURL: './icons/nextdotjs.svg',
+    url: 'https://nextjs.org/',
   },
   {
     name: 'TypeScript',
-    imageURL: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg',
+    imageURL: './icons/typescript.svg',
+    url: 'https://www.typescriptlang.org/',
   },
   {
     name: 'Tailwind CSS',
-    imageURL: 'https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg',
+    imageURL: './icons/tailwindcss.svg',
+    url: 'https://tailwindcss.com/',
   },
 
   {
     name: 'daisy UI',
-    imageURL: 'https://img.daisyui.com/images/daisyui/daisyui-logo-2000.png',
+    imageURL: './icons/daisyui.svg',
+    url: 'https://daisyui.com/',
   },
   {
     name: 'Better Auth',
-    imageURL: 'https://i.postimg.cc/mgL1ZvKR/better-auth-logo-dark-136b122f.png',
+    imageURL: './icons/betterauth.svg',
+    url: 'https://betterauth.dev/',
   },
   {
     name: 'Drizzle ORM',
-    imageURL: 'https://orm.drizzle.team/svg/drizzle.svg',
+    imageURL: './icons/drizzle.svg',
+    url: 'https://orm.drizzle.team/',
   },
 ]

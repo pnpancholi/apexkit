@@ -23,7 +23,7 @@ const footerLinks = {
 }
 export default function Footer() {
   return (
-    <footer className="footer sm:footer-horizontal bg-base-200 text-base-content px-4 py-10 md:px-20">
+    <footer className="footer sm:footer-horizontal bg-base-200 text-base-content px-6 py-10 md:px-20">
       {Object.entries(footerLinks).map(([section, items]) => (
         <nav key={section}>
           <h6 className="footer-title">{section}</h6>
