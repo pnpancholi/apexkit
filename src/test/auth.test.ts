@@ -333,13 +333,16 @@ describe('Sign-In With Google', () => {
 
 describe('Update Email', () => {
   const newEmail = 'new.test@example.com'
+  const wrongEmail = 'new.email.com'
 
   it('sends verification email on successful update', async () => {
     vi.mocked(authClient.changeEmail).mockResolvedValue({
       error: null,
       data: null,
     })
-    const res = await updateEmail(newEmail)
+    const formData = new FormData()
+    formData.append('newEmail', newEmail)
+    const res = await updateEmail(null, formData)
 
     expect(authClient.changeEmail).toHaveBeenCalledWith({ newEmail })
     expect(res).toEqual({
@@ -349,8 +352,9 @@ describe('Update Email', () => {
   })
 
   it('returns error for invalid email format', async () => {
-    const invalidEmail = 'invalid@email'
-    const res = await updateEmail(invalidEmail)
+    const formData = new FormData()
+    formData.append('newEmail', wrongEmail)
+    const res = await updateEmail(null, formData)
 
     expect(authClient.changeEmail).not.toHaveBeenCalled()
     expect(res).toEqual({ success: false, message: 'Invalid email address' })
@@ -361,7 +365,9 @@ describe('Update Email', () => {
       error: { message: 'This email is invalid' },
       data: null,
     })
-    const res = await updateEmail(newEmail)
+    const formData = new FormData()
+    formData.append('newEmail', newEmail)
+    const res = await updateEmail(null, formData)
 
     expect(authClient.changeEmail).toHaveBeenCalledWith({ newEmail })
     expect(res).toEqual({ success: false, message: 'This email is invalid' })
@@ -369,7 +375,10 @@ describe('Update Email', () => {
 
   it('handles unexpected error on update email', async () => {
     vi.mocked(authClient.changeEmail).mockRejectedValue(new Error('Network Error'))
-    const res = await updateEmail(newEmail)
+
+    const formData = new FormData()
+    formData.append('newEmail', newEmail)
+    const res = await updateEmail(null, formData)
 
     expect(authClient.changeEmail).toHaveBeenCalledWith({ newEmail })
     expect(res).toEqual({
