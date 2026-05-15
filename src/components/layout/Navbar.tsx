@@ -22,7 +22,7 @@ export default function Navbar({ user }: { user: User | null }) {
     'capitalize relative after:absolute after:left-1/2 after:bottom-0 after:h-0.5 after:w-0 after:-translate-x-1/2 after:bg-primary after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 hover:after:translate-x-0'
 
   return (
-    <nav className="navbar fixed top-0 w-full shadow-md px-6 lg:px-40 bg-base-200 z-20 border-b-text">
+    <nav className="navbar fixed top-0 w-full shadow-md px-6 md:px-40 bg-base-200 z-20 border-b-text">
       <div className="navbar-start">
         <Link className="btn btn-ghost normal-case text-xl" href="/">
           ApexKit

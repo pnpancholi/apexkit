@@ -7,13 +7,14 @@ import HeroSection from './HeroSection'
 
 export default function Home() {
   const containerClasses = 'container mx-auto px-4 text-center'
-  const sectionHeaderClasses = 'text-4xl font-bold mb-4'
+  const sectionClasses = 'py-20'
+  const sectionHeaderClasses = 'text-4xl font-bold mb-10'
   const sectionSubtitleClasses = 'text-lg mb-12 max-w-2xl mx-auto'
 
   return (
     <>
       <HeroSection />
-      <section>
+      <section className={sectionClasses}>
         <div className={containerClasses}>
           <h2 className={sectionHeaderClasses}>Features</h2>
           <p className={sectionSubtitleClasses}>Everything you need, Nothing you don't</p>
@@ -30,7 +31,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section>
+      <section className={sectionClasses}>
         <div className={containerClasses}>
           <h3 className={sectionHeaderClasses}>
             Built on the mordern ecosystem, loved by developers
