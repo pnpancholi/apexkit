@@ -1,3 +1,5 @@
+'use client'
+
 import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
 import UpdateEmail from './UpdateEmail'
@@ -48,7 +50,6 @@ export default function ProfileDetails({ user }: ProfileDetailsProps) {
         </ProfileField>
 
         <div className="space-y-4">
-          <UpdateEmail />
           <Link href="/reset-password" className="btn btn-accent w-full  rounded-none ">
             Reset Password
           </Link>
@@ -57,6 +58,7 @@ export default function ProfileDetails({ user }: ProfileDetailsProps) {
           </Button>
         </div>
       </form>
+      <UpdateEmail />
     </Card>
   )
 }

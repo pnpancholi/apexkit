@@ -3,7 +3,10 @@ import { authClient } from '@/auth/client'
 import type { ActionResponse } from '@/types'
 import { auth } from '@/auth'
 
-export async function signUp(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
+export async function signUp(
+  _: ActionResponse | null,
+  formData: FormData,
+): Promise<ActionResponse> {
   const name = formData.get('name') as string
   const email = formData.get('email') as string
   const password = formData.get('password') as string
@@ -28,7 +31,10 @@ export async function signUp(_: ActionResponse | null, formData: FormData): Prom
   redirect('/sign-in')
 }
 
-export async function signInWithPassword(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
+export async function signInWithPassword(
+  _: ActionResponse | null,
+  formData: FormData,
+): Promise<ActionResponse> {
   const email = formData.get('email') as string
   const password = formData.get('password') as string
   try {
@@ -46,7 +52,10 @@ export async function signInWithPassword(_: ActionResponse | null, formData: For
   redirect('/profile')
 }
 
-export async function sendMagicLink(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
+export async function sendMagicLink(
+  _: ActionResponse | null,
+  formData: FormData,
+): Promise<ActionResponse> {
   const email = formData.get('email') as string
 
   try {
@@ -73,7 +82,10 @@ export async function sendMagicLink(_: ActionResponse | null, formData: FormData
   }
 }
 
-export async function requestPasswordReset(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
+export async function requestPasswordReset(
+  _: ActionResponse | null,
+  formData: FormData,
+): Promise<ActionResponse> {
   const email = formData.get('email') as string
   try {
     const { error } = await authClient.requestPasswordReset({
@@ -94,7 +106,10 @@ export async function requestPasswordReset(_: ActionResponse | null, formData: F
   }
 }
 
-export async function resetPassword(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
+export async function resetPassword(
+  _: ActionResponse | null,
+  formData: FormData,
+): Promise<ActionResponse> {
   const newPassword = formData.get('newPassword') as string
   const confirmPassword = formData.get('confirmPassword') as string
   const token = formData.get('token') as string
@@ -117,7 +132,11 @@ export async function resetPassword(_: ActionResponse | null, formData: FormData
     return { success: false, message: 'Failed to reset password, Try again later' }
   }
 }
-export async function updateEmail(newEmail: string): Promise<ActionResponse> {
+export async function updateEmail(
+  _: ActionResponse | null,
+  formData: FormData,
+): Promise<ActionResponse> {
+  const newEmail = formData.get('newEmail') as string
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
   if (!newEmail || !emailRegex.test(newEmail)) {
