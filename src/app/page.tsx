@@ -9,6 +9,7 @@ export default function Home() {
   const containerClasses = 'container mx-auto px-4 text-center'
   const sectionHeaderClasses = 'text-4xl font-bold mb-4'
   const sectionSubtitleClasses = 'text-lg mb-12 max-w-2xl mx-auto'
+
   return (
     <>
       <HeroSection />

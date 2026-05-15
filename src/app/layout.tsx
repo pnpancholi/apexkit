@@ -1,6 +1,4 @@
 import './globals.css'
-
-//For font awesome//
 import { config } from '@fortawesome/fontawesome-svg-core'
 import type { Metadata } from 'next'
 import { JetBrains_Mono } from 'next/font/google'

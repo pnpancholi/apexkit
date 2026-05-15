@@ -15,16 +15,26 @@ export default function HeroSection() {
             </span>
           </h2>
           <p className="py-6 max-w-2xl mx-auto">
-            The ultimate starting point for any web application. Robust enough for enterprise scale, fast enough for hackathon deadlines. Stop configuring,
-            start shipping.
+            The ultimate starting point for any web application. Robust enough for enterprise scale,
+            fast enough for hackathon deadlines. Stop configuring, start shipping.
             <br />
             No config overhead. No surprise invoices.
           </p>
           <div className="flex justify-center gap-4">
-            <a href="https://docs.apexkit.site" target="_blank" rel="noopener noreferrer" className="btn btn-primary rounded-none">
+            <a
+              href="https://docs.apexkit.site"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary rounded-none"
+            >
               Read the docs
             </a>
-            <a href="https://github.com/pnpancholi/apexkit" target="_blank" rel="noopener noreferrer" className="btn btn-accent rounded-none">
+            <a
+              href="https://github.com/pnpancholi/apexkit"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-accent rounded-none"
+            >
               Source Code
             </a>
           </div>
