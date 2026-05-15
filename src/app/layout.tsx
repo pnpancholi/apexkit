@@ -6,6 +6,8 @@ import { getUser } from '@/auth/utils'
 import Footer from '@/components/layout/Footer'
 import Navbar from '@/components/layout/Navbar'
 import '@fortawesome/fontawesome-svg-core/styles.css'
+
+export const dynamic = 'force-dynamic' // this is to deal with next build that has issues with auth headers
 config.autoAddCss = false
 
 const jMono = JetBrains_Mono({
