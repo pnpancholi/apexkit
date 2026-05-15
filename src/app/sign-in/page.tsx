@@ -1,9 +1,10 @@
+import PageWrapper from '@/components/layout/PageWrapper'
 import SignInForm from './SignInForm'
 
 export default function SignIn() {
   return (
-    <div className="max-w-md mx-auto mt-36">
+    <PageWrapper>
       <SignInForm />
-    </div>
+    </PageWrapper>
   )
 }

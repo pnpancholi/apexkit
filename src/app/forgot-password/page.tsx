@@ -1,9 +1,10 @@
+import PageWrapper from '@/components/layout/PageWrapper'
 import ForgotPasswordForm from './ForgotPasswordForm'
 
 export default function ForgotPassword() {
   return (
-    <div className="max-w-md mx-auto mt-36">
+    <PageWrapper>
       <ForgotPasswordForm />
-    </div>
+    </PageWrapper>
   )
 }

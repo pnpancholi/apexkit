@@ -1,9 +1,10 @@
+import PageWrapper from '@/components/layout/PageWrapper'
 import SignUpForm from './SignUpForm'
 
 export default function SignUp() {
   return (
-    <div className="max-w-md mx-auto mt-36">
+    <PageWrapper>
       <SignUpForm />
-    </div>
+    </PageWrapper>
   )
 }

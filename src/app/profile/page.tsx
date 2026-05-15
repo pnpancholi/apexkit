@@ -1,11 +1,12 @@
 import { requireAuth } from '@/auth/utils'
 import ProfileDetails from './ProfileDetails'
+import PageWrapper from '@/components/layout/PageWrapper'
 
 export default async function Profile() {
   const user = await requireAuth()
   return (
-    <div className="max-w-md mx-auto mt-36">
+    <PageWrapper>
       <ProfileDetails user={user} />
-    </div>
+    </PageWrapper>
   )
 }

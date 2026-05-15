@@ -1,7 +1,4 @@
-'use client'
-
 import Card from '@/components/ui/Card'
-import Input from '@/components/ui/Input'
 import Button from '@/components/ui/Button'
 import UpdateEmail from './UpdateEmail'
 import ProfileField from './ProfileField'
@@ -15,10 +12,13 @@ interface ProfileDetailsProps {
 }
 
 export default function ProfileDetails({ user }: ProfileDetailsProps) {
+  const avatarClasses =
+    'bg-primary text-primary-content rounded-full w-20 h-20 flex items-center justify-center my-4 mb-10 mx-auto'
+
   return (
     <Card className="w-full max-w-md">
       <form>
-        <div className="bg-primary text-primary-content rounded-full w-20 h-20 flex items-center justify-center my-4 mb-10 mx-auto">
+        <div className={avatarClasses}>
           <span className="text-5xl font-bold">{user.name?.charAt(0).toUpperCase()}</span>
         </div>
 
@@ -33,7 +33,10 @@ export default function ProfileDetails({ user }: ProfileDetailsProps) {
         <ProfileField label="Email" icon={<FaEnvelope />}>
           {user.email}
         </ProfileField>
-        <ProfileField label="Verified" icon={user.emailVerified ? <FaClipboardCheck /> : <FaHourglassHalf />}>
+        <ProfileField
+          label="Verified"
+          icon={user.emailVerified ? <FaClipboardCheck /> : <FaHourglassHalf />}
+        >
           {user.emailVerified ? 'Verified' : 'Pending'}
         </ProfileField>
         <ProfileField label="Member Since" icon={<FaCalendar />}>

@@ -1,6 +1,6 @@
 {
-  "name": "apexit",
-  "version": "0.1.0",
+  "name": "apexkit",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "test": "vitest",

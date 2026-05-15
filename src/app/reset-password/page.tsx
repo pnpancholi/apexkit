@@ -1,11 +1,10 @@
-'use client'
-
+import PageWrapper from '@/components/layout/PageWrapper'
 import ResetPasswordForm from './ResetPasswordForm'
 
 export default function ResetPasswordPage() {
   return (
-    <div className="max-w-md mx-auto mt-36">
+    <PageWrapper>
       <ResetPasswordForm />
-    </div>
+    </PageWrapper>
   )
 }
