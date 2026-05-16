@@ -2,13 +2,39 @@
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-05-15
+
 ### Added
+- Core UI Components:
+    - Custom Button component for reusability and consistent styling.
+    - Input component for standardized form inputs.
+    - Alert component for displaying notifications.
+    - Base Modal component for dynamic content display.
+    - Page Wrapper component for consistent page layout.
 
 ### Changed
+- Comprehensive UI Refactoring:
+    - Refactored Sign-in and Sign-up forms for improved composition, cleanliness, and optimized page rendering, reducing prop drilling.
+    - Refactored Reset Password page for co-located form components and streamlined data flow.
+    - Refactored Profile page into smaller, manageable chunks.
+    - Refactored Landing page and Footer for cleanliness, responsiveness, and visual consistency.
+    - Updated Homepage's tools and features section to use a static `_data` directory.
+    - Integrated new Button, Input, Modal, and Alert components across various pages (Sign-in, Sign-up, Reset Password, Update Email).
+- Authentication Improvements:
+    - Refactored `signOut` function to `actions/auth` for better organization and removed redundant profile redirect logic.
+    - Ensured consistent server actions for reset password functionality.
+- Documentation:
+    - Updated README to reflect new folder structure.
 
 ### Removed
+- Removed redundant profile redirect function in `signOut` logic.
 
 ### Fixed
+- Fixed broken tests related to update email functionality.
+- Fixed tests to align with the new reset password function pattern.
+- Resolved button display issues on the profile update page.
+- Fixed build errors related to dynamic rendering by introducing a dynamic render parameter.
+- Resolved dependency issues for Vercel builds.
 
 ## [0.2.0] - 2026-05-04
 

@@ -29,7 +29,13 @@ export default function Modal({ title = '', isOpen = false, onClose, children }:
   }, [isOpen])
 
   return (
-    <dialog onClose={onClose} ref={dialogRef} onClick={handleBackdropClick} className={baseClasses}>
+    <dialog
+      onClose={onClose}
+      ref={dialogRef}
+      onClick={handleBackdropClick}
+      onKeyDown={(e) => e.key === 'Escape' && onClose()}
+      className={baseClasses}
+    >
       <div className={containerClasses}>
         {title && <h2 className={headerClasses}>{title}</h2>}
         <div className={contentClasses}>{children}</div>
