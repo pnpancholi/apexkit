@@ -52,43 +52,28 @@ Enabling builders to ship prodiuction-grade software rapidly.
 | TypeScript                     | Yes      | Type safety is necessary not princess treatment                           |
 
 ## Project Structure
-
-```mermaid
-graph TD
-    Root[apexkit/] --> Src[src/]
-    Root --> Public[public/]
-    Root --> Config[Configuration]
-
-    subgraph Src [Source Code]
-        direction LR
-        App[app/] --> Pages[Pages & Routes]
-        Actions[actions/] --> ServerActions[Server Actions]
-        Auth[auth/] --> AuthConfig[Better Auth Config]
-        Components[components/] --> UI[UI & Layouts]
-        DB[db/] --> Drizzle[Drizzle & Schema]
-        Email[email/] --> Mail[Email Templates]
-        Assets[assets/] --> SVGs[Visual Assets]
-        Types[types/] --> TS[TS Definitions]
-    end
-
-    subgraph App [App Router Details]
-        api --> RouteHandlers[API Routes]
-        profile --> UserSettings[Profile Management]
-        auth_pages[Auth Pages] --> signin[sign-in/]
-        auth_pages --> signup[sign-up/]
-    end
 ```
-
-### Folder Breakdown
-
-- **`src/app/`**: The heart of the application using Next.js App Router. It contains all pages, global layouts, and API route handlers.
-- **`src/actions/`**: Type-safe **Server Actions** (Next.js 15) for handling form submissions and server-side logic without manual API endpoints.
-- **`src/components/`**: Reusable UI components built with TailwindCSS and DaisyUI. It follows a clean separation between atomic `ui/` elements and structural `layout/` components.
-- **`src/auth/`**: Centralized authentication configuration using **Better Auth**, providing a seamless auth experience without vendor lock-in.
-- **`src/db/`**: Database layer powered by **Drizzle ORM**. It houses your schema definitions and auto-generated SQL migrations.
-- **`src/email/`**: Email service logic and React-based templates for transactional emails like magic links and password resets.
-- **`src/assets/`**: Visual assets and custom SVG components used across the application.
-- **`src/types/`**: Shared TypeScript definitions to maintain strict type safety across the entire stack.
+src/ # Root directory for all of the souce code. Everthing else (config files, License, docs, styleguide, assets, etc) will be outside this.
+├── app/ # All of your pages live here. With their co-located components that are used in their respective pages.
+│   ├── _data/ # Static data for your pages in order to keep them clean.
+│   ├── profile/ 
+│   ├── sign-in/
+│   ├── sign-up/
+│   ├── reset-password/
+│   └── page.tsx # Root page for your project.
+├── actions/ # For server and client side actions. This is where we write functions that contains all kind of logic to keep the pages purely presentational. 
+├── auth/ # For everything related to authentication configuration and setup.
+├── db/ # For everything related to database configuration and setup.
+├── test/ # For all of your tests.
+├── components/ # For all of your re-usable UI components.
+│   ├── ui/ # For core, primitive UI components (e.g. Button, Input, etc)
+│   └── layout/ # For layout components, i.e Components that are built using core components and have a couple of "peices" to that makes sense together (e.g. Header, Footer, etc).
+└── types/ # For all of your types.
+node_modules/
+public/ # For all of your static assets.
+[config-files] # bione, vite, next, typescript, etc
+[helper-filea] # styleguide, license, docs, etc.
+```
 
 ## Get Started
 ```bash

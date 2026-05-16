@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 
-## [0.3.0] - 2026-05-15
+## [0.3.0] - 2026-05-16
 
 ### Added
 - Core UI Components:
@@ -25,6 +25,8 @@
     - Ensured consistent server actions for reset password functionality.
 - Documentation:
     - Updated README to reflect new folder structure.
+- Security Enhancements:
+    - Switched to Next 15.5.18 (version with patch) to address recently discovered security vulnerabilities. [Ref](https://x.com/nextjs/status/2052489312944759202)
 
 ### Removed
 - Removed redundant profile redirect function in `signOut` logic.
@@ -35,6 +37,7 @@
 - Resolved button display issues on the profile update page.
 - Fixed build errors related to dynamic rendering by introducing a dynamic render parameter.
 - Resolved dependency issues for Vercel builds.
+- Refactored code to use font-aweosome instead of lucide-react throughout the app.
 
 ## [0.2.0] - 2026-05-04
 
