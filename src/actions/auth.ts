@@ -1,7 +1,6 @@
 import { redirect } from 'next/navigation'
 import { authClient } from '@/auth/client'
-
-type ActionResponse = { success: boolean; message: string }
+import type { ActionResponse } from '@/types'
 
 export async function signUp(
   _: ActionResponse | null,
@@ -106,32 +105,37 @@ export async function requestPasswordReset(
   }
 }
 
-export async function resetPassword(newPassword: string, token: string): Promise<ActionResponse> {
+export async function resetPassword(
+  _: ActionResponse | null,
+  formData: FormData,
+): Promise<ActionResponse> {
+  const newPassword = formData.get('newPassword') as string
+  const confirmPassword = formData.get('confirmPassword') as string
+  const token = formData.get('token') as string
+
   if (!newPassword || newPassword.length < 8) {
-    return {
-      success: false,
-      message: 'Password must be at least 8 characters',
-    }
+    return { success: false, message: 'Password must be at least 8 characters' }
+  }
+  if (newPassword !== confirmPassword) {
+    return { success: false, message: 'Password does not match' }
   }
 
   try {
-    const { error } = await authClient.resetPassword({
-      newPassword,
-      token,
-    })
+    const { error } = await authClient.resetPassword({ newPassword, token })
     if (error) {
-      return { success: false, message: 'Failed to reset password, Try again' }
+      return { success: false, message: 'Failed to reset the password, Try again' }
     }
-    return { success: true, message: 'Password reset successfully !' }
+    return { success: true, message: 'Password reset successfully!' }
   } catch (error) {
     console.error('auth.ts [resetPassword]: Unexpected error while resetting password', error)
-    return {
-      success: false,
-      message: 'Something went wrong, Please try again later',
-    }
+    return { success: false, message: 'Failed to reset password, Try again later' }
   }
 }
-export async function updateEmail(newEmail: string): Promise<ActionResponse> {
+export async function updateEmail(
+  _: ActionResponse | null,
+  formData: FormData,
+): Promise<ActionResponse> {
+  const newEmail = formData.get('newEmail') as string
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
   if (!newEmail || !emailRegex.test(newEmail)) {
@@ -169,4 +173,14 @@ export async function signInWithGoogle(): Promise<ActionResponse> {
       message: 'Something went wrong, Please try again later',
     }
   }
+}
+
+export async function signOut() {
+  try {
+    await authClient.signOut()
+  } catch (error) {
+    console.error('[signOut] Unexpected Error', error)
+  }
+
+  redirect('/sign-in')
 }

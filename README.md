@@ -51,6 +51,30 @@ Enabling builders to ship prodiuction-grade software rapidly.
 | TailwindCSS + DaisyUI          | Yes      | beautiful and accessible UI out of the box                                |
 | TypeScript                     | Yes      | Type safety is necessary not princess treatment                           |
 
+## Project Structure
+```
+src/ # Root directory for all of the souce code. Everthing else (config files, License, docs, styleguide, assets, etc) will be outside this.
+├── app/ # All of your pages live here. With their co-located components that are used in their respective pages.
+│   ├── _data/ # Static data for your pages in order to keep them clean.
+│   ├── profile/ 
+│   ├── sign-in/
+│   ├── sign-up/
+│   ├── reset-password/
+│   └── page.tsx # Root page for your project.
+├── actions/ # For server and client side actions. This is where we write functions that contains all kind of logic to keep the pages purely presentational. 
+├── auth/ # For everything related to authentication configuration and setup.
+├── db/ # For everything related to database configuration and setup.
+├── test/ # For all of your tests.
+├── components/ # For all of your re-usable UI components.
+│   ├── ui/ # For core, primitive UI components (e.g. Button, Input, etc)
+│   └── layout/ # For layout components, i.e Components that are built using core components and have a couple of "peices" to that makes sense together (e.g. Header, Footer, etc).
+└── types/ # For all of your types.
+node_modules/
+public/ # For all of your static assets.
+[config-files] # bione, vite, next, typescript, etc
+[helper-filea] # styleguide, license, docs, etc.
+```
+
 ## Get Started
 ```bash
 git clone https://github.com/PradhumnaPancholi/apex-kit

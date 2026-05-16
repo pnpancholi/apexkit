@@ -7,9 +7,7 @@ export default function Hero() {
           <div className="mb-6">
             <div className="badge badge-error mb-2">Traditional Setup</div>
             <h3 className="text-3xl font-bold text-error mb-2">10+ Hours</h3>
-            <p className="text-sm text-base-content/70">
-              Building yet another set of form, configuring authentication, and email providers.
-            </p>
+            <p className="text-sm text-base-content/70">Building yet another set of form, configuring authentication, and email providers.</p>
           </div>
 
           <div className="bg-base-300 rounded-lg p-4 max-h-96 overflow-y-auto font-mono text-sm">
@@ -126,8 +124,7 @@ export default function Hero() {
             <div className="badge badge-success mb-2">With Apex Kit</div>
             <h3 className="text-3xl font-bold text-success mb-2">Under 30 Minutes</h3>
             <p className="text-sm text-base-content/70">
-              Configure your API keys, and get up and running in minutes. Hack it to your liking
-              easily when you need to.
+              Configure your API keys, and get up and running in minutes. Hack it to your liking easily when you need to.
             </p>
           </div>
 

@@ -228,7 +228,12 @@ describe('Reset Password', () => {
       error: null,
       data: null,
     })
-    const res = await resetPassword(newPassword, token)
+    const formData = new FormData()
+    formData.append('newPassword', newPassword)
+    formData.append('confirmPassword', newPassword)
+    formData.append('token', token)
+
+    const res = await resetPassword(null, formData)
 
     expect(authClient.resetPassword).toHaveBeenCalledWith({
       newPassword,
@@ -236,13 +241,17 @@ describe('Reset Password', () => {
     })
     expect(res).toEqual({
       success: true,
-      message: 'Password reset successfully !',
+      message: 'Password reset successfully!',
     })
   })
 
   it('returns error if password is too short', async () => {
     const shortPassword = 'short'
-    const res = await resetPassword(shortPassword, token)
+    const formData = new FormData()
+    formData.append('newPassword', shortPassword)
+    formData.append('confirmPassword', shortPassword)
+    formData.append('token', token)
+    const res = await resetPassword(null, formData)
 
     expect(authClient.resetPassword).not.toHaveBeenCalled()
     expect(res).toEqual({
@@ -256,7 +265,11 @@ describe('Reset Password', () => {
       error: { message: 'Failed to reset password, Try again' },
       data: null,
     })
-    const res = await resetPassword(newPassword, token)
+    const formData = new FormData()
+    formData.append('newPassword', newPassword)
+    formData.append('confirmPassword', newPassword)
+    formData.append('token', token)
+    const res = await resetPassword(null, formData)
 
     expect(authClient.resetPassword).toHaveBeenCalledWith({
       newPassword,
@@ -264,13 +277,18 @@ describe('Reset Password', () => {
     })
     expect(res).toEqual({
       success: false,
-      message: 'Failed to reset password, Try again',
+      message: 'Failed to reset the password, Try again',
     })
   })
 
   it('handles unexpected error on reset password', async () => {
     vi.mocked(authClient.resetPassword).mockRejectedValue(new Error('Network Error'))
-    const res = await resetPassword(newPassword, token)
+    const newPassword = 'newpassword123'
+    const formData = new FormData()
+    formData.append('newPassword', newPassword)
+    formData.append('confirmPassword', newPassword)
+    formData.append('token', token)
+    const res = await resetPassword(null, formData)
 
     expect(authClient.resetPassword).toHaveBeenCalledWith({
       newPassword,
@@ -278,7 +296,7 @@ describe('Reset Password', () => {
     })
     expect(res).toEqual({
       success: false,
-      message: 'Something went wrong, Please try again later',
+      message: 'Failed to reset password, Try again later',
     })
   })
 })
@@ -315,13 +333,16 @@ describe('Sign-In With Google', () => {
 
 describe('Update Email', () => {
   const newEmail = 'new.test@example.com'
+  const wrongEmail = 'new.email.com'
 
   it('sends verification email on successful update', async () => {
     vi.mocked(authClient.changeEmail).mockResolvedValue({
       error: null,
       data: null,
     })
-    const res = await updateEmail(newEmail)
+    const formData = new FormData()
+    formData.append('newEmail', newEmail)
+    const res = await updateEmail(null, formData)
 
     expect(authClient.changeEmail).toHaveBeenCalledWith({ newEmail })
     expect(res).toEqual({
@@ -331,8 +352,9 @@ describe('Update Email', () => {
   })
 
   it('returns error for invalid email format', async () => {
-    const invalidEmail = 'invalid@email'
-    const res = await updateEmail(invalidEmail)
+    const formData = new FormData()
+    formData.append('newEmail', wrongEmail)
+    const res = await updateEmail(null, formData)
 
     expect(authClient.changeEmail).not.toHaveBeenCalled()
     expect(res).toEqual({ success: false, message: 'Invalid email address' })
@@ -343,7 +365,9 @@ describe('Update Email', () => {
       error: { message: 'This email is invalid' },
       data: null,
     })
-    const res = await updateEmail(newEmail)
+    const formData = new FormData()
+    formData.append('newEmail', newEmail)
+    const res = await updateEmail(null, formData)
 
     expect(authClient.changeEmail).toHaveBeenCalledWith({ newEmail })
     expect(res).toEqual({ success: false, message: 'This email is invalid' })
@@ -351,7 +375,10 @@ describe('Update Email', () => {
 
   it('handles unexpected error on update email', async () => {
     vi.mocked(authClient.changeEmail).mockRejectedValue(new Error('Network Error'))
-    const res = await updateEmail(newEmail)
+
+    const formData = new FormData()
+    formData.append('newEmail', newEmail)
+    const res = await updateEmail(null, formData)
 
     expect(authClient.changeEmail).toHaveBeenCalledWith({ newEmail })
     expect(res).toEqual({
