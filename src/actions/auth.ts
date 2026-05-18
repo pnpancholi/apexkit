@@ -1,6 +1,10 @@
+'use server'
+
 import { redirect } from 'next/navigation'
 import { authClient } from '@/auth/client'
 import type { ActionResponse } from '@/types'
+import { auth } from '@/auth'
+import { isAPIError } from 'better-auth/api'
 
 export async function signUp(
   _: ActionResponse | null,
@@ -11,19 +15,18 @@ export async function signUp(
   const password = formData.get('password') as string
 
   try {
-    const { error } = await authClient.signUp.email({
-      name,
-      email,
-      password,
+    await auth.api.signUpEmail({
+      returnHeaders: true,
+      body: {
+        name,
+        email,
+        password,
+      },
     })
-    if (error) {
-      return { success: false, message: 'Failed to create an account!' }
-    }
   } catch (error) {
-    console.error('[signUp]: Unexpected error', error)
-    return {
-      success: false,
-      message: 'Something went wrong, Please try again later',
+    if (isAPIError(error)) {
+      console.error('[signUp]: Unexpected error', error)
+      return { success: false, message: error.message }
     }
   }
 
@@ -37,15 +40,19 @@ export async function signInWithPassword(
   const email = formData.get('email') as string
   const password = formData.get('password') as string
   try {
-    const { error } = await authClient.signIn.email({ email, password })
-    if (error) {
-      return { success: false, message: 'Invalid email or password' }
-    }
+    await auth.api.signInEmail({
+      body: {
+        email,
+        password,
+      },
+    })
   } catch (error) {
     console.error('[signInWithPassword]: Unexpected error', error)
-    return {
-      success: false,
-      message: 'Something went wrong, Please try again later',
+    if (isAPIError(error)) {
+      return {
+        success: false,
+        message: 'Something went wrong, Please try again later',
+      }
     }
   }
   redirect('/profile')
@@ -160,19 +167,30 @@ export async function updateEmail(
 }
 
 export async function signInWithGoogle(): Promise<ActionResponse> {
+  let response: any
   try {
-    await authClient.signIn.social({
-      provider: 'google',
-      callbackURL: '/profile',
+    response = await auth.api.signInSocial({
+      body: {
+        provider: 'google',
+        callbackURL: '/profile',
+      },
     })
-    return { success: true, message: 'success' }
+    console.log('this res', response)
+    if (!response.url) {
+      return { success: false, message: 'Something went wrong, Please try again later' }
+    }
   } catch (error) {
-    console.error('[signInWithGoogle]: Unexpected error', error)
+    if (isAPIError(error)) {
+      return { success: false, message: error.message }
+    }
+    console.error('[signInWithGoogle] Unexpected error:', error)
     return {
       success: false,
-      message: 'Something went wrong, Please try again later',
+      message: 'Something went wrong. Please try again later',
     }
   }
+
+  redirect(response.url)
 }
 
 export async function signOut() {
