@@ -1,28 +1,17 @@
-interface InputProps {
-  size?: 'sm' | 'md' | 'lg'
+import type React from 'react'
+
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  width: 'sm' | 'md' | 'lg'
   state?: 'success' | 'error' | 'warning'
   className?: string
-  type?: 'text' | 'email' | 'password'
   name: string
-  required?: boolean
-  placeholder: string
   disabled?: boolean
 }
 
-export default function Input({
-  size = 'md',
-  state,
-  className = '',
-  type = 'text',
-  name,
-  required = false,
-  placeholder,
-  disabled = false,
-  ...props
-}: InputProps) {
+export default function Input({ width = 'md', state, className = '', disabled = false, ...props }: InputProps) {
   const baseClasses = 'input w-full rounded-none focus:outline-none focus:ring-0'
 
-  const sizeClasses = {
+  const widthClasses = {
     sm: 'input-sm',
     md: 'input-md',
     lg: 'input-lg',
@@ -34,15 +23,5 @@ export default function Input({
     warning: 'input-warning',
   }
 
-  return (
-    <input
-      type={type}
-      name={name}
-      required={required}
-      placeholder={placeholder}
-      disabled={disabled}
-      className={`${baseClasses} ${sizeClasses[size]} ${state ? stateClasses[state] : ''} ${className}`}
-      {...props}
-    />
-  )
+  return <input {...props} className={`${baseClasses} ${widthClasses[width]} ${state ? stateClasses[state] : ''} ${className}`} />
 }
