@@ -83,22 +83,19 @@ export async function sendMagicLink(_: ActionResponse | null, formData: FormData
 export async function requestPasswordReset(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
   const email = formData.get('email') as string
   try {
-    const { error } = await authClient.requestPasswordReset({
-      email,
-      redirectTo: '/reset-password',
+    await auth.api.requestPasswordReset({
+      body: {
+        email,
+        redirectTo: '/reset-password',
+      },
     })
-    if (error) {
-      return { success: false, message: 'We do not recognise that email' }
-    }
-
-    return { success: true, message: 'Check your inbox' }
   } catch (error) {
-    console.error('[requestPasswordReset]: Unexpected error', error)
-    return {
-      success: false,
-      message: 'Something went wrong, Please try again later',
+    if (isAPIError(error)) {
+      return { success: false, message: error.message }
     }
   }
+
+  return { success: true, message: 'Check your inbox' }
 }
 
 export async function resetPassword(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
@@ -114,15 +111,18 @@ export async function resetPassword(_: ActionResponse | null, formData: FormData
   }
 
   try {
-    const { error } = await authClient.resetPassword({ newPassword, token })
-    if (error) {
-      return { success: false, message: 'Failed to reset the password, Try again' }
-    }
-    return { success: true, message: 'Password reset successfully!' }
+    await auth.api.resetPassword({
+      body: {
+        newPassword,
+        token,
+      },
+    })
   } catch (error) {
-    console.error('auth.ts [resetPassword]: Unexpected error while resetting password', error)
-    return { success: false, message: 'Failed to reset password, Try again later' }
+    if (isAPIError(error)) {
+      return { success: false, message: error.message }
+    }
   }
+  return { success: true, message: 'Password reset successfully!' }
 }
 export async function updateEmail(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
   const newEmail = formData.get('newEmail') as string
@@ -132,20 +132,23 @@ export async function updateEmail(_: ActionResponse | null, formData: FormData):
     return { success: false, message: 'Invalid email address' }
   }
   try {
-    const { error } = await authClient.changeEmail({ newEmail })
-    if (error) {
-      return { success: false, message: 'This email is invalid' }
-    }
-    return {
-      success: true,
-      message: 'Verification email sent to the new email address',
-    }
+    await auth.api.changeEmail({
+      body: {
+        newEmail,
+      },
+    })
   } catch (error) {
-    console.error('[updateEmail]: Unexpected error', error)
-    return {
-      success: false,
-      message: 'Something went wrong, Please try again later',
+    if (isAPIError(error)) {
+      console.error('[updateEmail]: Unexpected error', error)
+      return {
+        success: false,
+        message: error.message,
+      }
     }
+  }
+  return {
+    success: true,
+    message: 'Verification email sent to the new email address',
   }
 }
 
