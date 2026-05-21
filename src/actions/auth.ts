@@ -23,11 +23,12 @@ export async function signUp(_: ActionResponse | null, formData: FormData): Prom
     })
   } catch (error) {
     if (isAPIError(error)) {
-      console.error('[signUp]: Unexpected error', error)
       return { success: false, message: error.message }
+    } else {
+      console.error('[signUp]: Unexpected error', error)
+      return { success: false, message: 'Something went wrong, Try again later' }
     }
   }
-
   redirect('/sign-in')
 }
 
@@ -42,8 +43,13 @@ export async function signInWithPassword(_: ActionResponse | null, formData: For
       },
     })
   } catch (error) {
-    console.error('[signInWithPassword]: Unexpected error', error)
     if (isAPIError(error)) {
+      return {
+        success: false,
+        message: error.message,
+      }
+    } else {
+      console.error('[signInWithPassword]: Unexpected error', error)
       return {
         success: false,
         message: 'Something went wrong, Please try again later',
