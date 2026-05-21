@@ -1,23 +1,20 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-//---------------------------------------------//
-//------------Mocks----------------------------//
-//---------------------------------------------//
 vi.mock('next/navigation', () => ({
   redirect: vi.fn(),
 }))
 
-vi.mock('@/auth/client', () => ({
-  authClient: {
-    signUp: { email: vi.fn() },
-    signIn: {
-      email: vi.fn(),
-      magicLink: vi.fn(),
-      social: vi.fn(),
+vi.mock('@/auth/index', () => ({
+  auth: {
+    api: {
+      signUpEmail: vi.fn(),
+      signInEmail: vi.fn(),
+      requestPasswordReset: vi.fn(),
+      resetPassword: vi.fn(),
+      changeEmail: vi.fn(),
+      signInSocial: vi.fn(),
+      signOut: vi.fn(),
     },
-    requestPasswordReset: vi.fn(),
-    resetPassword: vi.fn(),
-    changeEmail: vi.fn(),
   },
 }))
 
@@ -27,17 +24,14 @@ beforeEach(() => {
 
 //-------------Imports---------------------//
 import { redirect } from 'next/navigation'
-import {
-  requestPasswordReset,
-  resetPassword,
-  sendMagicLink,
-  signInWithGoogle,
-  signInWithPassword,
-  signUp,
-  updateEmail,
-} from '@/actions/auth'
+import { requestPasswordReset, resetPassword, sendMagicLink, signInWithGoogle, signInWithPassword, signUp, updateEmail } from '@/actions/auth'
+import { APIError } from 'better-auth/api'
 import { authClient } from '@/auth/client'
+import { auth } from '@/auth/index'
 
+//--------------------------------------//
+//--------------------------------------//
+//--------------------------------------//
 describe('Sign-Up', () => {
   const formData = new FormData()
   formData.append('name', 'Test User')
@@ -45,59 +39,76 @@ describe('Sign-Up', () => {
   formData.append('password', 'mystrongpassword')
 
   it('redirects to /sign-in on success', async () => {
-    vi.mocked(authClient.signUp.email).mockResolvedValue({
-      error: null,
-      data: null,
+    vi.mocked(auth.api.signUpEmail).mockResolvedValue({
+      token: null,
+      user: {
+        id: 'randomid',
+        name: 'Test User',
+        email: 'test01@email.com',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        emailVerified: false,
+      },
     })
     await signUp(null, formData)
-
     expect(redirect).toHaveBeenCalledWith('/sign-in')
   })
 
-  it('catches error on signUp failure', async () => {
-    vi.mocked(authClient.signUp.email).mockResolvedValue({
-      error: { message: 'Email already in use' },
-      data: null,
-    })
+  it('catches error on signUp, email already exists', async () => {
+    vi.mocked(auth.api.signUpEmail).mockRejectedValue(
+      new APIError('UNPROCESSABLE_ENTITY', {
+        message: 'User already exists, Use another email.',
+      }),
+    )
     const res = await signUp(null, formData)
+    console.log('res', res)
 
     expect(res).toEqual({
       success: false,
-      message: 'Failed to create an account!',
+      message: 'User already exists, Use another email.',
     })
     expect(redirect).not.toHaveBeenCalled()
   })
+
   it('handles unexpected error on signUp', async () => {
-    vi.mocked(authClient.signUp.email).mockRejectedValue(new Error('Network Error'))
+    vi.mocked(auth.api.signUpEmail).mockRejectedValue(new Error('Something went wrong, Try again later'))
 
     const res = await signUp(null, formData)
 
     expect(res).toEqual({
       success: false,
-      message: 'Something went wrong, Please try again later',
+      message: 'Something went wrong, Try again later',
     })
   })
 })
-
 describe('Sign-In With Email', () => {
   const formData = new FormData()
   formData.append('email', 'test01@email.com')
   formData.append('password', 'mystrongpassword')
 
   it('redirects to /profile on success', async () => {
-    vi.mocked(authClient.signIn.email).mockResolvedValue({
-      error: null,
-      data: null,
+    vi.mocked(auth.api.signInEmail).mockResolvedValue({
+      redirect: false,
+      token: 'some_token',
+      user: {
+        id: 'randomid',
+        name: 'Test User',
+        email: 'test01@email.com',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        emailVerified: true,
+      },
     })
     await signInWithPassword(null, formData)
 
     expect(redirect).toHaveBeenCalledWith('/profile')
   })
   it('catched error on signIn error', async () => {
-    vi.mocked(authClient.signIn.email).mockResolvedValue({
-      error: { message: 'Invalid email or password' },
-      data: null,
-    })
+    vi.mocked(auth.api.signInEmail).mockRejectedValue(
+      new APIError('UNPROCESSABLE_ENTITY', {
+        message: 'Invalid email or password',
+      }),
+    )
     const res = await signInWithPassword(null, formData)
 
     expect(res).toEqual({
@@ -107,7 +118,7 @@ describe('Sign-In With Email', () => {
     expect(redirect).not.toHaveBeenCalled()
   })
   it('handles unexpected error on signIn', async () => {
-    vi.mocked(authClient.signIn.email).mockRejectedValue(new Error('Network Error'))
+    vi.mocked(auth.api.signInEmail).mockRejectedValue(new Error('Network Error'))
     const res = await signInWithPassword(null, formData)
 
     expect(res).toEqual({
@@ -116,7 +127,257 @@ describe('Sign-In With Email', () => {
     })
   })
 })
-
+// describe('Magic Link Sign-In', () => {
+//   const formData = new FormData()
+//   formData.append('email', 'test01@email.com')
+//
+//   it('sends a magic link on success', async () => {
+//     vi.mocked(authClient.signIn.magicLink).mockResolvedValue({
+//       error: null,
+//       data: null,
+//     })
+//     const res = await sendMagicLink(null, formData)
+//
+//     expect(authClient.signIn.magicLink).toHaveBeenCalledWith({
+//       email: 'test01@email.com',
+//       callbackURL: '/',
+//       newUserCallbackURL: '/',
+//       errorCallbackURL: '/',
+//     })
+//     expect(res).toEqual({ success: true, message: 'Magic link is on its way' })
+//   })
+//
+//   it('catches error when email is not recognized', async () => {
+//     vi.mocked(authClient.signIn.magicLink).mockResolvedValue({
+//       error: { message: "Sorry, we don't recognise that email" },
+//       data: null,
+//     })
+//     const res = await sendMagicLink(null, formData)
+//
+//     expect(authClient.signIn.magicLink).toHaveBeenCalledWith({
+//       email: 'test01@email.com',
+//       callbackURL: '/',
+//       newUserCallbackURL: '/',
+//       errorCallbackURL: '/',
+//     })
+//     expect(res).toEqual({
+//       success: false,
+//       message: "Sorry, we don't recognise that email",
+//     })
+//   })
+//
+//   it('handles unexpected error on sending magic link', async () => {
+//     vi.mocked(authClient.signIn.magicLink).mockRejectedValue(new Error('Network Error'))
+//     const res = await sendMagicLink(null, formData)
+//
+//     expect(authClient.signIn.magicLink).toHaveBeenCalledWith({
+//       email: 'test01@email.com',
+//       callbackURL: '/',
+//       newUserCallbackURL: '/',
+//       errorCallbackURL: '/',
+//     })
+//     expect(res).toEqual({
+//       success: false,
+//       message: 'Something went wrong, Please try again later',
+//     })
+//   })
+// })
+//
+// describe('Request Password Reset', () => {
+//   const formData = new FormData()
+//   formData.append('email', 'test01@email.com')
+//
+//   it('Redirects to /reset-password on success', async () => {
+//     vi.mocked(authClient.requestPasswordReset).mockResolvedValue({
+//       error: null,
+//       data: null,
+//     })
+//     const res = await requestPasswordReset(null, formData)
+//
+//     expect(res).toEqual({ success: true, message: 'Check your inbox' })
+//   })
+//
+//   it('catches error when email is not recognized', async () => {
+//     vi.mocked(authClient.requestPasswordReset).mockResolvedValue({
+//       error: { message: 'We do not recognise that email' },
+//       data: null,
+//     })
+//     const res = await requestPasswordReset(null, formData)
+//
+//     expect(authClient.requestPasswordReset).toHaveBeenCalledWith({
+//       email: 'test01@email.com',
+//       redirectTo: '/reset-password',
+//     })
+//     expect(res).toEqual({
+//       success: false,
+//       message: 'We do not recognise that email',
+//     })
+//   })
+//
+//   it('handles unexpected error on request password reset', async () => {
+//     vi.mocked(authClient.requestPasswordReset).mockRejectedValue(new Error('Network Error'))
+//     const res = await requestPasswordReset(null, formData)
+//
+//     expect(authClient.requestPasswordReset).toHaveBeenCalledWith({
+//       email: 'test01@email.com',
+//       redirectTo: '/reset-password',
+//     })
+//     expect(res).toEqual({
+//       success: false,
+//       message: 'Something went wrong, Please try again later',
+//     })
+//   })
+// })
+//
+// describe('Reset Password', () => {
+//   const newPassword = 'newpassword123'
+//   const token = 'mysafetoken'
+//
+//   it('resets password successfully', async () => {
+//     vi.mocked(authClient.resetPassword).mockResolvedValue({
+//       error: null,
+//       data: null,
+//     })
+//     const formData = new FormData()
+//     formData.append('newPassword', newPassword)
+//     formData.append('confirmPassword', newPassword)
+//     formData.append('token', token)
+//
+//     const res = await resetPassword(null, formData)
+//
+//     expect(authClient.resetPassword).toHaveBeenCalledWith({
+//       newPassword,
+//       token,
+//     })
+//     expect(res).toEqual({
+//       success: true,
+//       message: 'Password reset successfully!',
+//     })
+//   })
+//
+//   it('returns error if password is too short', async () => {
+//     const shortPassword = 'short'
+//     const formData = new FormData()
+//     formData.append('newPassword', shortPassword)
+//     formData.append('confirmPassword', shortPassword)
+//     formData.append('token', token)
+//     const res = await resetPassword(null, formData)
+//
+//     expect(authClient.resetPassword).not.toHaveBeenCalled()
+//     expect(res).toEqual({
+//       success: false,
+//       message: 'Password must be at least 8 characters',
+//     })
+//   })
+//
+//   it('returns error on reset password failure', async () => {
+//     vi.mocked(authClient.resetPassword).mockResolvedValue({
+//       error: { message: 'Failed to reset password, Try again' },
+//       data: null,
+//     })
+//     const formData = new FormData()
+//     formData.append('newPassword', newPassword)
+//     formData.append('confirmPassword', newPassword)
+//     formData.append('token', token)
+//     const res = await resetPassword(null, formData)
+//
+//     expect(authClient.resetPassword).toHaveBeenCalledWith({
+//       newPassword,
+//       token,
+//     })
+//     expect(res).toEqual({
+//       success: false,
+//       message: 'Failed to reset the password, Try again',
+//     })
+//   })
+//
+//   it('handles unexpected error on reset password', async () => {
+//     vi.mocked(authClient.resetPassword).mockRejectedValue(new Error('Network Error'))
+//     const newPassword = 'newpassword123'
+//     const formData = new FormData()
+//     formData.append('newPassword', newPassword)
+//     formData.append('confirmPassword', newPassword)
+//     formData.append('token', token)
+//     const res = await resetPassword(null, formData)
+//
+//     expect(authClient.resetPassword).toHaveBeenCalledWith({
+//       newPassword,
+//       token,
+//     })
+//     expect(res).toEqual({
+//       success: false,
+//       message: 'Failed to reset password, Try again later',
+//     })
+//   })
+// })
+//
+// describe('Sign-In With Google', () => {
+//   it('calls authClient.signIn.social on success', async () => {
+//     vi.mocked(authClient.signIn.social).mockResolvedValue({
+//       error: null,
+//       data: { url: '/profile' },
+//     })
+//     const res = await signInWithGoogle()
+//
+//     expect(authClient.signIn.social).toHaveBeenCalledWith({
+//       provider: 'google',
+//       callbackURL: '/profile',
+//     })
+//     expect(res).toEqual({ success: true, message: 'success' })
+//   })
+//
+//   it('handles unexpected error on social sign-in', async () => {
+//     vi.mocked(authClient.signIn.social).mockRejectedValue(new Error('Network Error'))
+//     const res = await signInWithGoogle()
+//
+//     expect(authClient.signIn.social).toHaveBeenCalledWith({
+//       provider: 'google',
+//       callbackURL: '/profile',
+//     })
+//     expect(res).toEqual({
+//       success: false,
+//       message: 'Something went wrong, Please try again later',
+//     })
+//   })
+// })
+//
+// describe('Update Email', () => {
+//   const newEmail = 'new.test@example.com'
+//   const wrongEmail = 'new.email.com'
+//
+//   it('sends verification email on successful update', async () => {
+//     vi.mocked(authClient.changeEmail).mockResolvedValue({
+//       error: null,
+//       data: null,
+//     })
+//     const formData = new FormData()
+//     formData.append('newEmail', newEmail)
+//     const res = await updateEmail(null, formData)
+//
+//     expect(authClient.changeEmail).toHaveBeenCalledWith({ newEmail })
+//     expect(res).toEqual({
+//       success: true,
+//       message: 'Verification email sent to the new email address',
+//     })
+//   })
+//
+//   it('returns error for invalid email format', async () => {
+//     const formData = new FormData()
+//     formData.append('newEmail', wrongEmail)
+//     const res = await updateEmail(null, formData)
+//
+//     expect(authClient.changeEmail).not.toHaveBeenCalled()
+//     expect(res).toEqual({ success: false, message: 'Invalid email address' })
+//   })
+//
+//   it('returns error on update email failure', async () => {
+//     vi.mocked(authClient.changeEmail).mockResolvedValue({
+//       error: { message: 'This email is invalid' },
+//       data: null,
+//     })
+//     const formData = new FormData()
+//     formData.append('newEmail', newEmail)
+//     const res = await updateEmail(null, formData)
 describe('Magic Link Sign-In', () => {
   const formData = new FormData()
   formData.append('email', 'test01@email.com')

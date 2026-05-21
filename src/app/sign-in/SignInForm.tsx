@@ -12,18 +12,7 @@ import { signInWithPassword, sendMagicLink, signInWithGoogle } from '@/actions/a
 export default function SignInForm() {
   const [passwordState, passwordAction, passwordPending] = React.useActionState(signInWithPassword, null)
   const [magicLinkState, magicLinkAction, magicLinkPending] = React.useActionState(sendMagicLink, null)
-  const [googleAuthLoading, setGoogleAuthLoading] = React.useState(false)
-  const [googleAuthError, setGoogleAuthError] = React.useState<string | null>(null)
-
-  const handleGoogleAuth = async () => {
-    setGoogleAuthLoading(true)
-    const res = await signInWithGoogle()
-    setGoogleAuthLoading(false)
-    if (!res.success) {
-      setGoogleAuthError(res.message)
-    }
-  }
-
+  const [googleAuthState, googleAuthAction, googleAuthPending] = React.useActionState(signInWithGoogle, null)
   return (
     <Card title="Sign In">
       <form className="space-y-4" id="password-form" action={passwordAction}>
@@ -34,10 +23,12 @@ export default function SignInForm() {
           Sign In With Password
         </Button>
       </form>
-      <Button type="button" color="secondary" className="w-full mt-5" onClick={handleGoogleAuth} isLoading={googleAuthLoading}>
-        <FaGoogle /> Sign In With Google
-      </Button>
-      {googleAuthError && <Alert type="error" message={googleAuthError} />}
+      <form className="space-y-4 w-full" id="google-auth-form" action={googleAuthAction}>
+        {googleAuthState?.message && <Alert type={googleAuthState.success ? 'success' : 'error'} message={googleAuthState.message} />}
+        <Button type="submit" color="secondary" className="w-full mt-5" isLoading={googleAuthPending}>
+          <FaGoogle /> Sign In With Google
+        </Button>
+      </form>
       <div className="divider">Or</div>
 
       <form className="space-y-4" id="magic-link-form" action={magicLinkAction}>
