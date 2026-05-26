@@ -10,7 +10,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string
 }
 
-const BASE_CLASSES = 'btn font-semibold transiton-all rounded-none'
+const BASE_CLASSES = 'btn font-semibold transition-all rounded-none'
 
 const COLOR_CLASSES = {
   primary: 'btn-primary',
@@ -46,6 +46,9 @@ export default function Button({
       {...props}
       disabled={disabled || isLoading}
       className={`${BASE_CLASSES} ${SIZE_CLASSES[size]} ${VARIANT_CLASSES[variant]} ${COLOR_CLASSES[color]} ${className}`}
+      aria-busy={isLoading}
+      aria-label={props['aria-label'] ?? 'button'}
+      type={props.type ?? 'button'}
     >
       {isLoading ? (
         <>
@@ -58,3 +61,5 @@ export default function Button({
     </button>
   )
 }
+
+Button.displayName = 'Button'

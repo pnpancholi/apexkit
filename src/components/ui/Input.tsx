@@ -1,4 +1,4 @@
-import type React from 'react'
+import React from 'react'
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   width?: 'sm' | 'md' | 'lg'
@@ -21,6 +21,19 @@ const STATE_CLASSES = {
   warning: 'input-warning',
 }
 
-export default function Input({ width = 'md', state, className = '', ...props }: InputProps) {
-  return <input {...props} className={`${BASE_CLASSES} ${WIDTH_CLASSES[width]} ${state ? STATE_CLASSES[state] : ''} ${className}`} />
+function Input({ width = 'md', state, className = '', ...props }: InputProps, ref: React.ForwardedRef<HTMLInputElement>) {
+  const autoId = React.useId()
+
+  return (
+    <input
+      {...props}
+      ref={ref}
+      id={props.id ?? autoId}
+      aria-label={props['aria-label'] ?? props.name}
+      className={`${BASE_CLASSES} ${WIDTH_CLASSES[width]} ${state ? STATE_CLASSES[state] : ''} ${className}`}
+    />
+  )
 }
+
+Input.displayName = 'Input'
+export default React.forwardRef(Input)
