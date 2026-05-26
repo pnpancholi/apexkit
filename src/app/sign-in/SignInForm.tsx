@@ -23,7 +23,7 @@ export default function SignInForm() {
           Sign In With Password
         </Button>
       </form>
-      <form className="space-y-4 w-full" id="google-auth-form" action={googleAuthAction}>
+      <form className="space-y-4 " id="google-auth-form" action={googleAuthAction}>
         {googleAuthState?.message && <Alert type={googleAuthState.success ? 'success' : 'error'} message={googleAuthState.message} />}
         <Button type="submit" color="secondary" className="w-full mt-5" isLoading={googleAuthPending}>
           <FaGoogle /> Sign In With Google

@@ -1,6 +1,6 @@
 import type React from 'react'
 
-interface CardProps {
+interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   icon?: React.ReactNode
   title?: string
   desc?: string
@@ -8,29 +8,22 @@ interface CardProps {
   className?: string
   hoverable?: boolean
 }
-export default function Card({
-  icon,
-  title,
-  desc,
-  className,
-  children,
-  hoverable = false,
-}: CardProps) {
-  const baseClasses = 'card bg-base-300 shadow-xl border border-transparent rounded-none'
-  const titleClasses = 'card-title text-xl mb-3'
-  const descClasses = 'text-base-content/80'
-  const hoverClasses = hoverable
-    ? 'hover:shadow-2xl hover:border-primary hover:-translate-y-1 transition-all duration-300'
-    : ''
+const BASE_CLASSES = 'card w-full bg-base-300 shadow-xl border border-transparent rounded-none'
+const TITLE_CLASSES = 'card-title text-xl mb-3'
+const DESC_CLASSES = 'text-base-content/80'
+const HOVERCLASSES = 'hover:shadow-2xl hover:border-primary hover:-translate-y-1 transition-all duration-300'
 
+export default function Card({ icon, title, desc, className, children, hoverable = false, ...props }: CardProps) {
   return (
-    <div className={`${baseClasses} ${className} ${hoverClasses}`}>
+    <section className={`${BASE_CLASSES} ${hoverable && HOVERCLASSES} ${className}`} {...props} aria-label={props['aria-label'] ?? 'card'}>
       <div className="card-body items-center text-center">
-        {icon}
-        {title && <h3 className={titleClasses}>{title}</h3>}
-        {desc && <p className={descClasses}>{desc}</p>}
+        {icon && <div aria-hidden="true">{icon}</div>}
+        {title && <h3 className={TITLE_CLASSES}>{title}</h3>}
+        {desc && <p className={DESC_CLASSES}>{desc}</p>}
         {children}
       </div>
-    </div>
+    </section>
   )
 }
+
+Card.displayName = 'Card'
