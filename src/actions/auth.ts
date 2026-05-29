@@ -1,7 +1,7 @@
 'use server'
 
 import { redirect } from 'next/navigation'
-import { authClient } from '@/auth/client'
+
 import type { ActionResponse } from '@/types'
 import { auth } from '@/auth'
 import { isAPIError } from 'better-auth/api'
@@ -63,25 +63,28 @@ export async function sendMagicLink(_: ActionResponse | null, formData: FormData
   const email = formData.get('email') as string
 
   try {
-    const { error } = await authClient.signIn.magicLink({
-      email,
-      callbackURL: '/',
-      newUserCallbackURL: '/',
-      errorCallbackURL: '/',
+    await auth.api.signInMagicLink({
+      headers: await headers(),
+      body: {
+        email,
+        callbackURL: '/',
+        newUserCallbackURL: '/',
+        errorCallbackURL: '/',
+      },
     })
-    if (error) {
+    return { success: true, message: 'Magic link is on its way' }
+  } catch (error) {
+    if (isAPIError(error)) {
       return {
         success: false,
-        message: "Sorry, we don't recognise that email",
+        message: error.message,
       }
     } else {
-      return { success: true, message: 'Magic link is on its way' }
-    }
-  } catch (error) {
-    console.error('[sendMagicLink]: Unexpected error', error)
-    return {
-      success: false,
-      message: 'Something went wrong, Please try again later',
+      console.error('[sendMagicLink]: Unexpected error', error)
+      return {
+        success: false,
+        message: 'Something went wrong, Please try again later',
+      }
     }
   }
 }
