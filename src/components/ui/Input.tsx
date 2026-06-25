@@ -1,48 +1,39 @@
-interface InputProps {
-  size?: 'sm' | 'md' | 'lg'
+import React from 'react'
+
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  width?: 'sm' | 'md' | 'lg'
   state?: 'success' | 'error' | 'warning'
   className?: string
-  type?: 'text' | 'email' | 'password'
   name: string
-  required?: boolean
-  placeholder: string
-  disabled?: boolean
 }
 
-export default function Input({
-  size = 'md',
-  state,
-  className = '',
-  type = 'text',
-  name,
-  required = false,
-  placeholder,
-  disabled = false,
-  ...props
-}: InputProps) {
-  const baseClasses = 'input w-full rounded-none focus:outline-none focus:ring-0'
+const BASE_CLASSES = 'input w-full rounded-none focus:outline-none focus:ring-0'
 
-  const sizeClasses = {
-    sm: 'input-sm',
-    md: 'input-md',
-    lg: 'input-lg',
-  }
+const WIDTH_CLASSES = {
+  sm: 'input-sm',
+  md: 'input-md',
+  lg: 'input-lg',
+}
 
-  const stateClasses = {
-    success: 'input-success',
-    error: 'input-error',
-    warning: 'input-warning',
-  }
+const STATE_CLASSES = {
+  success: 'input-success',
+  error: 'input-error',
+  warning: 'input-warning',
+}
+
+function Input({ width = 'md', state, className = '', ...props }: InputProps, ref: React.ForwardedRef<HTMLInputElement>) {
+  const autoId = React.useId()
 
   return (
     <input
-      type={type}
-      name={name}
-      required={required}
-      placeholder={placeholder}
-      disabled={disabled}
-      className={`${baseClasses} ${sizeClasses[size]} ${state ? stateClasses[state] : ''} ${className}`}
       {...props}
+      ref={ref}
+      id={props.id ?? autoId}
+      aria-label={props['aria-label'] ?? props.name}
+      className={`${BASE_CLASSES} ${WIDTH_CLASSES[width]} ${state ? STATE_CLASSES[state] : ''} ${className}`}
     />
   )
 }
+
+Input.displayName = 'Input'
+export default React.forwardRef(Input)

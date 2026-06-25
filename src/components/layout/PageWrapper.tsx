@@ -5,8 +5,7 @@ interface PageWrapperProps {
   className?: string
 }
 
+const BASE_CLASSES = 'max-w-md mx-auto mt-36'
 export default function PageWrapper({ children, className = '' }: PageWrapperProps) {
-  const baseClasses = 'max-w-md mx-auto mt-36'
-
-  return <main className={`${baseClasses} ${className}`}> {children}</main>
+  return <main className={`${BASE_CLASSES} ${className}`}> {children}</main>
 }

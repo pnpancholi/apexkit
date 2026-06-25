@@ -1,114 +1,113 @@
-import { redirect } from 'next/navigation'
-import { authClient } from '@/auth/client'
-import type { ActionResponse } from '@/types'
+'use server'
 
-export async function signUp(
-  _: ActionResponse | null,
-  formData: FormData,
-): Promise<ActionResponse> {
+import { redirect } from 'next/navigation'
+
+import type { ActionResponse } from '@/types'
+import { auth } from '@/auth'
+import { isAPIError } from 'better-auth/api'
+import { headers } from 'next/headers'
+
+export async function signUp(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
   const name = formData.get('name') as string
   const email = formData.get('email') as string
   const password = formData.get('password') as string
 
   try {
-    const { error } = await authClient.signUp.email({
-      name,
-      email,
-      password,
+    await auth.api.signUpEmail({
+      returnHeaders: true,
+      body: {
+        name,
+        email,
+        password,
+      },
     })
-    if (error) {
-      return { success: false, message: 'Failed to create an account!' }
-    }
   } catch (error) {
-    console.error('[signUp]: Unexpected error', error)
-    return {
-      success: false,
-      message: 'Something went wrong, Please try again later',
+    if (isAPIError(error)) {
+      return { success: false, message: error.message }
+    } else {
+      console.error('[signUp]: Unexpected error', error)
+      return { success: false, message: 'Something went wrong, Try again later' }
     }
   }
-
   redirect('/sign-in')
 }
 
-export async function signInWithPassword(
-  _: ActionResponse | null,
-  formData: FormData,
-): Promise<ActionResponse> {
+export async function signInWithPassword(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
   const email = formData.get('email') as string
   const password = formData.get('password') as string
   try {
-    const { error } = await authClient.signIn.email({ email, password })
-    if (error) {
-      return { success: false, message: 'Invalid email or password' }
-    }
+    await auth.api.signInEmail({
+      body: {
+        email,
+        password,
+      },
+    })
   } catch (error) {
-    console.error('[signInWithPassword]: Unexpected error', error)
-    return {
-      success: false,
-      message: 'Something went wrong, Please try again later',
+    if (isAPIError(error)) {
+      return {
+        success: false,
+        message: error.message,
+      }
+    } else {
+      console.error('[signInWithPassword]: Unexpected error', error)
+      return {
+        success: false,
+        message: 'Something went wrong, Please try again later',
+      }
     }
   }
   redirect('/profile')
 }
 
-export async function sendMagicLink(
-  _: ActionResponse | null,
-  formData: FormData,
-): Promise<ActionResponse> {
+export async function sendMagicLink(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
   const email = formData.get('email') as string
 
   try {
-    const { error } = await authClient.signIn.magicLink({
-      email,
-      callbackURL: '/',
-      newUserCallbackURL: '/',
-      errorCallbackURL: '/',
+    await auth.api.signInMagicLink({
+      headers: await headers(),
+      body: {
+        email,
+        callbackURL: '/',
+        newUserCallbackURL: '/',
+        errorCallbackURL: '/',
+      },
     })
-    if (error) {
+    return { success: true, message: 'Magic link is on its way' }
+  } catch (error) {
+    if (isAPIError(error)) {
       return {
         success: false,
-        message: "Sorry, we don't recognise that email",
+        message: error.message,
       }
     } else {
-      return { success: true, message: 'Magic link is on its way' }
-    }
-  } catch (error) {
-    console.error('[sendMagicLink]: Unexpected error', error)
-    return {
-      success: false,
-      message: 'Something went wrong, Please try again later',
+      console.error('[sendMagicLink]: Unexpected error', error)
+      return {
+        success: false,
+        message: 'Something went wrong, Please try again later',
+      }
     }
   }
 }
 
-export async function requestPasswordReset(
-  _: ActionResponse | null,
-  formData: FormData,
-): Promise<ActionResponse> {
+export async function requestPasswordReset(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
   const email = formData.get('email') as string
   try {
-    const { error } = await authClient.requestPasswordReset({
-      email,
-      redirectTo: '/reset-password',
+    await auth.api.requestPasswordReset({
+      body: {
+        email,
+        redirectTo: '/reset-password',
+      },
     })
-    if (error) {
-      return { success: false, message: 'We do not recognise that email' }
-    }
-
-    return { success: true, message: 'Check your inbox' }
   } catch (error) {
-    console.error('[requestPasswordReset]: Unexpected error', error)
-    return {
-      success: false,
-      message: 'Something went wrong, Please try again later',
+    if (isAPIError(error)) {
+      return { success: false, message: error.message }
     }
   }
+
+  return { success: true, message: 'Check your inbox' }
 }
 
-export async function resetPassword(
-  _: ActionResponse | null,
-  formData: FormData,
-): Promise<ActionResponse> {
+export async function resetPassword(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
   const newPassword = formData.get('newPassword') as string
   const confirmPassword = formData.get('confirmPassword') as string
   const token = formData.get('token') as string
@@ -121,20 +120,20 @@ export async function resetPassword(
   }
 
   try {
-    const { error } = await authClient.resetPassword({ newPassword, token })
-    if (error) {
-      return { success: false, message: 'Failed to reset the password, Try again' }
-    }
-    return { success: true, message: 'Password reset successfully!' }
+    await auth.api.resetPassword({
+      body: {
+        newPassword,
+        token,
+      },
+    })
   } catch (error) {
-    console.error('auth.ts [resetPassword]: Unexpected error while resetting password', error)
-    return { success: false, message: 'Failed to reset password, Try again later' }
+    if (isAPIError(error)) {
+      return { success: false, message: error.message }
+    }
   }
+  return { success: true, message: 'Password reset successfully!' }
 }
-export async function updateEmail(
-  _: ActionResponse | null,
-  formData: FormData,
-): Promise<ActionResponse> {
+export async function updateEmail(_: ActionResponse | null, formData: FormData): Promise<ActionResponse> {
   const newEmail = formData.get('newEmail') as string
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -142,44 +141,63 @@ export async function updateEmail(
     return { success: false, message: 'Invalid email address' }
   }
   try {
-    const { error } = await authClient.changeEmail({ newEmail })
-    if (error) {
-      return { success: false, message: 'This email is invalid' }
-    }
-    return {
-      success: true,
-      message: 'Verification email sent to the new email address',
-    }
+    await auth.api.changeEmail({
+      body: {
+        newEmail,
+      },
+    })
   } catch (error) {
-    console.error('[updateEmail]: Unexpected error', error)
-    return {
-      success: false,
-      message: 'Something went wrong, Please try again later',
+    if (isAPIError(error)) {
+      console.error('[updateEmail]: Unexpected error', error)
+      return {
+        success: false,
+        message: error.message,
+      }
     }
+  }
+  return {
+    success: true,
+    message: 'Verification email sent to the new email address',
   }
 }
 
 export async function signInWithGoogle(): Promise<ActionResponse> {
+  let response: any
   try {
-    await authClient.signIn.social({
-      provider: 'google',
-      callbackURL: '/profile',
+    response = await auth.api.signInSocial({
+      body: {
+        provider: 'google',
+        callbackURL: '/profile',
+      },
     })
-    return { success: true, message: 'success' }
+    console.log('this res', response)
+    if (!response.url) {
+      return { success: false, message: 'Something went wrong, Please try again later' }
+    }
   } catch (error) {
-    console.error('[signInWithGoogle]: Unexpected error', error)
+    if (isAPIError(error)) {
+      return { success: false, message: error.message }
+    }
+    console.error('[signInWithGoogle] Unexpected error:', error)
     return {
       success: false,
-      message: 'Something went wrong, Please try again later',
+      message: 'Something went wrong. Please try again later',
     }
   }
+
+  redirect(response.url)
 }
 
 export async function signOut() {
   try {
-    await authClient.signOut()
+    await auth.api.signOut({
+      headers: await headers(),
+    })
   } catch (error) {
-    console.error('[signOut] Unexpected Error', error)
+    if (isAPIError(error)) {
+      console.error('[signOut] Unexpected Error', error)
+      return { success: false, message: error.message }
+    }
   }
 
   redirect('/sign-in')

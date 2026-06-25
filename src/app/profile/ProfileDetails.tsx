@@ -14,12 +14,11 @@ interface ProfileDetailsProps {
 }
 
 export default function ProfileDetails({ user }: ProfileDetailsProps) {
-  const avatarClasses =
-    'bg-primary text-primary-content rounded-full w-20 h-20 flex items-center justify-center my-4 mb-10 mx-auto'
+  const avatarClasses = 'bg-primary text-primary-content rounded-full w-20 h-20 flex items-center justify-center my-4 mb-10 mx-auto'
 
   return (
-    <Card className="w-full max-w-md">
-      <form>
+    <Card className="md:w-[448px]">
+      <form className="space-y-4">
         <div className={avatarClasses}>
           <span className="text-5xl font-bold">{user.name?.charAt(0).toUpperCase()}</span>
         </div>
@@ -35,10 +34,7 @@ export default function ProfileDetails({ user }: ProfileDetailsProps) {
         <ProfileField label="Email" icon={<FaEnvelope />}>
           {user.email}
         </ProfileField>
-        <ProfileField
-          label="Verified"
-          icon={user.emailVerified ? <FaClipboardCheck /> : <FaHourglassHalf />}
-        >
+        <ProfileField label="Verified" icon={user.emailVerified ? <FaClipboardCheck /> : <FaHourglassHalf />}>
           {user.emailVerified ? 'Verified' : 'Pending'}
         </ProfileField>
         <ProfileField label="Member Since" icon={<FaCalendar />}>
@@ -48,16 +44,16 @@ export default function ProfileDetails({ user }: ProfileDetailsProps) {
             day: 'numeric',
           })}
         </ProfileField>
-
-        <div className="space-y-4">
-          <Link href="/reset-password" className="btn btn-accent w-full  rounded-none ">
-            Reset Password
-          </Link>
-          <Button type="button" onClick={signOut} variant="outlined" className="w-full">
-            Sign Out
-          </Button>
-        </div>
       </form>
+      <div className="space-y-4 w-full">
+        <Link href="/reset-password" className="btn btn-accent w-full  rounded-none ">
+          Reset Password
+        </Link>
+        <Button type="button" onClick={signOut} variant="outlined" className="w-full">
+          Sign Out
+        </Button>
+      </div>
+
       <UpdateEmail />
     </Card>
   )
