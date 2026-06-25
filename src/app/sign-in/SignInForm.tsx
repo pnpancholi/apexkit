@@ -18,13 +18,17 @@ export default function SignInForm() {
       <form className="space-y-4" id="password-form" action={passwordAction}>
         <Input name="email" type="email" placeholder="Email" required />
         <Input type="password" name="password" required placeholder="Password" />
-        {passwordState?.message && <Alert type={passwordState.success ? 'success' : 'error'} message={passwordState.message} />}
+        {passwordState?.message && (
+          <Alert type={passwordState.success ? 'success' : 'error'} message={passwordState.message} />
+        )}
         <Button type="submit" className="w-full" isLoading={passwordPending}>
           Sign In With Password
         </Button>
       </form>
-      <form className="space-y-4 " id="google-auth-form" action={googleAuthAction}>
-        {googleAuthState?.message && <Alert type={googleAuthState.success ? 'success' : 'error'} message={googleAuthState.message} />}
+      <form className="space-y-4 w-full" id="google-auth-form" action={googleAuthAction}>
+        {googleAuthState?.message && (
+          <Alert type={googleAuthState.success ? 'success' : 'error'} message={googleAuthState.message} />
+        )}
         <Button type="submit" color="secondary" className="w-full mt-5" isLoading={googleAuthPending}>
           <FaGoogle /> Sign In With Google
         </Button>
@@ -33,7 +37,9 @@ export default function SignInForm() {
 
       <form className="space-y-4" id="magic-link-form" action={magicLinkAction}>
         <Input type="email" name="email" placeholder="Email" required />
-        {magicLinkState && <Alert type={magicLinkState.success ? 'success' : 'error'} message={magicLinkState.message} />}
+        {magicLinkState && (
+          <Alert type={magicLinkState.success ? 'success' : 'error'} message={magicLinkState.message} />
+        )}
         <Button type="submit" isLoading={magicLinkPending} className="w-full my-5">
           Send Magic Link
         </Button>
