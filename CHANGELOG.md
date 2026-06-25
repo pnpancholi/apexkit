@@ -2,6 +2,23 @@
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-06-25
+
+### Added
+- Enhanced safety checks for Sign-In and Sign-Up flows.
+- External documentation links.
+
+### Changed
+- Refactored authentication actions to fully leverage Next.js Server Actions for improved security and performance.
+- Reworked `signOut` functionality to be server-side for consistency and security.
+- Refactored core UI components for cleaner code and better maintainability.
+- General styling and adherence to the style guide received touch-ups.
+- Adapted them to work correctly with updated authentication actions.
+### Fixed
+- Fixed a bug impacting a button component.
+- Corrected typos and updated contact information in project documentation.
+
+
 ## [0.3.0] - 2026-05-16
 
 ### Added
