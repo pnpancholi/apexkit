@@ -10,9 +10,9 @@
 
 </div>
 
-# Build with best practices
+## Built w/ Best Practices
 
-<img src="./public/lighthouse.png" alt="Lighthouse" width="100%" />
+![Lighthouse](public/lighthouse.png)
 
 <h2> What is ApexKit? </h2>
 ApexKit is an opinionated Next.js starter kit designed to help builders ship real products faster — without the usual headaches of vendor lock-in or endless decision-making about tools and libraries. When you're a solo developer or part of a small team validating an idea — whether for a hackathon, an incubator, or your own startup — time spent configuring authentication, email services, UI components, or database setups takes valuable time away from focusing on your core idea and unique features. These are repetitive tasks that slow you down when speed is everything.
