@@ -1,3 +1,7 @@
+# Build with best practices
+
+![Lighthouse](public/lighthouse.png)
+
 <div align="center">
 <h1> ApexKit </h1>
 
