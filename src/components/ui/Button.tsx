@@ -1,18 +1,8 @@
 import type React from 'react'
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode
-  color?: 'primary' | 'secondary' | 'accent' | 'success' | 'error'
-  variant?: 'regular' | 'outlined'
-  size?: 'sm' | 'md' | 'lg'
-  isLoading?: boolean
-  disabled?: boolean
-  className?: string
-}
+const BUTTON_CLASSES = 'btn font-semibold transition-all rounded-none'
 
-const BASE_CLASSES = 'btn font-semibold transiton-all rounded-none'
-
-const COLOR_CLASSES = {
+const BUTTON_COLORS = {
   primary: 'btn-primary',
   secondary: 'btn-secondary',
   accent: 'btn-accent',
@@ -20,15 +10,22 @@ const COLOR_CLASSES = {
   error: 'btn-error',
 }
 
-const SIZE_CLASSES = {
+const BUTTON_SIZES = {
   sm: 'btn-sm',
   md: 'btn-md',
   lg: 'btn-lg',
 }
 
-const VARIANT_CLASSES = {
+const BUTTON_VARIANTS = {
   regular: '',
   outlined: 'btn-outline',
+}
+
+type ButtonProps = React.ComponentProps<'button'> & {
+  color?: keyof typeof BUTTON_COLORS
+  variant?: keyof typeof BUTTON_VARIANTS
+  size?: keyof typeof BUTTON_SIZES
+  isLoading?: boolean
 }
 
 export default function Button({
@@ -37,15 +34,14 @@ export default function Button({
   variant = 'regular',
   size = 'md',
   isLoading = false,
-  disabled = false,
   className = '',
   ...props
 }: ButtonProps) {
   return (
     <button
       {...props}
-      disabled={disabled || isLoading}
-      className={`${BASE_CLASSES} ${SIZE_CLASSES[size]} ${VARIANT_CLASSES[variant]} ${COLOR_CLASSES[color]} ${className}`}
+      disabled={props.disabled || isLoading}
+      className={`${BUTTON_CLASSES} ${BUTTON_SIZES[size]} ${BUTTON_VARIANTS[variant]} ${BUTTON_COLORS[color]} ${className}`}
     >
       {isLoading ? (
         <>
