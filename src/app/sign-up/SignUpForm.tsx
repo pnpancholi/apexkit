@@ -11,47 +11,36 @@ import { signInWithGoogle, signUp } from '@/actions/auth'
 
 export default function SignUpForm() {
   const [formState, formAction, isPending] = React.useActionState(signUp, null)
-  const [googleAuthLoading, setGoogleAuthLoading] = React.useState(false)
-  const [googleAuthError, setGoogleAuthError] = React.useState<string | null>(null)
+  const [googleState, googleAction, isGooglePending] = React.useActionState(signInWithGoogle, null)
 
-  const handleGoogleAuth = async () => {
-    setGoogleAuthLoading(true)
-    const res = await signInWithGoogle()
-    setGoogleAuthLoading(false)
-    if (!res.success) {
-      setGoogleAuthError(res.message)
-    }
-  }
   return (
     <Card title="Create Account">
-      <form action={formAction} className="space-y-4">
-        <Input type="text" name="name" required placeholder="Full Name" />
-        <Input type="email" name="email" required placeholder="Email" />
-        <Input type="password" name="password" required placeholder="Password (6+ characters)" />
+      <form action={formAction} className="w-full space-y-4">
+        <Input name="name" placeholder="Full Name" required />
+        <Input type="email" name="email" placeholder="Email" required />
+        <Input type="password" name="password" placeholder="Password (8+ characters)" required />
         {formState?.message && (
           <Alert type={formState.success ? 'success' : 'error'} message={formState.message} />
         )}
-
-        <Button type="submit" color="primary" className="my-5 w-full" isLoading={isPending}>
+        <Button type="submit" className="w-full" isLoading={isPending}>
           Create Account
         </Button>
-        <div className="divider">Or</div>
-        <Button
-          type="button"
-          onClick={handleGoogleAuth}
-          color="secondary"
-          className="my-2 w-full"
-          isLoading={googleAuthLoading}
-        >
-          <FaGoogle />
-          Sign In with Google
+      </form>
+
+      <div className="divider">Or</div>
+
+      <form action={googleAction} className="w-full">
+        {googleState?.message && (
+          <Alert type={googleState.success ? 'success' : 'error'} message={googleState.message} />
+        )}
+        <Button type="submit" color="secondary" className="w-full" isLoading={isGooglePending}>
+          <FaGoogle aria-hidden="true" /> Sign Up with Google
         </Button>
-        {googleAuthError && <Alert type="error" message={googleAuthError} />}
       </form>
 
       <div className="text-center">
-        <Link href="/sign-in" className="text-sm">
-          Already have an account ? Sign In
+        <Link href="/sign-in" className="link text-sm">
+          Already have an account? Sign In
         </Link>
       </div>
     </Card>
