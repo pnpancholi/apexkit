@@ -1,6 +1,8 @@
 ---
 name: project-setup
 description: Setup ApexKit starter-kit for user's project-
+disable-model-invocation: true
 ---
 
- Setting up your ApexKit Project
+Executing .agents/skills/project-setup/SKILL.md  
+
