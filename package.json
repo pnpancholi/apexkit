@@ -1,6 +1,8 @@
 {
-  "name": "apexkit",
-  "version": "0.3.0",
+  "name": "the-fun-project",
+  "version": "1.0.0",
+  "description": "the best project ever",
+  "author": "prad",
   "private": true,
   "scripts": {
     "test": "vitest",
@@ -48,5 +50,6 @@
     "typescript": "^5",
     "vite": "^8.0.0",
     "vitest": "^4.1.0"
-  }
+  },
+  "bootstrappedWith": "ApexKit 0.3.0"
 }
